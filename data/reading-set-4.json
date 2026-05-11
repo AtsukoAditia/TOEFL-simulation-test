@@ -1,0 +1,287 @@
+{
+  "meta": {
+    "testName": "TOEFL ITP-like Practice",
+    "section": "reading",
+    "set": "set-4",
+    "version": "2.0.0",
+    "durationMinutes": 55,
+    "totalQuestions": 20,
+    "description": "Long academic reading passages with detailed comprehension questions."
+  },
+  "passages": [
+    {
+      "id": "R4-PASSAGE-001",
+      "title": "The Role of Mycorrhizal Fungi in Forest Ecosystems",
+      "passage": "Mycorrhizal fungi form one of the most widespread and ecologically significant symbiotic relationships in the natural world. These fungi colonize the roots of approximately 90 percent of all land plant species, creating a mutualistic partnership that has shaped terrestrial ecosystems for more than 400 million years. The word mycorrhiza comes from the Greek words for fungus and root, reflecting the intimate physical connection between the two organisms.\n\nIn this relationship, the fungi extend their thread-like structures called hyphae deep into the surrounding soil, dramatically increasing the surface area available for water and nutrient absorption. The fungi are particularly effective at extracting phosphorus, nitrogen, and other minerals that plants cannot access on their own due to the limited reach of their root systems. In exchange, the plant provides the fungi with carbohydrates produced through photosynthesis, since fungi lack chlorophyll and cannot manufacture their own food.\n\nForest ecologists have discovered that mycorrhizal networks can connect hundreds of trees across large areas of woodland. Through these underground connections, carbon, water, and nutrients can flow between trees of the same or different species. Some researchers describe these networks as a 'wood wide web,' though this term remains somewhat controversial among scientists who caution against over-simplifying the complex and often competitive nature of the interactions.\n\nThe practical significance of these networks becomes especially clear during environmental stress. When one tree in a connected forest is weakened by drought, disease, or damage, neighboring trees linked through mycorrhizal networks may transfer additional nutrients and sugars to support its survival. Studies have demonstrated that seedlings growing in proximity to established trees with active mycorrhizal networks show significantly higher survival rates than seedlings growing in isolation.\n\nHuman activities such as deforestation, agricultural monocultures, and excessive use of synthetic fertilizers can severely disrupt mycorrhizal networks. The application of phosphorus-rich fertilizers, in particular, suppresses fungal activity because plants reduce their investment in the symbiosis when nutrients are already abundant. Restoration ecologists are increasingly recognizing that reestablishing healthy mycorrhizal communities is an essential component of successful ecosystem recovery, leading to growing interest in fungal inoculants as tools for reforestation projects.",
+      "questions": [
+        {
+          "id": "R4001",
+          "type": "main-idea",
+          "question": "What is the main topic of the passage?",
+          "choices": [
+            "The evolutionary history of forest trees",
+            "The symbiotic relationship between fungi and plant roots and its ecological importance",
+            "Methods used by scientists to study underground networks",
+            "The harmful effects of agricultural practices on forest biodiversity"
+          ],
+          "answer": 1,
+          "explanation": "The passage primarily discusses mycorrhizal fungi, their partnership with plants, and the ecological significance of this relationship across multiple aspects."
+        },
+        {
+          "id": "R4002",
+          "type": "detail",
+          "question": "According to the passage, approximately what percentage of land plant species form relationships with mycorrhizal fungi?",
+          "choices": [
+            "40 percent",
+            "60 percent",
+            "75 percent",
+            "90 percent"
+          ],
+          "answer": 3,
+          "explanation": "The passage explicitly states that mycorrhizal fungi colonize the roots of approximately 90 percent of all land plant species."
+        },
+        {
+          "id": "R4003",
+          "type": "detail",
+          "question": "What do the fungi provide to the plant in the mycorrhizal relationship?",
+          "choices": [
+            "Carbohydrates from photosynthesis",
+            "Protection from harmful insects",
+            "Phosphorus, nitrogen, and other minerals",
+            "Chlorophyll for light absorption"
+          ],
+          "answer": 2,
+          "explanation": "The fungi extract minerals including phosphorus and nitrogen from the soil for the plant; the plant provides the carbohydrates, not the fungi."
+        },
+        {
+          "id": "R4004",
+          "type": "vocabulary",
+          "question": "The word 'mutualistic' in paragraph 1 is closest in meaning to",
+          "choices": [
+            "competitive",
+            "beneficial to both parties",
+            "temporary and unstable",
+            "harmful to one organism"
+          ],
+          "answer": 1,
+          "explanation": "Mutualistic describes a relationship in which both organisms benefit, which matches 'beneficial to both parties.'"
+        },
+        {
+          "id": "R4005",
+          "type": "inference",
+          "question": "What can be inferred about trees growing without mycorrhizal network connections?",
+          "choices": [
+            "They are immune to drought and disease",
+            "They grow faster than connected trees",
+            "They may be less likely to survive periods of stress",
+            "They produce more carbohydrates through photosynthesis"
+          ],
+          "answer": 2,
+          "explanation": "The passage states that seedlings near established mycorrhizal networks show higher survival rates than those growing in isolation, implying unconnected trees face greater risk during stress."
+        },
+        {
+          "id": "R4006",
+          "type": "detail",
+          "question": "Why do some scientists object to the term 'wood wide web'?",
+          "choices": [
+            "It incorrectly describes the age of the networks",
+            "It oversimplifies interactions that are also competitive",
+            "It implies that all trees share nutrients equally",
+            "It was coined without scientific evidence"
+          ],
+          "answer": 1,
+          "explanation": "The passage says researchers caution against over-simplifying the 'complex and often competitive nature of the interactions,' suggesting the popular term is misleading."
+        },
+        {
+          "id": "R4007",
+          "type": "vocabulary",
+          "question": "The word 'hyphae' as used in the passage refers to",
+          "choices": [
+            "The root tips of forest trees",
+            "Thread-like structures of fungi that extend into soil",
+            "Microscopic pores on leaf surfaces",
+            "Underground water channels in forest soil"
+          ],
+          "answer": 1,
+          "explanation": "The passage defines hyphae as 'thread-like structures' that extend into the soil to absorb water and nutrients."
+        },
+        {
+          "id": "R4008",
+          "type": "detail",
+          "question": "According to the passage, why does applying phosphorus-rich fertilizer reduce mycorrhizal activity?",
+          "choices": [
+            "Fertilizers directly kill fungal organisms",
+            "Plants invest less in the symbiosis when nutrients are already abundant",
+            "The fertilizer changes the pH of soil, making it unsuitable for fungi",
+            "Excess phosphorus prevents fungi from producing hyphae"
+          ],
+          "answer": 1,
+          "explanation": "The passage states that 'plants reduce their investment in the symbiosis when nutrients are already abundant,' explaining why fertilizers suppress fungal activity."
+        },
+        {
+          "id": "R4009",
+          "type": "inference",
+          "question": "What does the passage suggest about reforestation efforts?",
+          "choices": [
+            "Chemical fertilizers are the most effective tool for restoring forests",
+            "Replanting trees alone is sufficient to restore forest ecosystems",
+            "Restoring mycorrhizal communities should be part of reforestation strategies",
+            "Scientists have not yet studied the role of fungi in reforestation"
+          ],
+          "answer": 2,
+          "explanation": "The passage states that reestablishing mycorrhizal communities is 'an essential component of successful ecosystem recovery,' indicating it must be part of reforestation efforts."
+        },
+        {
+          "id": "R4010",
+          "type": "reference",
+          "question": "The phrase 'this symbiosis' in the final paragraph refers to",
+          "choices": [
+            "The relationship between forests and human agriculture",
+            "The connection between mycorrhizal fungi and plant roots",
+            "The interaction between synthetic fertilizers and soil minerals",
+            "The network linking trees of different species"
+          ],
+          "answer": 1,
+          "explanation": "The passage discusses how plants reduce investment in 'the symbiosis' when fertilizers provide abundant nutrients — referring to the fungi-root relationship described throughout the passage."
+        }
+      ]
+    },
+    {
+      "id": "R4-PASSAGE-002",
+      "title": "Urban Heat Islands: Causes, Effects, and Mitigation Strategies",
+      "passage": "Cities around the world experience consistently higher temperatures than their surrounding rural areas, a phenomenon known as the urban heat island effect. This temperature difference, which can range from 1 to 7 degrees Celsius depending on city size, population density, and local geography, has become an increasingly serious concern as urban populations continue to grow and global temperatures rise due to climate change.\n\nThe primary cause of urban heat islands lies in the physical characteristics of the built environment. Concrete, asphalt, and brick absorb and retain solar radiation far more efficiently than natural surfaces like soil and vegetation. These materials store heat during the day and slowly release it at night, preventing cities from cooling down as effectively as rural areas. Dark-colored rooftops and road surfaces, which are common in many cities, absorb up to 95 percent of incoming solar radiation. In contrast, forests and grasslands reflect more sunlight and release excess heat through the evaporation of water from plant surfaces, a process called evapotranspiration.\n\nThe reduction of vegetation in cities also contributes significantly to the heat island effect. Trees and other plants provide shade that blocks direct sunlight from reaching heat-absorbing surfaces. Furthermore, the lack of permeable ground cover in cities means that rainwater quickly drains away rather than being absorbed by soil and slowly released through vegetation. Industrial activities, vehicle emissions, and air conditioning units also release waste heat directly into the urban atmosphere, adding to the overall thermal burden on cities.\n\nThe consequences of urban heat islands extend well beyond mere discomfort. Studies consistently show that extreme urban heat increases mortality rates, particularly among elderly people, children, and individuals with cardiovascular or respiratory conditions. Heat also degrades air quality by accelerating the formation of ground-level ozone and other pollutants. Urban heat contributes to higher energy consumption as residents increase their use of air conditioning, which in turn generates more waste heat and greenhouse gas emissions, creating a feedback cycle that worsens the problem.\n\nCity planners and environmental engineers have developed several strategies to counter the urban heat island effect. Planting trees along streets and in parks can significantly reduce local temperatures through shading and evapotranspiration. Green roofs, which are rooftop gardens covered with soil and vegetation, provide insulation and reduce heat absorption in individual buildings. Cool roofs, which use highly reflective materials, can reduce rooftop temperatures by up to 50 degrees Celsius compared to conventional dark surfaces. Urban water features such as fountains and reflective ponds can also help cool surrounding air. Some cities have begun experimenting with cool pavement technologies that use reflective coatings or permeable materials designed to reduce heat absorption and allow rainwater to penetrate the surface.",
+      "questions": [
+        {
+          "id": "R4011",
+          "type": "main-idea",
+          "question": "What is the primary purpose of the passage?",
+          "choices": [
+            "To argue that cities should be replaced by rural settlements",
+            "To explain the urban heat island effect, its causes, impacts, and solutions",
+            "To compare temperature measurements in different world cities",
+            "To describe the history of urban planning in the twentieth century"
+          ],
+          "answer": 1,
+          "explanation": "The passage systematically explains what urban heat islands are, why they occur, their negative effects, and strategies to reduce them."
+        },
+        {
+          "id": "R4012",
+          "type": "detail",
+          "question": "According to the passage, what is evapotranspiration?",
+          "choices": [
+            "The process by which concrete absorbs solar radiation",
+            "The release of heat by cities at night",
+            "The evaporation of water from plant surfaces that releases heat",
+            "The reflection of sunlight by dark rooftop materials"
+          ],
+          "answer": 2,
+          "explanation": "The passage defines evapotranspiration as the process by which plants 'release excess heat through the evaporation of water from plant surfaces.'"
+        },
+        {
+          "id": "R4013",
+          "type": "detail",
+          "question": "What percentage of solar radiation can dark rooftops absorb?",
+          "choices": [
+            "Up to 50 percent",
+            "About 70 percent",
+            "Up to 80 percent",
+            "Up to 95 percent"
+          ],
+          "answer": 3,
+          "explanation": "The passage states that 'dark-colored rooftops and road surfaces absorb up to 95 percent of incoming solar radiation.'"
+        },
+        {
+          "id": "R4014",
+          "type": "vocabulary",
+          "question": "The word 'permeable' in paragraph 3 is closest in meaning to",
+          "choices": [
+            "permanent and durable",
+            "allowing water to pass through",
+            "resistant to heat absorption",
+            "covered with reflective materials"
+          ],
+          "answer": 1,
+          "explanation": "Permeable means capable of allowing fluids to pass through it. The passage contrasts permeable ground cover (which absorbs rainwater) with impermeable urban surfaces."
+        },
+        {
+          "id": "R4015",
+          "type": "inference",
+          "question": "What can be inferred about air conditioning from the passage?",
+          "choices": [
+            "Air conditioning has no measurable impact on urban temperatures",
+            "Using more air conditioning may actually worsen the urban heat problem",
+            "Air conditioning is the most effective solution to urban heat islands",
+            "New air conditioning technologies produce no waste heat"
+          ],
+          "answer": 1,
+          "explanation": "The passage describes a feedback cycle in which air conditioning releases waste heat and emissions, which worsens urban heat, leading to more air conditioning use."
+        },
+        {
+          "id": "R4016",
+          "type": "detail",
+          "question": "According to the passage, which groups are most vulnerable to extreme urban heat?",
+          "choices": [
+            "Athletes and outdoor workers",
+            "Teenagers and young adults",
+            "Elderly people, children, and those with cardiovascular or respiratory conditions",
+            "Residents of high-rise apartment buildings"
+          ],
+          "answer": 2,
+          "explanation": "The passage specifically identifies the elderly, children, and people with cardiovascular or respiratory conditions as those most at risk from heat-related mortality."
+        },
+        {
+          "id": "R4017",
+          "type": "vocabulary",
+          "question": "The word 'mitigation' in the passage title is closest in meaning to",
+          "choices": [
+            "elimination",
+            "measurement",
+            "reduction or lessening",
+            "acceleration"
+          ],
+          "answer": 2,
+          "explanation": "Mitigation means taking action to reduce the severity or impact of a problem, making 'reduction or lessening' the correct match."
+        },
+        {
+          "id": "R4018",
+          "type": "detail",
+          "question": "How much cooler can cool roofs be compared to conventional dark surfaces?",
+          "choices": [
+            "Up to 10 degrees Celsius",
+            "Up to 25 degrees Celsius",
+            "Up to 35 degrees Celsius",
+            "Up to 50 degrees Celsius"
+          ],
+          "answer": 3,
+          "explanation": "The passage states that cool roofs 'can reduce rooftop temperatures by up to 50 degrees Celsius compared to conventional dark surfaces.'"
+        },
+        {
+          "id": "R4019",
+          "type": "inference",
+          "question": "What does the passage suggest about the relationship between climate change and urban heat islands?",
+          "choices": [
+            "Climate change has no connection to urban heat islands",
+            "Urban heat islands are the primary cause of global climate change",
+            "Rising global temperatures may make urban heat islands a more serious problem",
+            "Cities experience lower temperatures as global temperatures rise"
+          ],
+          "answer": 2,
+          "explanation": "The passage states the problem has become 'increasingly serious as urban populations continue to grow and global temperatures rise due to climate change,' implying these factors compound the issue."
+        },
+        {
+          "id": "R4020",
+          "type": "detail",
+          "question": "Which of the following is NOT mentioned as a strategy for reducing urban heat islands?",
+          "choices": [
+            "Planting street trees",
+            "Installing green roofs",
+            "Banning all private vehicles from cities",
+            "Using cool pavement technologies"
+          ],
+          "answer": 2,
+          "explanation": "The passage mentions trees, green roofs, cool roofs, urban water features, and cool pavement — but never suggests banning private vehicles."
+        }
+      ]
+    }
+  ]
+}
