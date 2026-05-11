@@ -7,36 +7,8 @@
 (function () {
   'use strict';
 
-  // ---- SCORING HELPERS ----
-
-  function estimateSectionScale(score, total, minScale, maxScale) {
-    if (!total || total <= 0) return minScale;
-    const pct = score / total;
-    return Math.max(minScale, Math.min(maxScale, Math.round(minScale + pct * (maxScale - minScale))));
-  }
-
-  function calculateITPScore(listening, structure, reading) {
-    const lScale = estimateSectionScale(listening.score, listening.total, 31, 68);
-    const sScale = estimateSectionScale(structure.score, structure.total, 31, 68);
-    const rScale = estimateSectionScale(reading.score, reading.total, 31, 67);
-    const total = Math.round(((lScale + sScale + rScale) * 10) / 3);
-    return { lScale, sScale, rScale, total };
-  }
-
-  function getCEFRLevel(total) {
-    if (total >= 627) return { level: 'C1', label: 'Advanced', color: '#10b981' };
-    if (total >= 543) return { level: 'B2', label: 'Upper-Intermediate', color: '#3b82f6' };
-    if (total >= 460) return { level: 'B1', label: 'Intermediate', color: '#f59e0b' };
-    if (total >= 337) return { level: 'A2', label: 'Elementary', color: '#ef4444' };
-    return { level: 'A1', label: 'Beginner', color: '#6b7280' };
-  }
-
-  function getScoreColor(total) {
-    if (total >= 600) return '#10b981';
-    if (total >= 500) return '#3b82f6';
-    if (total >= 400) return '#f59e0b';
-    return '#ef4444';
-  }
+// ---- SCORING: delegated to js/scoring.js ----
+  // Functions available globally: calculateITPScore(), getCEFRBand(), getScoreColor(), rawToScaled()
 
   // ---- DOM RENDERING ----
 
@@ -65,11 +37,11 @@
   function renderResult(data) {
     const { listening, structure, reading, date, setName } = data;
     const itp = calculateITPScore(listening, structure, reading);
-    const cefr = getCEFRLevel(itp.total);
+    const cefr = getCEFRBand(itp.totalScore);
     const totalCorrect = listening.score + structure.score + reading.score;
     const totalQ = listening.total + structure.total + reading.total;
     const accuracy = totalQ > 0 ? Math.round((totalCorrect / totalQ) * 100) : 0;
-    const scoreColor = getScoreColor(itp.total);
+    const scoreColor = getScoreColor(itp.totalScore);
 
     // Header meta
     const metaDate = document.getElementById('result-date');
@@ -81,10 +53,10 @@
     const scoreEl = document.getElementById('score-number');
     const ringEl = document.getElementById('score-ring-progress');
     const scoreColorEl = document.getElementById('score-color-accent');
-    if (scoreEl) animateCounter(scoreEl, itp.total, 1600);
+    if (scoreEl) animateCounter(scoreEl, itp.totalScore, 1600);
     if (ringEl) {
       ringEl.style.stroke = scoreColor;
-      animateRing(ringEl, Math.min(100, Math.round(((itp.total - 310) / (677 - 310)) * 100)));
+      animateRing(ringEl, Math.min(100, Math.round(((itp.totalScore - 310) / (677 - 310)) * 100)));
     }
     if (scoreColorEl) scoreColorEl.style.setProperty('--accent', scoreColor);
 
@@ -100,9 +72,9 @@
 
     // Section breakdown
     const sections = [
-      { id: 'listening', label: 'Listening Comprehension', score: listening.score, total: listening.total, scale: itp.lScale, min: 31, max: 68 },
-      { id: 'structure', label: 'Structure & Written Expression', score: structure.score, total: structure.total, scale: itp.sScale, min: 31, max: 68 },
-      { id: 'reading', label: 'Reading Comprehension', score: reading.score, total: reading.total, scale: itp.rScale, min: 31, max: 67 },
+      { id: 'listening', label: 'Listening Comprehension', score: listening.score, total: listening.total, scale: itp.listeningScale, min: 31, max: 68 },
+      { id: 'structure', label: 'Structure & Written Expression', score: structure.score, total: structure.total, scale: itp.structureScale, min: 31, max: 68 },
+      { id: 'reading', label: 'Reading Comprehension', score: reading.score, total: reading.total, scale: itp.readingScale, min: 31, max: 67 },
     ];
 
     const breakdownEl = document.getElementById('section-breakdown');
