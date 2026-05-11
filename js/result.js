@@ -1,6 +1,6 @@
 /**
  * result.js - TOEFL Simulation Test Result Page Logic
- * Reads result data from sessionStorage and renders the result card.
+ * Reads result data from localStorage and renders the result card.
  * Also handles Save as Image feature via html2canvas.
  */
 
@@ -152,13 +152,13 @@
   // ---- INIT ----
 
   function init() {
-    // Load result data from sessionStorage
+    // Load result data from localStorage
     let data = null;
     try {
-      const raw = sessionStorage.getItem('toeflResult');
+      const raw = localStorage.getItem('toeflResult');
       if (raw) data = JSON.parse(raw);
     } catch (e) {
-      console.warn('Failed to parse toeflResult from sessionStorage', e);
+      console.warn('Failed to parse toeflResult from localStorage', e);
     }
 
     // Fallback demo data for direct access
