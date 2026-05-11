@@ -1,0 +1,362 @@
+{
+  "meta": {
+    "testName": "TOEFL ITP-like Practice",
+    "section": "structure",
+    "set": "set-4",
+    "version": "2.0.0",
+    "durationMinutes": 25,
+    "totalQuestions": 25
+  },
+  "items": [
+    {
+      "id": "S4001",
+      "type": "sentence-completion",
+      "topic": "Conditional sentences",
+      "question": "Had the researchers _____ the experiment earlier, they would have discovered the anomaly sooner.",
+      "choices": [
+        "conducted",
+        "conduct",
+        "conducting",
+        "to conduct"
+      ],
+      "answer": 0,
+      "explanation": "Inverted conditional (Had + subject + past participle) replaces 'If they had conducted'. The past participle 'conducted' is correct."
+    },
+    {
+      "id": "S4002",
+      "type": "error-identification",
+      "topic": "Dangling modifier",
+      "question": "Walking through the forest, the trees were observed to have unusual markings on their bark.",
+      "choices": [
+        "Walking through the forest",
+        "the trees were observed",
+        "to have unusual markings",
+        "on their bark"
+      ],
+      "answer": 0,
+      "explanation": "The participial phrase 'Walking through the forest' has no logical subject - it dangles. The sentence implies the trees were walking."
+    },
+    {
+      "id": "S4003",
+      "type": "sentence-completion",
+      "topic": "Subjunctive mood",
+      "question": "The professor insisted that every student _____ a research paper by the end of the semester.",
+      "choices": [
+        "submits",
+        "submitted",
+        "submit",
+        "will submit"
+      ],
+      "answer": 2,
+      "explanation": "After verbs of demand/insistence (insist, demand, require), the subjunctive uses the base form of the verb: 'submit'."
+    },
+    {
+      "id": "S4004",
+      "type": "error-identification",
+      "topic": "Pronoun agreement",
+      "question": "Each of the female scientists presented their findings at the international conference last month.",
+      "choices": [
+        "Each of",
+        "female scientists",
+        "their findings",
+        "last month"
+      ],
+      "answer": 2,
+      "explanation": "'Each' is singular and requires a singular pronoun. It should be 'her findings' not 'their findings'."
+    },
+    {
+      "id": "S4005",
+      "type": "sentence-completion",
+      "topic": "Relative clauses",
+      "question": "The manuscript _____ the historian discovered in the archives dates back to the 15th century.",
+      "choices": [
+        "who",
+        "which",
+        "whom",
+        "whose"
+      ],
+      "answer": 1,
+      "explanation": "'Which' is used for things (manuscript). 'Who/whom' are for people. 'Which' correctly introduces the relative clause modifying 'manuscript'."
+    },
+    {
+      "id": "S4006",
+      "type": "error-identification",
+      "topic": "Parallel structure",
+      "question": "The new policy aims to reduce costs, improving efficiency, and to increase overall productivity.",
+      "choices": [
+        "aims to reduce",
+        "improving efficiency",
+        "and to increase",
+        "overall productivity"
+      ],
+      "answer": 1,
+      "explanation": "The list must be parallel: 'to reduce', 'to improve', 'to increase'. 'improving' breaks the parallel infinitive structure."
+    },
+    {
+      "id": "S4007",
+      "type": "sentence-completion",
+      "topic": "Passive voice with modals",
+      "question": "The ancient artifact _____ with extreme care to prevent further deterioration.",
+      "choices": [
+        "must handle",
+        "must be handled",
+        "must have handled",
+        "must handling"
+      ],
+      "answer": 1,
+      "explanation": "Passive voice: modal + 'be' + past participle. 'must be handled' correctly expresses passive obligation."
+    },
+    {
+      "id": "S4008",
+      "type": "error-identification",
+      "topic": "Article usage",
+      "question": "A university professor announced that the discovery was an unique breakthrough in cancer research.",
+      "choices": [
+        "A university professor",
+        "the discovery was",
+        "an unique breakthrough",
+        "in cancer research"
+      ],
+      "answer": 2,
+      "explanation": "'Unique' begins with a consonant sound /j/, so 'a' is correct: 'a unique breakthrough', not 'an unique'."
+    },
+    {
+      "id": "S4009",
+      "type": "sentence-completion",
+      "topic": "Gerund vs infinitive",
+      "question": "The scientist denied _____ any data in the published report.",
+      "choices": [
+        "to falsify",
+        "falsifying",
+        "falsified",
+        "have falsified"
+      ],
+      "answer": 1,
+      "explanation": "The verb 'deny' is followed by a gerund (-ing form), not an infinitive. 'Falsifying' is correct."
+    },
+    {
+      "id": "S4010",
+      "type": "error-identification",
+      "topic": "Comparative adjectives",
+      "question": "This method is more easier to implement than the previous approach used by the team.",
+      "choices": [
+        "This method",
+        "more easier",
+        "to implement than",
+        "the previous approach"
+      ],
+      "answer": 1,
+      "explanation": "'Easier' is already comparative. Using 'more' with it creates a double comparative, which is incorrect. It should be just 'easier'."
+    },
+    {
+      "id": "S4011",
+      "type": "sentence-completion",
+      "topic": "Noun clauses",
+      "question": "_____ the experiment would succeed was uncertain until the final results were analyzed.",
+      "choices": [
+        "That",
+        "What",
+        "Whether",
+        "If"
+      ],
+      "answer": 2,
+      "explanation": "'Whether' introduces a noun clause expressing uncertainty as the subject of the sentence. 'If' is not used when the clause is the subject."
+    },
+    {
+      "id": "S4012",
+      "type": "error-identification",
+      "topic": "Preposition usage",
+      "question": "The committee was not aware about the significant changes made to the original proposal.",
+      "choices": [
+        "The committee",
+        "not aware about",
+        "significant changes",
+        "original proposal"
+      ],
+      "answer": 1,
+      "explanation": "The correct collocation is 'aware of', not 'aware about'. This is a preposition usage error."
+    },
+    {
+      "id": "S4013",
+      "type": "sentence-completion",
+      "topic": "Past perfect tense",
+      "question": "By the time the rescue team arrived, the survivors _____ in the cave for three days.",
+      "choices": [
+        "waited",
+        "were waiting",
+        "had been waiting",
+        "have waited"
+      ],
+      "answer": 2,
+      "explanation": "Past perfect continuous 'had been waiting' shows an action that was ongoing before another past event (the rescue team arriving)."
+    },
+    {
+      "id": "S4014",
+      "type": "error-identification",
+      "topic": "Subject-verb agreement with collective nouns",
+      "question": "The data collected from multiple sources suggest that the hypothesis needs to be revised.",
+      "choices": [
+        "The data",
+        "from multiple sources",
+        "suggest that",
+        "needs to be revised"
+      ],
+      "answer": 2,
+      "explanation": "'Data' is treated as plural in formal academic English. However, in modern usage 'suggests' (singular) is increasingly accepted. In TOEFL ITP context, 'data suggests' treats 'data' as singular."
+    },
+    {
+      "id": "S4015",
+      "type": "sentence-completion",
+      "topic": "Adverb placement",
+      "question": "The researchers _____ concluded that the new compound could be used as an effective antibiotic.",
+      "choices": [
+        "tentatively",
+        "tentative",
+        "with tentative",
+        "in a tentative"
+      ],
+      "answer": 0,
+      "explanation": "An adverb ('tentatively') modifies the verb 'concluded'. The adverb correctly describes how the researchers reached their conclusion."
+    },
+    {
+      "id": "S4016",
+      "type": "error-identification",
+      "topic": "Misplaced modifier",
+      "question": "The student almost failed every exam in the semester due to poor time management.",
+      "choices": [
+        "The student almost",
+        "failed every exam",
+        "in the semester",
+        "due to poor time management"
+      ],
+      "answer": 0,
+      "explanation": "'Almost' is misplaced. 'Almost failed every' means narrowly failing each one. The intended meaning 'failed almost every' means failing nearly all of them. This is a misplaced modifier."
+    },
+    {
+      "id": "S4017",
+      "type": "sentence-completion",
+      "topic": "Causative verbs",
+      "question": "The laboratory director had the technicians _____ the equipment before the inspection.",
+      "choices": [
+        "calibrated",
+        "calibrating",
+        "calibrate",
+        "to calibrate"
+      ],
+      "answer": 2,
+      "explanation": "Causative 'have' + object + base verb (without 'to'). 'Had the technicians calibrate' is the correct structure."
+    },
+    {
+      "id": "S4018",
+      "type": "error-identification",
+      "topic": "Confusing word pairs",
+      "question": "The affect of pollution on marine ecosystems has been widely documented in recent studies.",
+      "choices": [
+        "The affect",
+        "on marine ecosystems",
+        "widely documented",
+        "in recent studies"
+      ],
+      "answer": 0,
+      "explanation": "'Affect' as a noun is incorrect here. 'Effect' is the noun meaning impact or result. 'Affect' is typically a verb meaning to influence."
+    },
+    {
+      "id": "S4019",
+      "type": "sentence-completion",
+      "topic": "Inversion with negative adverbials",
+      "question": "Not only _____ the new drug reduce inflammation, but it also appears to prevent cell damage.",
+      "choices": [
+        "does",
+        "did",
+        "has",
+        "is"
+      ],
+      "answer": 0,
+      "explanation": "After 'Not only' at the start of a sentence, subject-auxiliary inversion occurs. Present simple requires 'does': 'Not only does the drug reduce...'"
+    },
+    {
+      "id": "S4020",
+      "type": "error-identification",
+      "topic": "Gerund as subject",
+      "question": "Collect data from unreliable sources often leads to inaccurate conclusions in scientific research.",
+      "choices": [
+        "Collect data",
+        "from unreliable sources",
+        "often leads to",
+        "scientific research"
+      ],
+      "answer": 0,
+      "explanation": "A gerund (verb+-ing) should be used as the subject, not the base form. It should be 'Collecting data', not 'Collect data'."
+    },
+    {
+      "id": "S4021",
+      "type": "sentence-completion",
+      "topic": "Reported speech",
+      "question": "The scientist announced that she _____ the formula the previous year.",
+      "choices": [
+        "discovers",
+        "has discovered",
+        "had discovered",
+        "would discover"
+      ],
+      "answer": 2,
+      "explanation": "In reported speech, when the main verb is past ('announced'), the reported verb shifts back one tense: 'discovered' becomes 'had discovered'."
+    },
+    {
+      "id": "S4022",
+      "type": "error-identification",
+      "topic": "Redundancy",
+      "question": "The final conclusion of the study was that both methods produced equally the same results.",
+      "choices": [
+        "The final conclusion",
+        "of the study",
+        "equally the same",
+        "produced results"
+      ],
+      "answer": 2,
+      "explanation": "'Equally the same' is redundant. Either 'equally good results' or 'the same results' should be used, not both together."
+    },
+    {
+      "id": "S4023",
+      "type": "sentence-completion",
+      "topic": "Correlative conjunctions",
+      "question": "The study found that neither the control group _____ the experimental group showed significant improvement.",
+      "choices": [
+        "or",
+        "nor",
+        "and",
+        "but"
+      ],
+      "answer": 1,
+      "explanation": "'Neither...nor' is the correct correlative conjunction pair. 'Neither A nor B' is the standard structure."
+    },
+    {
+      "id": "S4024",
+      "type": "error-identification",
+      "topic": "Tense consistency",
+      "question": "The archaeologist carefully brushes away the dirt, examined the artifact, and notes its condition.",
+      "choices": [
+        "carefully brushes away",
+        "examined the artifact",
+        "and notes its condition",
+        "the dirt"
+      ],
+      "answer": 1,
+      "explanation": "The verbs in the sequence must be consistent in tense. 'brushes' and 'notes' are present tense, so 'examined' should be 'examines'."
+    },
+    {
+      "id": "S4025",
+      "type": "sentence-completion",
+      "topic": "Participial phrases",
+      "question": "_____ by the unexpected results, the research team decided to repeat the experiment with a larger sample.",
+      "choices": [
+        "Surprised",
+        "Surprising",
+        "Having surprise",
+        "To surprise"
+      ],
+      "answer": 0,
+      "explanation": "'Surprised by' is a past participial phrase modifying 'the research team'. The team experienced the surprise, so the passive past participle 'Surprised' is correct."
+    }
+  ]
+}
