@@ -1,0 +1,492 @@
+/* ============================================
+   result.css — TOEFL Simulation Test Result Page
+   Module 5: Score Card & Save as Image
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --navy:    #0d1b3e;
+  --blue:    #1e3a8a;
+  --accent:  #f59e0b;
+  --green:   #10b981;
+  --purple:  #7c3aed;
+  --red:     #ef4444;
+  --listen:  #3b82f6;
+  --struct:  #8b5cf6;
+  --read:    #10b981;
+  --bg:      #f0f4ff;
+  --white:   #ffffff;
+  --text:    #1e293b;
+  --muted:   #64748b;
+  --radius:  16px;
+  --shadow:  0 20px 60px rgba(13,27,62,0.18);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px 48px;
+  color: var(--text);
+}
+
+/* ---- ACTION BAR ---- */
+.action-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 720px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.btn:active { transform: translateY(0); }
+
+.btn-save   { background: var(--accent); color: #1c1917; }
+.btn-retake { background: var(--blue);   color: var(--white); }
+.btn-home   { background: var(--white);  color: var(--navy);  border: 2px solid #dde3f0; }
+
+/* ---- CARD WRAPPER ---- */
+.card-wrapper {
+  width: 100%;
+  max-width: 720px;
+}
+
+/* ---- SCORE CARD ---- */
+.score-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* ---- CARD HEADER ---- */
+.card-header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  color: var(--white);
+  padding: 36px 40px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+
+.card-header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -40px;
+  width: 260px; height: 260px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+
+.card-badge {
+  display: inline-block;
+  background: rgba(245,158,11,0.25);
+  color: var(--accent);
+  border: 1px solid rgba(245,158,11,0.4);
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+
+.card-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+  position: relative; z-index: 1;
+}
+
+.card-subtitle {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.65);
+  position: relative; z-index: 1;
+}
+
+/* ---- SCORE HERO ---- */
+.score-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 40px 40px 32px;
+  flex-wrap: wrap;
+}
+
+.score-ring {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  flex-shrink: 0;
+}
+
+.ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: #e8edf8;
+  stroke-width: 14;
+}
+
+.ring-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 14;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ring-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.score-number {
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.score-max {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.score-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.score-level-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.level-badge {
+  display: inline-block;
+  padding: 8px 22px;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 700;
+  background: var(--navy);
+  color: var(--white);
+  text-align: center;
+}
+
+.level-badge.level-c1  { background: linear-gradient(135deg,#7c3aed,#4f46e5); }
+.level-badge.level-b2  { background: linear-gradient(135deg,#10b981,#059669); }
+.level-badge.level-b1  { background: linear-gradient(135deg,#3b82f6,#1d4ed8); }
+.level-badge.level-a2  { background: linear-gradient(135deg,#f59e0b,#d97706); color:#1c1917; }
+.level-badge.level-low { background: linear-gradient(135deg,#6b7280,#4b5563); }
+
+.level-desc {
+  font-size: 0.875rem;
+  color: var(--muted);
+  max-width: 220px;
+  line-height: 1.5;
+}
+
+/* ---- SECTION BREAKDOWN ---- */
+.section-breakdown {
+  padding: 0 40px 32px;
+}
+
+.breakdown-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.section-card {
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-card.listening { background: #eff6ff; border: 1.5px solid #bfdbfe; }
+.section-card.structure  { background: #f5f3ff; border: 1.5px solid #ddd6fe; }
+.section-card.reading    { background: #ecfdf5; border: 1.5px solid #a7f3d0; }
+
+.section-icon {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+
+.section-name {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.section-scaled {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.listening .section-scaled { color: var(--listen); }
+.structure  .section-scaled { color: var(--struct); }
+.reading    .section-scaled { color: var(--read); }
+
+.section-sub {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.section-raw {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.section-bar-wrap {
+  background: rgba(0,0,0,0.08);
+  border-radius: 999px;
+  height: 5px;
+  overflow: hidden;
+}
+
+.section-bar {
+  height: 100%;
+  border-radius: 999px;
+  width: 0%;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.listening .section-bar { background: var(--listen); }
+.structure  .section-bar { background: var(--struct); }
+.reading    .section-bar { background: var(--read); }
+
+/* ---- STATS ROW ---- */
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 24px 40px;
+  border-top: 1px solid #edf0f7;
+  border-bottom: 1px solid #edf0f7;
+  gap: 16px;
+}
+
+.stat-box { text-align: center; }
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.03em;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--muted);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ---- CEFR SCALE ---- */
+.cefr-scale {
+  padding: 24px 40px;
+}
+
+.cefr-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.cefr-bar {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 36px;
+}
+
+.cefr-segment {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+
+.cefr-segment span {
+  font-size: 0.6rem;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.cefr-segment.a2 { background: #f59e0b; color: #1c1917; }
+.cefr-segment.b1 { background: #3b82f6; }
+.cefr-segment.b2 { background: #10b981; }
+.cefr-segment.c1 { background: #7c3aed; }
+
+.cefr-indicator-wrap {
+  position: relative;
+  height: 20px;
+  margin-top: 4px;
+}
+
+.cefr-indicator {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--navy);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  top: 4px;
+  transform: translateX(-50%);
+  transition: left 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- CARD FOOTER ---- */
+.card-footer {
+  background: #f8faff;
+  border-top: 1px solid #edf0f7;
+  padding: 20px 40px;
+  text-align: center;
+}
+
+.card-footer p {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.footer-brand {
+  font-weight: 700;
+  color: var(--navy) !important;
+  margin-top: 4px;
+}
+
+/* ---- SAVING OVERLAY ---- */
+.saving-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13,27,62,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  gap: 16px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.saving-spinner {
+  width: 44px;
+  height: 44px;
+  border: 4px solid rgba(255,255,255,0.3);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 600px) {
+  .card-header { padding: 28px 24px; }
+  .card-title  { font-size: 1.5rem; }
+  .score-hero  { padding: 28px 24px 24px; gap: 24px; }
+  .score-ring  { width: 150px; height: 150px; }
+  .score-number { font-size: 2rem; }
+  .section-breakdown { padding: 0 24px 24px; }
+  .section-grid { grid-template-columns: 1fr; gap: 12px; }
+  .stats-row   { padding: 20px 24px; }
+  .cefr-scale  { padding: 20px 24px; }
+  .card-footer { padding: 16px 24px; }
+}
