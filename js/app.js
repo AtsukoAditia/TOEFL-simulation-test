@@ -1198,39 +1198,21 @@ function showFullTestFinalResult() {
   const totalQuestions = listening.total + structure.total + reading.total;
   const accuracy = totalQuestions === 0 ? 0 : Math.round((totalScore / totalQuestions) * 100);
 
-  const estimated = calculateEstimatedITPScore(listening, structure, reading);
-
-  document.getElementById("practice-area").innerHTML = `
-    <h2>Full Test Final Result</h2>
-
-    <div class="score-box">
-      <h3>Overall Result</h3>
-      <p><strong>Selected set:</strong> ${currentSelectedSet ? currentSelectedSet.title : "-"}</p>
-      <p><strong>Total Correct:</strong> ${totalScore} / ${totalQuestions}</p>
-      <p><strong>Accuracy:</strong> ${accuracy}%</p>
-
-      <h3>Section Scores</h3>
-      <p><strong>Listening:</strong> ${listening.score} / ${listening.total}</p>
-      <p><strong>Structure:</strong> ${structure.score} / ${structure.total}</p>
-      <p><strong>Reading:</strong> ${reading.score} / ${reading.total}</p>
-
-      <h3>Estimated TOEFL ITP-like Score</h3>
-      <p><strong>Listening Estimated Scale:</strong> ${estimated.listeningScale}</p>
-      <p><strong>Structure Estimated Scale:</strong> ${estimated.structureScale}</p>
-      <p><strong>Reading Estimated Scale:</strong> ${estimated.readingScale}</p>
-      <p><strong>Estimated Total Score:</strong> ${estimated.totalScore}</p>
-      <p><strong>Estimated Level:</strong> ${estimated.level}</p>
-
-      <p>
-        <strong>Disclaimer:</strong> This is an unofficial practice estimate only.
-        It is not an official TOEFL ITP score and does not use the official ETS conversion table.
-      </p>
-
-      <button type="button" onclick="loadFullTestIntro()">Restart Full Test</button>
-    </div>
-  `;
-
+// Save result data to sessionStorage and redirect to result page
+  try {
+    const resultData = {
+      listening: { score: listening.score, total: listening.total },
+      structure: { score: structure.score, total: structure.total },
+      reading: { score: reading.score, total: reading.total },
+      date: new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }),
+      setName: currentSelectedSet ? currentSelectedSet.title : 'Full Test'
+    };
+    sessionStorage.setItem('toeflResult', JSON.stringify(resultData));
+  } catch (e) {
+    console.warn('sessionStorage not available', e);
+  }
   resetFullTestState();
+  window.location.href = 'result.html';
 }
 
 function calculateEstimatedITPScore(listening, structure, reading) {
