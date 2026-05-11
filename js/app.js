@@ -116,7 +116,7 @@ async function loadSection(sectionName) {
     alert("You cannot change sections while the test is running. Please submit or stop the current section first.");
     return;
   }
-  setActiveMainButton(sectionName);
+  setActiveMainButton(sectionName);   document.body.classList.remove('test-active');
   resetFullTestState();
 
   const practiceArea = document.getElementById("practice-area");
@@ -192,6 +192,7 @@ function renderPracticeSetSelection(sectionName) {
 
 async function startPracticeSectionWithSet(sectionName, setId) {
   const practiceArea = document.getElementById("practice-area");
+    document.body.classList.add('test-active');
   const selectedSet = getSetById(setId);
 
   if (!selectedSet) {
@@ -261,12 +262,14 @@ async function loadFullTestIntro() {
     return;
   }
   setActiveMainButton("fulltest");
+    document.body.classList.add('test-active');
   const practiceArea = document.getElementById("practice-area");
 
   stopSpeech();
   stopTimer();
 
   resetFullTestState();
+    localStorage.removeItem('toeflResult');
 
   isFullTestMode = true;
   currentSectionName = null;
@@ -1215,9 +1218,9 @@ function showFullTestFinalResult() {
       date: new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }),
       setName: currentSelectedSet ? currentSelectedSet.title : 'Full Test'
     };
-    sessionStorage.setItem('toeflResult', JSON.stringify(resultData));
+    localStorage.setItem('toeflResult', JSON.stringify(resultData));
   } catch (e) {
-    console.warn('sessionStorage not available', e);
+    console.warn('localStorage not available', e);
   }
   resetFullTestState();
   window.location.href = 'result.html';
