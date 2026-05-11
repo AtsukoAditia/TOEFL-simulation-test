@@ -22,6 +22,14 @@ let appManifest = null;
 let currentSelectedSetId = null;
 let currentSelectedSet = null;
 
+function handleMainNavClick(mode) {
+  if (mode === 'fulltest') {
+    loadFullTestIntro();
+  } else {
+    loadSection(mode);
+  }
+}
+
 async function loadManifest() {
   if (appManifest) {
     return appManifest;
