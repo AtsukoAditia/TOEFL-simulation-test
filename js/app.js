@@ -1238,7 +1238,7 @@ function calculateEstimatedITPScore(listening, structure, reading) {
     totalScore,
     level
   };
-}};
+};
 
 // Scoring functions (calculateEstimatedITPScore, estimateSectionScale, getEstimatedITPLevel)
 // are provided globally by js/scoring.js (loaded before this script in index.html)
