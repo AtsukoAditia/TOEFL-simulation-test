@@ -490,3 +490,115 @@ body {
   .cefr-scale  { padding: 20px 24px; }
   .card-footer { padding: 16px 24px; }
 }
+
+
+/* ---- ENHANCED MOBILE FOR RESULT PAGE ---- */
+@media (max-width: 480px) {
+  body {
+    padding: 12px 0 32px;
+  }
+  .result-card {
+    border-radius: 16px;
+    margin: 0 8px;
+  }
+  .card-header {
+    padding: 20px 16px;
+  }
+  .card-title {
+    font-size: 1.25rem;
+  }
+  .card-meta {
+    font-size: 0.75rem;
+    gap: 8px;
+  }
+  .score-hero {
+    padding: 20px 16px 18px;
+    gap: 16px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .score-ring {
+    width: 130px;
+    height: 130px;
+  }
+  .score-number {
+    font-size: 1.8rem;
+  }
+  .score-label {
+    font-size: 0.7rem;
+  }
+  .cefr-badge {
+    font-size: 1.1rem;
+    padding: 6px 18px;
+  }
+  .score-side {
+    width: 100%;
+  }
+  .score-side-stat {
+    padding: 10px 14px;
+  }
+  .section-breakdown {
+    padding: 0 14px 18px;
+  }
+  .section-item {
+    padding: 12px 14px;
+  }
+  .section-label {
+    font-size: 0.8rem;
+  }
+  .section-raw {
+    font-size: 0.75rem;
+  }
+  .stats-row {
+    padding: 14px 16px;
+    gap: 8px;
+  }
+  .stat-item {
+    padding: 10px 8px;
+    min-width: unset;
+  }
+  .stat-value {
+    font-size: 1.4rem;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+  }
+  .cefr-scale {
+    padding: 14px 16px;
+  }
+  .cefr-scale-title {
+    font-size: 0.75rem;
+  }
+  .cefr-items {
+    gap: 2px;
+  }
+  .cefr-item {
+    font-size: 0.6rem;
+    padding: 5px 4px;
+  }
+  .card-footer {
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .action-bar {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Touch targets for result page */
+@media (pointer: coarse) {
+  .btn {
+    min-height: 48px;
+  }
+}
