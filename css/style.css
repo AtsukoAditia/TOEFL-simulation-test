@@ -677,3 +677,271 @@ code {
     font-size: 26px;
   }
 }
+
+
+/* ============================================================
+   MOBILE RESPONSIVE - Complete mobile-first optimizations
+   ============================================================ */
+
+/* Ensure proper viewport behavior */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ---- TEST-ACTIVE: Hide non-essential UI during test ---- */
+body.test-active .app-header {
+  display: none;
+}
+
+body.test-active .app-footer {
+  display: none;
+}
+
+body.test-active .intro-card {
+  display: none;
+}
+
+body.test-active .home-three-column > .test-info {
+  display: none;
+}
+
+body.test-active .home-three-column > .test-info:not(:last-child) {
+  display: none;
+}
+
+body.test-active .container > .home-three-column {
+  display: block;
+}
+
+/* Keep only practice-area column visible during test */
+body.test-active .home-center-column > .test-info {
+  display: none;
+}
+
+body.test-active .practice-area {
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+body.test-active .container {
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+body.test-active .section-buttons {
+  display: none;
+}
+
+/* ---- MOBILE BASE ---- */
+@media (max-width: 768px) {
+  /* Header */
+  .app-header {
+    padding: 32px 16px 28px;
+  }
+  .app-title {
+    font-size: 26px;
+    letter-spacing: -0.3px;
+  }
+  .app-subtitle {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+  .header-badge {
+    font-size: 10px;
+    padding: 4px 12px;
+    margin-bottom: 14px;
+  }
+
+  /* Layout */
+  .container {
+    width: 100%;
+    padding: 16px 12px 40px;
+  }
+  .home-three-column {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Cards */
+  .intro-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 20px 16px;
+    margin-bottom: 16px;
+  }
+  .intro-left {
+    min-width: unset;
+  }
+  .intro-card h2 {
+    font-size: 20px;
+  }
+  .intro-card p {
+    font-size: 13.5px;
+  }
+
+  .test-info,
+  .practice-area {
+    padding: 18px 16px 22px;
+    border-radius: 14px;
+  }
+  .test-info h2,
+  .practice-area h2 {
+    font-size: 17px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+  }
+
+  /* Buttons */
+  .section-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .section-buttons button {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 14.5px;
+    border-radius: 10px;
+  }
+  button {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  /* Timer */
+  .timer-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px 14px;
+    border-radius: 10px;
+  }
+  .timer-display {
+    font-size: 28px;
+  }
+
+  /* Question cards */
+  .question-card,
+  .passage-card,
+  .audio-box,
+  .score-box,
+  .restart-box {
+    padding: 14px;
+    border-radius: 10px;
+    margin: 12px 0;
+  }
+  .question-card h3,
+  .passage-card h3 {
+    font-size: 15px;
+    line-height: 1.45;
+  }
+  .question-meta {
+    font-size: 13px;
+  }
+  .choice {
+    padding: 11px 10px;
+    font-size: 14px;
+    margin: 7px 0;
+  }
+  .passage-text {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  /* Audio controls */
+  .audio-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .audio-controls button {
+    width: 100%;
+    padding: 12px;
+  }
+
+  /* Restart */
+  .restart-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .restart-buttons button {
+    width: 100%;
+  }
+
+  /* Info boxes */
+  .info-box {
+    padding: 13px 14px;
+    border-radius: 10px;
+  }
+  .info-box h3 {
+    font-size: 12px;
+  }
+  .info-box p {
+    font-size: 13px;
+  }
+
+  /* Stat pills */
+  .stat-pill {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  /* Footer */
+  .app-footer {
+    padding: 24px 16px 32px;
+    font-size: 12px;
+  }
+}
+
+/* ---- SMALL PHONES ---- */
+@media (max-width: 400px) {
+  .app-title {
+    font-size: 22px;
+  }
+  .container {
+    padding: 12px 10px 32px;
+  }
+  .test-info,
+  .practice-area {
+    padding: 15px 13px 18px;
+  }
+  .timer-display {
+    font-size: 24px;
+  }
+  .choice {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+}
+
+/* ---- TOUCH IMPROVEMENTS ---- */
+@media (pointer: coarse) {
+  button,
+  .choice {
+    min-height: 44px;
+  }
+  .choice input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    accent-color: var(--blue);
+  }
+}
+
+/* ---- LANDSCAPE PHONE ---- */
+@media (max-width: 768px) and (orientation: landscape) {
+  .app-header {
+    padding: 20px 16px 16px;
+  }
+  .timer-display {
+    font-size: 22px;
+  }
+  .timer-box {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
