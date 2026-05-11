@@ -1230,38 +1230,10 @@ function calculateEstimatedITPScore(listening, structure, reading) {
     totalScore,
     level
   };
-}
+}};
 
-function estimateSectionScale(score, total, minScale, maxScale) {
-  if (!total || total <= 0) {
-    return minScale;
-  }
-
-  const percentage = score / total;
-  const scale = Math.round(minScale + percentage * (maxScale - minScale));
-
-  return Math.max(minScale, Math.min(maxScale, scale));
-}
-
-function getEstimatedITPLevel(score) {
-  if (score < 343) {
-    return "Below A2 / Basic";
-  }
-
-  if (score < 433) {
-    return "A2 / Elementary";
-  }
-
-  if (score < 543) {
-    return "B1 / Intermediate";
-  }
-
-  if (score < 620) {
-    return "B2 / Upper Intermediate";
-  }
-
-  return "C1 / Advanced";
-}
+// Scoring functions (calculateEstimatedITPScore, estimateSectionScale, getEstimatedITPLevel)
+// are provided globally by js/scoring.js (loaded before this script in index.html)
 
 function renderActionButtons(sectionName) {
   return `
