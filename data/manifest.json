@@ -65,6 +65,17 @@
           "structure": "data/structure-set-4.json",
           "reading": "data/reading-set-4.json"
         }
+    },
+        {
+      "id": "set-5",
+      "title": "Practice Set 5",
+      "description": "Comprehensive TOEFL ITP-like practice set with 20 Listening, 15 Structure, and 15 Reading questions featuring long academic passages",
+      "status": "active",
+      "files": {
+        "listening": "data/listening-set-5.json",
+        "structure": "data/structure-set-5.json",
+        "reading": "data/reading-set-5.json"
+      }
     }
   ]
 }
