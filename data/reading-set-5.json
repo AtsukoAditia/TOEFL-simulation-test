@@ -1,0 +1,439 @@
+{
+  "meta": {
+    "testName": "TOEFL ITP-like Practice",
+    "section": "reading",
+    "set": "set-5",
+    "module": "Long Academic Reading Passages",
+    "moduleNumber": 3,
+    "version": "1.0.0",
+    "durationMinutes": 35,
+    "totalQuestions": 30
+  },
+  "passages": [
+    {
+      "id": "R5-PASSAGE-001",
+      "title": "The Columbian Exchange and Its Global Impact",
+      "passage": "The Columbian Exchange refers to the widespread transfer of plants, animals, culture, human populations, technology, and ideas between the Americas and the Old World in the 15th and 16th centuries, following Christopher Columbus's voyages. This exchange profoundly altered the course of world history. Among the most significant transfers were food crops such as maize, potatoes, tomatoes, cacao, and tobacco moving from the Americas to Europe, Africa, and Asia, while wheat, rice, sugarcane, horses, and cattle traveled in the opposite direction. The introduction of the potato to Europe, for instance, contributed to rapid population growth in countries such as Ireland and Prussia, where the crop could be grown in poor soils unsuitable for wheat. Conversely, the arrival of Old World diseases — particularly smallpox, measles, and influenza — had catastrophic consequences for indigenous populations of the Americas, who had no prior exposure and therefore no immunity. Estimates suggest that in some regions, up to 90 percent of the native population perished within a century of contact. The Columbian Exchange also transformed ecosystems. European livestock introduced to the Americas grazed on native vegetation, displacing animal species that had coexisted with local plants for thousands of years. Meanwhile, New World crops gradually became staples across large portions of Asia and Africa, contributing to demographic and agricultural shifts that persist to this day. Scholars continue to debate the long-term consequences of the Columbian Exchange, acknowledging that while it expanded food supplies and global trade, it also brought immense suffering through disease, displacement, and forced labor.",
+      "questions": [
+        {
+          "id": "R5-001",
+          "type": "main-idea",
+          "question": "What is the main idea of the passage?",
+          "choices": [
+            "The Columbian Exchange transformed global food supplies, populations, and ecosystems in both beneficial and harmful ways.",
+            "Christopher Columbus personally introduced all New World crops to Europe.",
+            "The Columbian Exchange only affected the population of Ireland and Prussia.",
+            "European livestock were entirely unaffected by their introduction to the Americas."
+          ],
+          "answer": 0,
+          "explanation": "The passage discusses both the positive and negative consequences of the transfer of crops, animals, and diseases between the Americas and the Old World."
+        },
+        {
+          "id": "R5-002",
+          "type": "detail",
+          "question": "According to the passage, which crop contributed to population growth in Ireland and Prussia?",
+          "choices": [
+            "The potato",
+            "Maize",
+            "Cacao",
+            "Rice"
+          ],
+          "answer": 0,
+          "explanation": "The passage states that the introduction of the potato to Europe contributed to rapid population growth in Ireland and Prussia."
+        },
+        {
+          "id": "R5-003",
+          "type": "vocabulary",
+          "question": "The word 'catastrophic' in the passage is closest in meaning to",
+          "choices": [
+            "extremely harmful or disastrous",
+            "slightly inconvenient",
+            "economically beneficial",
+            "widely celebrated"
+          ],
+          "answer": 0,
+          "explanation": "'Catastrophic' means causing great damage or suffering — in this context, referring to the devastating effect of Old World diseases on indigenous populations."
+        },
+        {
+          "id": "R5-004",
+          "type": "inference",
+          "question": "What can be inferred about indigenous Americans' vulnerability to Old World diseases?",
+          "choices": [
+            "They had never been exposed to those diseases before and lacked immunity.",
+            "They had already developed vaccines against smallpox.",
+            "They chose not to seek medical treatment.",
+            "They were immune to all diseases due to their diet."
+          ],
+          "answer": 0,
+          "explanation": "The passage explains that indigenous people had no prior exposure and no immunity, which caused catastrophic death rates."
+        },
+        {
+          "id": "R5-005",
+          "type": "purpose",
+          "question": "Why does the author mention scholars continuing to debate the Columbian Exchange?",
+          "choices": [
+            "To show that its consequences were complex and are not fully agreed upon",
+            "To argue that the Columbian Exchange never occurred",
+            "To explain that only European historians study the topic",
+            "To prove that Columbus was not a historical figure"
+          ],
+          "answer": 0,
+          "explanation": "The author notes that debates among scholars reflect the complex and often contradictory impacts of the Columbian Exchange."
+        },
+        {
+          "id": "R5-006",
+          "type": "reference",
+          "question": "The word 'it' in the phrase 'it also brought immense suffering' refers to",
+          "choices": [
+            "the Columbian Exchange",
+            "global trade",
+            "the potato crop",
+            "the Atlantic Ocean"
+          ],
+          "answer": 0,
+          "explanation": "The sentence acknowledges that while the Columbian Exchange expanded food supplies and trade, it also brought suffering — so 'it' refers to the Columbian Exchange."
+        }
+      ]
+    },
+    {
+      "id": "R5-PASSAGE-002",
+      "title": "The Role of Microbiomes in Human Health",
+      "passage": "The human body hosts trillions of microorganisms, including bacteria, viruses, fungi, and archaea, collectively known as the human microbiome. The majority of these microorganisms reside in the gastrointestinal tract, particularly the large intestine, where they perform a wide range of functions essential to human health. Gut bacteria help digest food, produce vitamins such as vitamin K and certain B vitamins, and protect the body against harmful pathogens by competing for resources and producing antimicrobial compounds. Research over the past two decades has increasingly linked the composition of the gut microbiome to conditions far beyond digestive health, including obesity, type 2 diabetes, cardiovascular disease, and even mental health disorders. The gut-brain axis — a communication network between the gastrointestinal tract and the central nervous system — appears to allow microbial activity to influence mood, cognition, and behavior. Studies have found associations between disrupted microbiome composition, a state called dysbiosis, and conditions such as depression and anxiety. Diet plays a major role in shaping the microbiome. Foods high in fiber, fermented foods, and diverse plant-based ingredients tend to support a varied and healthy microbial community, whereas diets high in processed foods and sugar may reduce microbial diversity. Antibiotic use can also severely disrupt the microbiome by eliminating beneficial bacteria alongside harmful ones. Researchers are now exploring probiotic and prebiotic interventions to restore healthy microbial balance, with promising but still developing results. The science of the human microbiome remains an active and rapidly expanding area of biomedical research.",
+      "questions": [
+        {
+          "id": "R5-007",
+          "type": "main-idea",
+          "question": "What is the passage mainly about?",
+          "choices": [
+            "The human microbiome and its wide-ranging effects on health and disease",
+            "How antibiotics are manufactured from gut bacteria",
+            "The history of vitamin K discovery in the large intestine",
+            "Why fermented foods were banned in some countries"
+          ],
+          "answer": 0,
+          "explanation": "The passage covers the composition, functions, and health implications of the human microbiome, including its links to disease and mental health."
+        },
+        {
+          "id": "R5-008",
+          "type": "detail",
+          "question": "According to the passage, which of the following is a function of gut bacteria?",
+          "choices": [
+            "Producing certain vitamins and protecting against pathogens",
+            "Creating all hormones needed by the human body",
+            "Replacing lost blood cells after injury",
+            "Regulating bone density and muscle growth"
+          ],
+          "answer": 0,
+          "explanation": "The passage states that gut bacteria help digest food, produce vitamins, and protect against pathogens."
+        },
+        {
+          "id": "R5-009",
+          "type": "vocabulary",
+          "question": "The word 'dysbiosis' as used in the passage refers to",
+          "choices": [
+            "a disrupted or imbalanced microbiome composition",
+            "a surgical procedure for treating intestinal disorders",
+            "a type of probiotic supplement",
+            "a brain disorder unrelated to digestion"
+          ],
+          "answer": 0,
+          "explanation": "The passage defines dysbiosis as 'disrupted microbiome composition,' implying an imbalanced or unhealthy state of the microbiome."
+        },
+        {
+          "id": "R5-010",
+          "type": "inference",
+          "question": "What can be inferred about the effect of diets high in processed foods on the microbiome?",
+          "choices": [
+            "They may reduce microbial diversity and harm microbiome health.",
+            "They significantly increase the number of beneficial bacteria.",
+            "They have no measurable effect on microbial communities.",
+            "They eliminate all harmful pathogens from the gut."
+          ],
+          "answer": 0,
+          "explanation": "The passage states that diets high in processed foods and sugar may reduce microbial diversity, which is associated with poor health."
+        },
+        {
+          "id": "R5-011",
+          "type": "purpose",
+          "question": "Why does the author mention the gut-brain axis?",
+          "choices": [
+            "To explain how microbial activity can influence mental health",
+            "To describe the anatomy of the brain",
+            "To argue that the gut is more important than the brain",
+            "To show that exercise strengthens the nervous system"
+          ],
+          "answer": 0,
+          "explanation": "The gut-brain axis is introduced to explain how the microbiome's influence extends beyond digestion to affect mood, cognition, and behavior."
+        },
+        {
+          "id": "R5-012",
+          "type": "detail",
+          "question": "According to the passage, what is a potential consequence of antibiotic use?",
+          "choices": [
+            "Severe disruption of the microbiome by eliminating beneficial bacteria",
+            "Permanent improvement of microbial diversity",
+            "Elimination of all mental health conditions",
+            "Increased production of vitamin K"
+          ],
+          "answer": 0,
+          "explanation": "The passage states that antibiotic use can severely disrupt the microbiome by eliminating beneficial bacteria alongside harmful ones."
+        }
+      ]
+    },
+    {
+      "id": "R5-PASSAGE-003",
+      "title": "The Origins and Evolution of Writing Systems",
+      "passage": "Writing is one of humanity's most transformative inventions, enabling the storage and transmission of knowledge across time and space. The earliest known writing systems emerged independently in several regions of the world. Cuneiform script, developed by the Sumerians in Mesopotamia around 3400 BCE, is among the oldest, initially used for recording trade transactions and administrative records before evolving to express more complex literary and religious texts. Similarly, Egyptian hieroglyphics, which appeared around the same period, combined logographic and alphabetic elements to record royal inscriptions, religious ceremonies, and everyday transactions. The Chinese writing system, which dates to at least 1200 BCE based on oracle bone inscriptions from the Shang dynasty, also developed independently and has been in continuous use longer than any other writing system in the world. The Mesoamerican civilizations, including the Maya, independently created writing systems using glyphs to record dates, histories, and astronomical observations. The development of alphabetic writing systems, in which symbols represent individual sounds rather than whole words or syllables, is generally attributed to Semitic peoples of the ancient Near East around 2000 BCE, with later adaptations producing the Greek, Latin, Cyrillic, and Arabic alphabets used today. The invention of writing not only facilitated administration and trade but also contributed to the development of literature, law, philosophy, and science. Yet literacy remained restricted for much of recorded history, typically confined to scribes, priests, and ruling classes, with broad public literacy emerging only in modern times.",
+      "questions": [
+        {
+          "id": "R5-013",
+          "type": "main-idea",
+          "question": "What is the main idea of the passage?",
+          "choices": [
+            "Writing systems emerged independently in several civilizations and had profound effects on human society.",
+            "Only the Sumerians invented a successful writing system.",
+            "Modern alphabets were created by the ancient Greeks without any earlier influences.",
+            "Writing was always widely accessible to all members of ancient societies."
+          ],
+          "answer": 0,
+          "explanation": "The passage describes the independent origins of writing systems across multiple civilizations and explains their broader significance."
+        },
+        {
+          "id": "R5-014",
+          "type": "detail",
+          "question": "According to the passage, what was cuneiform script initially used for?",
+          "choices": [
+            "Recording trade transactions and administrative records",
+            "Composing poetry for entertainment",
+            "Teaching mathematics to children",
+            "Decorating temples with religious art"
+          ],
+          "answer": 0,
+          "explanation": "The passage states that cuneiform was initially used for recording trade transactions and administrative records."
+        },
+        {
+          "id": "R5-015",
+          "type": "vocabulary",
+          "question": "The word 'logographic' in the passage refers to a writing system in which",
+          "choices": [
+            "symbols represent whole words or meanings",
+            "symbols stand for individual sounds",
+            "pictures replace all written language",
+            "numbers are used instead of letters"
+          ],
+          "answer": 0,
+          "explanation": "The passage contrasts logographic elements with alphabetic elements, implying logographic symbols represent words or meanings rather than individual sounds."
+        },
+        {
+          "id": "R5-016",
+          "type": "inference",
+          "question": "What can be inferred about the Chinese writing system based on the passage?",
+          "choices": [
+            "It has maintained continuous use for a longer period than any other writing system in the world.",
+            "It was introduced to China from Mesopotamia.",
+            "It was replaced by the Latin alphabet in modern times.",
+            "It was primarily used for recording trade routes."
+          ],
+          "answer": 0,
+          "explanation": "The passage explicitly states that the Chinese writing system has been in continuous use longer than any other writing system in the world."
+        },
+        {
+          "id": "R5-017",
+          "type": "purpose",
+          "question": "Why does the author note that literacy remained restricted for much of recorded history?",
+          "choices": [
+            "To show that the widespread use of writing came long after its invention",
+            "To argue that writing systems were ineffective tools",
+            "To prove that ancient peoples were less intelligent than modern people",
+            "To explain why trade never occurred before writing"
+          ],
+          "answer": 0,
+          "explanation": "The author adds this point to clarify that while writing was invented early, broad public access to literacy is a modern development."
+        },
+        {
+          "id": "R5-018",
+          "type": "detail",
+          "question": "Which civilization is credited with developing alphabetic writing around 2000 BCE?",
+          "choices": [
+            "Semitic peoples of the ancient Near East",
+            "The Maya of Mesoamerica",
+            "The Shang dynasty of China",
+            "The Egyptians of the Nile Delta"
+          ],
+          "answer": 0,
+          "explanation": "The passage attributes the development of alphabetic writing to Semitic peoples of the ancient Near East around 2000 BCE."
+        }
+      ]
+    },
+    {
+      "id": "R5-PASSAGE-004",
+      "title": "Plate Tectonics and the Shaping of Earth's Surface",
+      "passage": "Plate tectonics is the scientific theory that explains the large-scale movement of Earth's lithosphere — the rigid outer layer of the planet comprising the crust and upper mantle. The lithosphere is divided into several large and small tectonic plates that float on the semi-fluid asthenosphere beneath them. These plates move slowly, typically a few centimeters per year, driven by the convective movement of heat from Earth's interior. The interactions at plate boundaries are responsible for some of the most dramatic geological features on Earth. At convergent boundaries, where plates move toward each other, one plate may be forced beneath the other in a process called subduction, which can form deep ocean trenches and volcanic mountain ranges. The Andes in South America and the Cascade Range in North America are examples of mountain chains formed by subduction. At divergent boundaries, plates move apart, and magma rises to fill the gap, creating new oceanic crust and features such as mid-ocean ridges. The Mid-Atlantic Ridge, which runs along the floor of the Atlantic Ocean, is the longest mountain range in the world, largely hidden beneath the sea. At transform boundaries, plates slide horizontally past each other, producing fault lines such as the San Andreas Fault in California, a source of frequent seismic activity. The theory of plate tectonics, which became widely accepted in the 1960s, unified many previously unexplained geological observations, including the matching coastlines of continents like South America and Africa, the distribution of fossil species across distant landmasses, and patterns of volcanic and earthquake activity.",
+      "questions": [
+        {
+          "id": "R5-019",
+          "type": "main-idea",
+          "question": "What is the passage mainly about?",
+          "choices": [
+            "How plate tectonics explains Earth's major geological features and movements",
+            "Why the San Andreas Fault is the most dangerous place in the world",
+            "How scientists first discovered the Atlantic Ocean",
+            "The history of volcanic eruptions in the Andes Mountains"
+          ],
+          "answer": 0,
+          "explanation": "The passage provides a comprehensive explanation of plate tectonics theory and the geological features it creates at different types of boundaries."
+        },
+        {
+          "id": "R5-020",
+          "type": "detail",
+          "question": "According to the passage, what is subduction?",
+          "choices": [
+            "The process of one tectonic plate being forced beneath another at a convergent boundary",
+            "The movement of plates away from each other at a divergent boundary",
+            "The horizontal sliding of plates past each other at a transform boundary",
+            "The melting of the entire lithosphere by volcanic activity"
+          ],
+          "answer": 0,
+          "explanation": "The passage describes subduction as one plate being forced beneath the other where plates move toward each other."
+        },
+        {
+          "id": "R5-021",
+          "type": "vocabulary",
+          "question": "The word 'convective' in the passage relates to",
+          "choices": [
+            "the transfer of heat through the circulation of fluid or gas",
+            "the cooling of Earth's outer crust",
+            "the chemical composition of oceanic rocks",
+            "the measurement of seismic waves"
+          ],
+          "answer": 0,
+          "explanation": "Convection refers to the movement of fluid or gas driven by temperature differences, which is how heat moves from Earth's interior and drives plate motion."
+        },
+        {
+          "id": "R5-022",
+          "type": "inference",
+          "question": "What can be inferred about the Mid-Atlantic Ridge?",
+          "choices": [
+            "It is a very long geological feature that most people cannot observe directly because it lies underwater.",
+            "It is located above sea level and is visible from the coastlines of Europe and Africa.",
+            "It was formed by one plate being subducted beneath another.",
+            "It causes no seismic activity and is geologically stable."
+          ],
+          "answer": 0,
+          "explanation": "The passage describes the Mid-Atlantic Ridge as the longest mountain range in the world but says it is 'largely hidden beneath the sea.'"
+        },
+        {
+          "id": "R5-023",
+          "type": "detail",
+          "question": "According to the passage, which of the following helped scientists accept the theory of plate tectonics?",
+          "choices": [
+            "Matching coastlines of continents and distribution of fossil species",
+            "The discovery of oil deposits beneath the ocean floor",
+            "The observation that the Sun moves around the Earth",
+            "The invention of the telescope in the 17th century"
+          ],
+          "answer": 0,
+          "explanation": "The passage states that matching coastlines, distribution of fossil species, and patterns of volcanic and seismic activity helped unify geological observations under the theory."
+        },
+        {
+          "id": "R5-024",
+          "type": "purpose",
+          "question": "Why does the author mention the San Andreas Fault?",
+          "choices": [
+            "As an example of a geological feature created at a transform boundary",
+            "To show that California is the safest place in North America",
+            "To prove that transform boundaries do not produce earthquakes",
+            "To explain why the Atlantic Ocean is expanding"
+          ],
+          "answer": 0,
+          "explanation": "The San Andreas Fault is given as an example of a fault line created where plates slide past each other at a transform boundary."
+        }
+      ]
+    },
+    {
+      "id": "R5-PASSAGE-005",
+      "title": "The Economics of Behavioral Nudges",
+      "passage": "Traditional economic theory long assumed that people make rational decisions based on complete information and stable preferences. However, research in behavioral economics has demonstrated that human decision-making is subject to a range of cognitive biases and heuristics — mental shortcuts — that often lead to choices inconsistent with individuals' own stated goals. In response to these findings, governments and organizations have begun applying the concept of 'nudges' — subtle changes to the environment in which choices are made — to guide people toward more beneficial decisions without restricting their freedom of choice. The concept was popularized by economists Richard Thaler and Cass Sunstein in their influential book, and Thaler was awarded the Nobel Prize in Economics in 2017 for related contributions to behavioral economics. One of the most widely studied nudges involves changing default options. Research shows that people tend to accept whatever option is presented as the default, a tendency known as the status quo bias. For example, when organ donation is the default option — meaning people must actively opt out rather than opt in — donation rates increase dramatically compared to systems that require active consent. Similar default-based nudges have been applied to retirement savings, where automatic enrollment in pension plans significantly increases participation rates. Other nudges involve simplifying information, changing the physical arrangement of choices — such as placing healthier foods at eye level in cafeterias — or providing timely reminders. Critics of nudging argue that it can be paternalistic and that governments should rely on transparent policy instruments rather than subtly influencing behavior. Proponents respond that nudges preserve freedom of choice while helping people act in alignment with their own preferences. The debate over the ethics and effectiveness of behavioral nudges continues across economics, psychology, and public policy.",
+      "questions": [
+        {
+          "id": "R5-025",
+          "type": "main-idea",
+          "question": "What is the main idea of the passage?",
+          "choices": [
+            "Behavioral nudges use subtle environmental changes to guide people toward better decisions while preserving freedom of choice.",
+            "Traditional economic theory has always emphasized the role of cognitive biases in decision-making.",
+            "The Nobel Prize in Economics is awarded only for research on organ donation policies.",
+            "Governments should eliminate all choices from their citizens to reduce cognitive biases."
+          ],
+          "answer": 0,
+          "explanation": "The passage explains the concept of nudges, how they work, examples of their application, and the ongoing debate about their use."
+        },
+        {
+          "id": "R5-026",
+          "type": "vocabulary",
+          "question": "The word 'heuristics' in the passage is closest in meaning to",
+          "choices": [
+            "mental shortcuts or rules of thumb used in decision-making",
+            "scientific instruments for measuring brain activity",
+            "complex mathematical formulas used by economists",
+            "legal guidelines for financial transactions"
+          ],
+          "answer": 0,
+          "explanation": "The passage defines heuristics as 'mental shortcuts,' simple decision-making strategies people use instead of fully rational analysis."
+        },
+        {
+          "id": "R5-027",
+          "type": "detail",
+          "question": "According to the passage, what is the status quo bias?",
+          "choices": [
+            "People's tendency to accept the default option in a choice",
+            "A bias that causes people to always choose the most expensive option",
+            "A preference for new and unfamiliar choices",
+            "A tendency to make decisions based only on past prices"
+          ],
+          "answer": 0,
+          "explanation": "The passage states that the status quo bias means people tend to accept whatever option is presented as the default."
+        },
+        {
+          "id": "R5-028",
+          "type": "inference",
+          "question": "What can be inferred about organ donation rates in countries that use an opt-out system?",
+          "choices": [
+            "They are likely higher than in countries that require active consent to donate.",
+            "They are exactly the same as in opt-in countries.",
+            "They have decreased since behavioral nudges were introduced.",
+            "They depend only on cultural attitudes and not on policy defaults."
+          ],
+          "answer": 0,
+          "explanation": "The passage states that when organ donation is the default, donation rates increase dramatically, implying opt-out systems produce higher rates."
+        },
+        {
+          "id": "R5-029",
+          "type": "purpose",
+          "question": "Why does the author mention placing healthier foods at eye level in cafeterias?",
+          "choices": [
+            "To give an example of a nudge that changes the physical arrangement of choices",
+            "To argue that cafeteria managers should control all food choices",
+            "To prove that nudges never work in food-related settings",
+            "To show that eye-level placement is regulated by national nutrition laws"
+          ],
+          "answer": 0,
+          "explanation": "This example illustrates how changing the physical arrangement of choices is one category of behavioral nudge."
+        },
+        {
+          "id": "R5-030",
+          "type": "inference",
+          "question": "What is the main concern raised by critics of nudging?",
+          "choices": [
+            "That nudging may be paternalistic and undermine transparent decision-making",
+            "That nudging increases the cost of public services significantly",
+            "That nudging has never been tested in real-world settings",
+            "That only economists are qualified to design nudges"
+          ],
+          "answer": 0,
+          "explanation": "The passage states that critics argue nudging can be paternalistic and that governments should use transparent policy instruments instead."
+        }
+      ]
+    }
+  ]
+}
