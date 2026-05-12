@@ -1,0 +1,204 @@
+{
+  "setId": "structure-5",
+  "title": "Set 5 - Advanced Grammar & Structure",
+  "description": "Challenging structure questions with complex sentence patterns",
+  "totalQuestions": 15,
+  "timeLimit": 900,
+  "questions": [
+    {
+      "id": "struct-5-1",
+      "type": "fill-blank",
+      "question": "_____ the laboratory assistant had carefully prepared the samples, the experiment could not proceed due to equipment failure.",
+      "choices": [
+        "Although",
+        "Despite",
+        "Because of",
+        "In spite of"
+      ],
+      "answer": 0,
+      "explanation": "'Although' is the correct subordinating conjunction to introduce a dependent clause with a subject and verb. 'Despite' and 'In spite of' require noun phrases."
+    },
+    {
+      "id": "struct-5-2",
+      "type": "fill-blank",
+      "question": "The committee's decision _____ by the board of directors at next week's meeting.",
+      "choices": [
+        "will review",
+        "will be reviewed",
+        "is reviewing",
+        "has reviewed"
+      ],
+      "answer": 1,
+      "explanation": "The passive voice 'will be reviewed' is correct because the decision receives the action."
+    },
+    {
+      "id": "struct-5-3",
+      "type": "fill-blank",
+      "question": "Not until the late 1950s _____ the structure of DNA fully understood by the scientific community.",
+      "choices": [
+        "was",
+        "were",
+        "has been",
+        "had been"
+      ],
+      "answer": 0,
+      "explanation": "After 'Not until' at the beginning of a sentence, inverted word order is required: auxiliary + subject + main verb."
+    },
+    {
+      "id": "struct-5-4",
+      "type": "fill-blank",
+      "question": "The professor suggested that every student _____ the research paper by the end of the semester.",
+      "choices": [
+        "completes",
+        "completed",
+        "complete",
+        "will complete"
+      ],
+      "answer": 2,
+      "explanation": "After 'suggest that', the subjunctive mood requires the base form of the verb."
+    },
+    {
+      "id": "struct-5-5",
+      "type": "fill-blank",
+      "question": "_____ more research is conducted on renewable energy, the less dependent we will become on fossil fuels.",
+      "choices": [
+        "Much",
+        "The more",
+        "More",
+        "The most"
+      ],
+      "answer": 1,
+      "explanation": "'The more...the less' is a correlative construction showing proportional relationship."
+    },
+    {
+      "id": "struct-5-6",
+      "type": "fill-blank",
+      "question": "Had the scientists known about the potential risks, they _____ the experiment differently.",
+      "choices": [
+        "would conduct",
+        "would have conducted",
+        "will conduct",
+        "had conducted"
+      ],
+      "answer": 1,
+      "explanation": "This is a third conditional with inverted 'Had'. The main clause requires 'would have + past participle'."
+    },
+    {
+      "id": "struct-5-7",
+      "type": "fill-blank",
+      "question": "The archaeological findings, _____ date back to the Bronze Age, have provided valuable insights.",
+      "choices": [
+        "which",
+        "that",
+        "what",
+        "whose"
+      ],
+      "answer": 0,
+      "explanation": "'Which' is correct for a non-defining relative clause with a comma. 'That' cannot be used in non-defining clauses."
+    },
+    {
+      "id": "struct-5-8",
+      "type": "fill-blank",
+      "question": "Rarely _____ such a comprehensive analysis of climate patterns in this region.",
+      "choices": [
+        "scientists have conducted",
+        "have scientists conducted",
+        "scientists conducted",
+        "did scientists conducted"
+      ],
+      "answer": 1,
+      "explanation": "After negative adverbs like 'Rarely' at the beginning, inverted word order is required."
+    },
+    {
+      "id": "struct-5-9",
+      "type": "fill-blank",
+      "question": "The research team _____ their findings at three international conferences by the end of this year.",
+      "choices": [
+        "will present",
+        "will have presented",
+        "are presenting",
+        "have presented"
+      ],
+      "answer": 1,
+      "explanation": "Future perfect 'will have presented' is correct for an action that will be completed before a specific time in the future."
+    },
+    {
+      "id": "struct-5-10",
+      "type": "fill-blank",
+      "question": "_____ the economic indicators suggest a recovery, many analysts remain cautious.",
+      "choices": [
+        "Even though",
+        "Despite",
+        "However",
+        "In spite"
+      ],
+      "answer": 0,
+      "explanation": "'Even though' introduces a dependent clause with subject and verb. 'Despite' and 'In spite' require noun phrases."
+    },
+    {
+      "id": "struct-5-11",
+      "type": "fill-blank",
+      "question": "It is essential that the laboratory _____ at a constant temperature throughout the experiment.",
+      "choices": [
+        "maintains",
+        "maintained",
+        "be maintained",
+        "is maintained"
+      ],
+      "answer": 2,
+      "explanation": "After 'It is essential that', the subjunctive mood requires 'be + past participle' for passive constructions."
+    },
+    {
+      "id": "struct-5-12",
+      "type": "fill-blank",
+      "question": "The extent _____ technology has transformed education cannot be overstated.",
+      "choices": [
+        "to which",
+        "which",
+        "that",
+        "to that"
+      ],
+      "answer": 0,
+      "explanation": "'The extent to which' is the correct idiomatic expression. The preposition 'to' is required with 'extent'."
+    },
+    {
+      "id": "struct-5-13",
+      "type": "fill-blank",
+      "question": "No sooner _____ the lecture than students began asking questions.",
+      "choices": [
+        "had the professor finished",
+        "the professor had finished",
+        "has the professor finished",
+        "the professor finished"
+      ],
+      "answer": 0,
+      "explanation": "'No sooner' requires inversion and past perfect: 'had + subject + past participle'."
+    },
+    {
+      "id": "struct-5-14",
+      "type": "fill-blank",
+      "question": "The researchers, _____ work focuses on marine biology, have discovered three new species.",
+      "choices": [
+        "who",
+        "whose",
+        "which",
+        "that"
+      ],
+      "answer": 1,
+      "explanation": "'Whose' shows possession and is followed by a noun ('work')."
+    },
+    {
+      "id": "struct-5-15",
+      "type": "fill-blank",
+      "question": "_____ the rapid advancement of artificial intelligence, ethical considerations must be addressed.",
+      "choices": [
+        "Because",
+        "Given",
+        "Although",
+        "Despite of"
+      ],
+      "answer": 1,
+      "explanation": "'Given' is a preposition meaning 'considering' and is followed by a noun phrase. 'Despite of' is incorrect; it should be 'despite'."
+    }
+  ]
+}
