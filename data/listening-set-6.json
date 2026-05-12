@@ -1,460 +1,885 @@
 {
-    "setId": "listening-6",
-    "title": "Set 6 - Full TOEFL ITP Listening (50 Questions)",
+  "meta": {
+    "testName": "TOEFL ITP-like Practice",
+    "section": "listening",
+    "set": "set-6",
+    "version": "1.0.0",
     "description": "Complete TOEFL ITP Listening Comprehension test with Part A (short conversations), Part B (extended conversations), and Part C (talks and lectures)",
-    "totalQuestions": 50,
-    "timeLimit": 2100,
-    "questions": [
+    "durationMinutes": 35,
+    "totalQuestions": 50
+  },
+  "items": [
+    {
+      "id": "L6-AUDIO-001",
+      "type": "conversation",
+      "title": "Short conversation about library hours",
+      "ttsText": "M: I heard the library extended its hours. W: Yes, now it's open until midnight on weekdays.",
+      "questions": [
         {
-            "id": "L6-1",
-            "type": "conversation",
-            "question": "What does the woman mean?",
-            "context": "M: I heard the library extended its hours. W: Yes, now it's open until midnight on weekdays.",
-            "choices": [
-                "The library closes earlier", "Weekend hours changed", "Weekday closing is later", "The library is always open"
-            ],
-            "answer": 2
-        }, {
-            "id": "L6-2",
-            "type": "conversation",
-            "question": "What will the man probably do?",
-            "context": "W: The bookstore is closing in 10 minutes. M: Oh no, I need to buy my textbooks!",
-            "choices": [
-                "Wait until tomorrow", "Go to the bookstore now", "Order books online", "Borrow from library"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-3",
-            "type": "conversation",
-            "question": "What does the man suggest?",
-            "context": "W: I can't decide on an elective course. M: Why not take something related to your major?",
-            "choices": [
-                "Take any course", "Choose a course in her field", "Wait for next semester", "Ask an advisor"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-4",
-            "type": "conversation",
-            "question": "What does the woman imply?",
-            "context": "M: The concert tickets are $75. W: That's way beyond my budget.",
-            "choices": [
-                "She'll buy tickets", "The price is fair", "She can't afford it", "She prefers another concert"
-            ],
-            "answer": 2
-        }, {
-            "id": "L6-5",
-            "type": "conversation",
-            "question": "What are they discussing?",
-            "context": "M: Did you submit your scholarship application? W: Not yet, deadline is next Friday.",
-            "choices": [
-                "Job interview", "Financial aid", "Course registration", "Graduation"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-6",
-            "type": "conversation",
-            "question": "What does the man mean?",
-            "context": "W: How was your chemistry exam? M: I should have studied more.",
-            "choices": [
-                "He studied enough", "The exam was easy", "He's dissatisfied with his performance", "He got a perfect score"
-            ],
-            "answer": 2
-        }, {
-            "id": "L6-7",
-            "type": "conversation",
-            "question": "What will the woman do?",
-            "context": "M: Are you going to the career fair? W: Definitely, I need to network.",
-            "choices": [
-                "Skip the fair", "Attend the career fair", "Study instead", "Meet friends"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-8",
-            "type": "conversation",
-            "question": "What does the woman suggest?",
-            "context": "M: I'm having trouble with statistics. W: Have you tried the tutoring center?",
-            "choices": [
-                "Drop the course", "Study harder alone", "Get tutoring help", "Change majors"
-            ],
-            "answer": 2
-        }, {
-            "id": "L6-9",
-            "type": "conversation",
-            "question": "What is the man's problem?",
-            "context": "M: My laptop crashed and I lost my essay. W: Didn't you back it up?",
-            "choices": [
-                "Lost his laptop", "Lost his essay file", "Can't write essays", "Computer is slow"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-10",
-            "type": "conversation",
-            "question": "What does the woman mean?",
-            "context": "M: Want to join the study group tonight? W: I would, but I have to work.",
-            "choices": [
-                "She'll join the group", "She has a work commitment", "She doesn't like study groups", "She finished studying"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-11",
-            "type": "conversation",
-            "question": "What is the topic?",
-            "context": "M: The professor assigned three books. W: I know, that's a lot of reading for one week.",
-            "choices": [
-                "Homework workload", "Library hours", "Book prices", "Professor's research"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-12",
-            "type": "conversation",
-            "question": "What will they do?",
-            "context": "W: Should we form a study group for the midterm? M: Good idea, let's meet at the library.",
-            "choices": [
-                "Study separately", "Form a study group", "Skip the exam", "Ask for extension"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-13",
-            "type": "conversation",
-            "question": "What does the man imply?",
-            "context": "W: I'm thinking of taking five courses next semester. M: That sounds overwhelming.",
-            "choices": [
-                "It's manageable", "It's too many courses", "She should take more", "He'll do the same"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-14",
-            "type": "conversation",
-            "question": "What is the woman's concern?",
-            "context": "W: I'm worried about my presentation tomorrow. M: You'll do fine, you prepared well.",
-            "choices": [
-                "She's unprepared", "She's nervous", "She forgot the topic", "She can't attend"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-15",
-            "type": "conversation",
-            "question": "What does the man suggest?",
-            "context": "W: I can't focus in the dorm. M: Try studying at the quiet floor of the library.",
-            "choices": [
-                "Stay in dorm", "Use the library", "Study with music", "Take a break"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-16",
-            "type": "conversation",
-            "question": "What is the problem?",
-            "context": "M: All the parking spots are full. W: There's a lot two blocks away.",
-            "choices": [
-                "No parking available nearby", "Car is broken", "They're lost", "Parking is too expensive"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-17",
-            "type": "conversation",
-            "question": "What does the woman mean?",
-            "context": "M: Are you done with the group project? W: We're making progress, but still have work to do.",
-            "choices": [
-                "Project is complete", "They haven't started", "It's partially done", "She quit the group"
-            ],
-            "answer": 2
-        }, {
-            "id": "L6-18",
-            "type": "conversation",
-            "question": "What will the man do?",
-            "context": "W: Don't forget about the department meeting. M: Thanks for reminding me, I almost forgot.",
-            "choices": [
-                "Skip the meeting", "Attend the meeting", "Reschedule it", "Send someone else"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-19",
-            "type": "conversation",
-            "question": "What are they talking about?",
-            "context": "M: I heard they're renovating the student center. W: Yes, it should be done by fall semester.",
-            "choices": [
-                "Campus construction", "Class schedules", "Sports events", "Housing options"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-20",
-            "type": "conversation",
-            "question": "What does the woman imply?",
-            "context": "M: Let's eat at the new cafeteria. W: I heard the prices are pretty high.",
-            "choices": [
-                "It's affordable", "It's expensive", "The food is bad", "It's not open yet"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-21",
-            "type": "conversation",
-            "question": "What is the man's opinion?",
-            "context": "W: What did you think of the lecture? M: It was informative but too long.",
-            "choices": [
-                "It was perfect", "It was too short", "It was useful but lengthy", "It was boring"
-            ],
-            "answer": 2
-        }, {
-            "id": "L6-22",
-            "type": "conversation",
-            "question": "What does the woman suggest?",
-            "context": "M: I need to improve my writing. W: You should visit the writing center.",
-            "choices": [
-                "Read more books", "Get writing help", "Practice speaking", "Take another course"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-23",
-            "type": "conversation",
-            "question": "What is the topic?",
-            "context": "M: Did you sign up for the field trip? W: Yes, I'm excited to visit the museum.",
-            "choices": [
-                "Class assignment", "Educational trip", "Museum hours", "Transportation"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-24",
-            "type": "conversation",
-            "question": "What will they do?",
-            "context": "W: We need supplies for the experiment. M: I'll go to the lab supply room.",
-            "choices": [
-                "Cancel the experiment", "Get supplies", "Ask the professor", "Use old materials"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-25",
-            "type": "conversation",
-            "question": "What does the man mean?",
-            "context": "W: Are you joining the club? M: I'm interested, but I don't have time this semester.",
-            "choices": [
-                "He'll join now", "He's too busy currently", "He's not interested", "He already joined"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-26",
-            "type": "conversation",
-            "question": "What is the problem?",
-            "context": "M: I can't log into my student account. W: You should contact IT support.",
-            "choices": [
-                "Account access issue", "Internet is down", "Computer is broken", "Password is stolen"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-27",
-            "type": "conversation",
-            "question": "What does the woman mean?",
-            "context": "M: Want to go to the game tonight? W: I have too much homework.",
-            "choices": [
-                "She'll go to the game", "She needs to study", "She doesn't like sports", "She's going somewhere else"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-28",
-            "type": "conversation",
-            "question": "What are they discussing?",
-            "context": "W: The professor changed the exam date. M: That's good, I need more time to prepare.",
-            "choices": [
-                "Exam schedule change", "New course", "Grading policy", "Assignment topic"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-29",
-            "type": "conversation",
-            "question": "What will the man do?",
-            "context": "W: Are you going to the review session? M: Absolutely, I don't want to miss it.",
-            "choices": [
-                "Skip the session", "Attend the review", "Study alone", "Ask for notes"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-30",
-            "type": "conversation",
-            "question": "What does the woman imply?",
-            "context": "M: How's your research paper going? W: I'm still gathering sources.",
-            "choices": [
-                "She finished writing", "She's in the research phase", "She needs a topic", "She's ready to submit"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-31",
-            "type": "extended",
-            "question": "What is the main topic?",
-            "context": "Extended conversation about campus housing options and dormitory rules.",
-            "choices": [
-                "Housing policies", "Meal plans", "Class schedules", "Campus security"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-32",
-            "type": "extended",
-            "question": "According to the conversation, what is required?",
-            "context": "Discussion continues about housing requirements.",
-            "choices": [
-                "Meal plan purchase", "Housing deposit", "Parking permit", "Student ID"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-33",
-            "type": "extended",
-            "question": "What does the speaker suggest?",
-            "context": "Advisor gives recommendations for housing.",
-            "choices": [
-                "Apply early", "Live off-campus", "Share a room", "Wait a semester"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-34",
-            "type": "extended",
-            "question": "What can be inferred?",
-            "context": "Discussion about availability of housing.",
-            "choices": [
-                "Housing is limited", "Many rooms available", "No deadline", "No freshmen allowed"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-35",
-            "type": "extended",
-            "question": "What will the student probably do?",
-            "context": "Student decides on housing action.",
-            "choices": [
-                "Submit application", "Look elsewhere", "Wait and see", "Ask parents"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-36",
-            "type": "extended",
-            "question": "What is the main topic?",
-            "context": "Extended conversation about internship opportunities in engineering.",
-            "choices": [
-                "Job search", "Internship programs", "Course selection", "Career fair"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-37",
-            "type": "extended",
-            "question": "According to the speaker, what is important?",
-            "context": "Career advisor discusses internship requirements.",
-            "choices": [
-                "Good grades", "Prior experience", "Recommendations", "All of the above"
-            ],
-            "answer": 3
-        }, {
-            "id": "L6-38",
-            "type": "extended",
-            "question": "When is the deadline?",
-            "context": "Discussion about application timeline.",
-            "choices": [
-                "Next week", "End of month", "Next semester", "No deadline"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-39",
-            "type": "extended",
-            "question": "What does the advisor recommend?",
-            "context": "Advisor gives advice on applications.",
-            "choices": [
-                "Apply to many places", "Focus on one company", "Wait until senior year", "Study abroad instead"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-40",
-            "type": "extended",
-            "question": "What will the student do next?",
-            "context": "Student plans next steps.",
-            "choices": [
-                "Update resume", "Change major", "Drop out", "Take a break"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-41",
-            "type": "lecture",
-            "question": "What is the main topic of the lecture?",
-            "context": "Professor discusses renewable energy sources and sustainability.",
-            "choices": [
-                "Fossil fuels", "Renewable energy", "Nuclear power", "Energy conservation"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-42",
-            "type": "lecture",
-            "question": "According to the professor, what is an advantage?",
-            "context": "Lecture continues on solar energy benefits.",
-            "choices": [
-                "Low cost", "Unlimited supply", "Easy installation", "No maintenance"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-43",
-            "type": "lecture",
-            "question": "What example does the professor give?",
-            "context": "Professor provides case study.",
-            "choices": [
-                "Wind farms", "Solar panels", "Hydroelectric dams", "All of the above"
-            ],
-            "answer": 3
-        }, {
-            "id": "L6-44",
-            "type": "lecture",
-            "question": "What can be inferred?",
-            "context": "Discussion of future energy trends.",
-            "choices": [
-                "Renewables will increase", "Fossil fuels will dominate", "Energy use will decrease", "No change expected"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-45",
-            "type": "lecture",
-            "question": "What does the professor emphasize?",
-            "context": "Professor stresses importance of action.",
-            "choices": [
-                "Individual responsibility", "Government policy", "Corporate investment", "Technological innovation"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-46",
-            "type": "lecture",
-            "question": "What is the main topic?",
-            "context": "Lecture on cognitive psychology and memory.",
-            "choices": [
-                "Brain structure", "Memory processes", "Learning disabilities", "Child development"
-            ],
-            "answer": 1
-        }, {
-            "id": "L6-47",
-            "type": "lecture",
-            "question": "According to the lecture, what affects memory?",
-            "context": "Discussion of memory factors.",
-            "choices": [
-                "Sleep", "Stress", "Nutrition", "All of the above"
-            ],
-            "answer": 3
-        }, {
-            "id": "L6-48",
-            "type": "lecture",
-            "question": "What method is mentioned?",
-            "context": "Professor describes memory techniques.",
-            "choices": [
-                "Chunking", "Repetition", "Mnemonics", "All of the above"
-            ],
-            "answer": 3
-        }, {
-            "id": "L6-49",
-            "type": "lecture",
-            "question": "What does the professor suggest?",
-            "context": "Recommendations for students.",
-            "choices": [
-                "Practice regularly", "Cram before exams", "Avoid studying", "Rely on notes only"
-            ],
-            "answer": 0
-        }, {
-            "id": "L6-50",
-            "type": "lecture",
-            "question": "What can be concluded?",
-            "context": "Lecture conclusion about memory.",
-            "choices": [
-                "Memory can be improved", "Memory is fixed", "Age determines memory", "Memory isn't important"
-            ],
-            "answer": 0
+          "id": "L6-001",
+          "question": "What does the woman mean?",
+          "choices": [
+            "The library closes earlier",
+            "Weekend hours changed",
+            "Weekday closing is later",
+            "The library is always open"
+          ],
+          "answer": 2,
+          "explanation": "The woman states the library is now open until midnight on weekdays."
         }
-    ]
+      ]
+    },
+    {
+      "id": "L6-AUDIO-002",
+      "type": "conversation",
+      "title": "Short conversation about bookstore closing",
+      "ttsText": "W: The bookstore is closing in 10 minutes. M: Oh no, I need to buy my textbooks!",
+      "questions": [
+        {
+          "id": "L6-002",
+          "question": "What will the man probably do?",
+          "choices": [
+            "Wait until tomorrow",
+            "Go to the bookstore now",
+            "Order books online",
+            "Borrow from library"
+          ],
+          "answer": 1,
+          "explanation": "The man expresses urgency about buying textbooks before the store closes."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-003",
+      "type": "conversation",
+      "title": "Short conversation about course selection",
+      "ttsText": "W: I can't decide on an elective course. M: Why not take something related to your major?",
+      "questions": [
+        {
+          "id": "L6-003",
+          "question": "What does the man suggest?",
+          "choices": [
+            "Take any course",
+            "Choose a course in her field",
+            "Wait for next semester",
+            "Ask an advisor"
+          ],
+          "answer": 1,
+          "explanation": "The man suggests taking a course related to her major."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-004",
+      "type": "conversation",
+      "title": "Short conversation about concert tickets",
+      "ttsText": "M: The concert tickets are $75. W: That's way beyond my budget.",
+      "questions": [
+        {
+          "id": "L6-004",
+          "question": "What does the woman imply?",
+          "choices": [
+            "She'll buy tickets",
+            "The price is fair",
+            "She can't afford it",
+            "She prefers another concert"
+          ],
+          "answer": 2,
+          "explanation": "The woman indicates the price exceeds her budget."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-005",
+      "type": "conversation",
+      "title": "Short conversation about scholarship application",
+      "ttsText": "M: Did you submit your scholarship application? W: Not yet, deadline is next Friday.",
+      "questions": [
+        {
+          "id": "L6-005",
+          "question": "What are they discussing?",
+          "choices": [
+            "Job interview",
+            "Financial aid",
+            "Course registration",
+            "Graduation"
+          ],
+          "answer": 1,
+          "explanation": "They are discussing a scholarship application, which is financial aid."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-006",
+      "type": "conversation",
+      "title": "Short conversation about exam performance",
+      "ttsText": "W: How was your chemistry exam? M: I should have studied more.",
+      "questions": [
+        {
+          "id": "L6-006",
+          "question": "What does the man mean?",
+          "choices": [
+            "He studied enough",
+            "The exam was easy",
+            "He's dissatisfied with his performance",
+            "He got a perfect score"
+          ],
+          "answer": 2,
+          "explanation": "The man expresses regret about not studying more, implying dissatisfaction."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-007",
+      "type": "conversation",
+      "title": "Short conversation about career fair",
+      "ttsText": "M: Are you going to the career fair? W: Definitely, I need to network.",
+      "questions": [
+        {
+          "id": "L6-007",
+          "question": "What will the woman do?",
+          "choices": [
+            "Skip the fair",
+            "Attend the career fair",
+            "Study instead",
+            "Meet friends"
+          ],
+          "answer": 1,
+          "explanation": "The woman confirms she will attend the career fair."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-008",
+      "type": "conversation",
+      "title": "Short conversation about statistics help",
+      "ttsText": "M: I'm having trouble with statistics. W: Have you tried the tutoring center?",
+      "questions": [
+        {
+          "id": "L6-008",
+          "question": "What does the woman suggest?",
+          "choices": [
+            "Drop the course",
+            "Study harder alone",
+            "Get tutoring help",
+            "Change majors"
+          ],
+          "answer": 2,
+          "explanation": "The woman suggests trying the tutoring center for help."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-009",
+      "type": "conversation",
+      "title": "Short conversation about lost essay",
+      "ttsText": "M: My laptop crashed and I lost my essay. W: Didn't you back it up?",
+      "questions": [
+        {
+          "id": "L6-009",
+          "question": "What is the man's problem?",
+          "choices": [
+            "Lost his laptop",
+            "Lost his essay file",
+            "Can't write essays",
+            "Computer is slow"
+          ],
+          "answer": 1,
+          "explanation": "The man explains he lost his essay when his laptop crashed."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-010",
+      "type": "conversation",
+      "title": "Short conversation about study group",
+      "ttsText": "M: Want to join the study group tonight? W: I would, but I have to work.",
+      "questions": [
+        {
+          "id": "L6-010",
+          "question": "What does the woman mean?",
+          "choices": [
+            "She'll join the group",
+            "She has a work commitment",
+            "She doesn't like study groups",
+            "She finished studying"
+          ],
+          "answer": 1,
+          "explanation": "The woman explains she can't join because she has to work."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-011",
+      "type": "conversation",
+      "title": "Short conversation about reading assignment",
+      "ttsText": "M: The professor assigned three books. W: I know, that's a lot of reading for one week.",
+      "questions": [
+        {
+          "id": "L6-011",
+          "question": "What is the topic?",
+          "choices": [
+            "Homework workload",
+            "Library hours",
+            "Book prices",
+            "Professor's research"
+          ],
+          "answer": 0,
+          "explanation": "They are discussing the heavy reading assignment."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-012",
+      "type": "conversation",
+      "title": "Short conversation about forming study group",
+      "ttsText": "W: Should we form a study group for the midterm? M: Good idea, let's meet at the library.",
+      "questions": [
+        {
+          "id": "L6-012",
+          "question": "What will they do?",
+          "choices": [
+            "Study separately",
+            "Form a study group",
+            "Skip the exam",
+            "Ask for extension"
+          ],
+          "answer": 1,
+          "explanation": "They agree to form a study group and meet at the library."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-013",
+      "type": "conversation",
+      "title": "Short conversation about course load",
+      "ttsText": "W: I'm thinking of taking five courses next semester. M: That sounds overwhelming.",
+      "questions": [
+        {
+          "id": "L6-013",
+          "question": "What does the man imply?",
+          "choices": [
+            "It's manageable",
+            "It's too many courses",
+            "She should take more",
+            "He'll do the same"
+          ],
+          "answer": 1,
+          "explanation": "The man's comment suggests he thinks five courses is too much."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-014",
+      "type": "conversation",
+      "title": "Short conversation about presentation anxiety",
+      "ttsText": "W: I'm worried about my presentation tomorrow. M: You'll do fine, you prepared well.",
+      "questions": [
+        {
+          "id": "L6-014",
+          "question": "What is the woman's concern?",
+          "choices": [
+            "She's unprepared",
+            "She's nervous",
+            "She forgot the topic",
+            "She can't attend"
+          ],
+          "answer": 1,
+          "explanation": "The woman expresses worry about her presentation, indicating nervousness."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-015",
+      "type": "conversation",
+      "title": "Short conversation about study location",
+      "ttsText": "W: I can't focus in the dorm. M: Try studying at the quiet floor of the library.",
+      "questions": [
+        {
+          "id": "L6-015",
+          "question": "What does the man suggest?",
+          "choices": [
+            "Stay in dorm",
+            "Use the library",
+            "Study with music",
+            "Take a break"
+          ],
+          "answer": 1,
+          "explanation": "The man suggests using the quiet floor of the library."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-016",
+      "type": "conversation",
+      "title": "Short conversation about parking",
+      "ttsText": "M: All the parking spots are full. W: There's a lot two blocks away.",
+      "questions": [
+        {
+          "id": "L6-016",
+          "question": "What is the problem?",
+          "choices": [
+            "No parking available nearby",
+            "Car is broken",
+            "They're lost",
+            "Parking is too expensive"
+          ],
+          "answer": 0,
+          "explanation": "The man states all parking spots are full nearby."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-017",
+      "type": "conversation",
+      "title": "Short conversation about group project progress",
+      "ttsText": "M: Are you done with the group project? W: We're making progress, but still have work to do.",
+      "questions": [
+        {
+          "id": "L6-017",
+          "question": "What does the woman mean?",
+          "choices": [
+            "Project is complete",
+            "They haven't started",
+            "It's partially done",
+            "She quit the group"
+          ],
+          "answer": 2,
+          "explanation": "The woman indicates they're progressing but not finished."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-018",
+      "type": "conversation",
+      "title": "Short conversation about meeting reminder",
+      "ttsText": "W: Don't forget about the department meeting. M: Thanks for reminding me, I almost forgot.",
+      "questions": [
+        {
+          "id": "L6-018",
+          "question": "What will the man do?",
+          "choices": [
+            "Skip the meeting",
+            "Attend the meeting",
+            "Reschedule it",
+            "Send someone else"
+          ],
+          "answer": 1,
+          "explanation": "The man thanks her for the reminder, implying he'll attend."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-019",
+      "type": "conversation",
+      "title": "Short conversation about campus renovation",
+      "ttsText": "M: I heard they're renovating the student center. W: Yes, it should be done by fall semester.",
+      "questions": [
+        {
+          "id": "L6-019",
+          "question": "What are they talking about?",
+          "choices": [
+            "Campus construction",
+            "Class schedules",
+            "Sports events",
+            "Housing options"
+          ],
+          "answer": 0,
+          "explanation": "They are discussing renovation of the student center."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-020",
+      "type": "conversation",
+      "title": "Short conversation about cafeteria prices",
+      "ttsText": "M: Let's eat at the new cafeteria. W: I heard the prices are pretty high.",
+      "questions": [
+        {
+          "id": "L6-020",
+          "question": "What does the woman imply?",
+          "choices": [
+            "It's affordable",
+            "It's expensive",
+            "The food is bad",
+            "It's not open yet"
+          ],
+          "answer": 1,
+          "explanation": "The woman indicates the cafeteria has high prices."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-021",
+      "type": "conversation",
+      "title": "Short conversation about lecture opinion",
+      "ttsText": "W: What did you think of the lecture? M: It was informative but too long.",
+      "questions": [
+        {
+          "id": "L6-021",
+          "question": "What is the man's opinion?",
+          "choices": [
+            "It was perfect",
+            "It was too short",
+            "It was useful but lengthy",
+            "It was boring"
+          ],
+          "answer": 2,
+          "explanation": "The man found it informative but thought it was too long."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-022",
+      "type": "conversation",
+      "title": "Short conversation about writing improvement",
+      "ttsText": "M: I need to improve my writing. W: You should visit the writing center.",
+      "questions": [
+        {
+          "id": "L6-022",
+          "question": "What does the woman suggest?",
+          "choices": [
+            "Read more books",
+            "Get writing help",
+            "Practice speaking",
+            "Take another course"
+          ],
+          "answer": 1,
+          "explanation": "The woman suggests visiting the writing center for help."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-023",
+      "type": "conversation",
+      "title": "Short conversation about field trip",
+      "ttsText": "M: Did you sign up for the field trip? W: Yes, I'm excited to visit the museum.",
+      "questions": [
+        {
+          "id": "L6-023",
+          "question": "What is the topic?",
+          "choices": [
+            "Class assignment",
+            "Educational trip",
+            "Museum hours",
+            "Transportation"
+          ],
+          "answer": 1,
+          "explanation": "They are discussing a field trip to the museum."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-024",
+      "type": "conversation",
+      "title": "Short conversation about lab supplies",
+      "ttsText": "W: We need supplies for the experiment. M: I'll go to the lab supply room.",
+      "questions": [
+        {
+          "id": "L6-024",
+          "question": "What will they do?",
+          "choices": [
+            "Cancel the experiment",
+            "Get supplies",
+            "Ask the professor",
+            "Use old materials"
+          ],
+          "answer": 1,
+          "explanation": "The man will get supplies from the lab supply room."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-025",
+      "type": "conversation",
+      "title": "Short conversation about joining club",
+      "ttsText": "W: Are you joining the club? M: I'm interested, but I don't have time this semester.",
+      "questions": [
+        {
+          "id": "L6-025",
+          "question": "What does the man mean?",
+          "choices": [
+            "He'll join now",
+            "He's too busy currently",
+            "He's not interested",
+            "He already joined"
+          ],
+          "answer": 1,
+          "explanation": "The man indicates he doesn't have time this semester."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-026",
+      "type": "conversation",
+      "title": "Short conversation about account login issue",
+      "ttsText": "M: I can't log into my student account. W: You should contact IT support.",
+      "questions": [
+        {
+          "id": "L6-026",
+          "question": "What is the problem?",
+          "choices": [
+            "Account access issue",
+            "Internet is down",
+            "Computer is broken",
+            "Password is stolen"
+          ],
+          "answer": 0,
+          "explanation": "The man can't log into his student account."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-027",
+      "type": "conversation",
+      "title": "Short conversation about game invitation",
+      "ttsText": "M: Want to go to the game tonight? W: I have too much homework.",
+      "questions": [
+        {
+          "id": "L6-027",
+          "question": "What does the woman mean?",
+          "choices": [
+            "She'll go to the game",
+            "She needs to study",
+            "She doesn't like sports",
+            "She's going somewhere else"
+          ],
+          "answer": 1,
+          "explanation": "The woman indicates she needs to do homework instead."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-028",
+      "type": "conversation",
+      "title": "Short conversation about exam date change",
+      "ttsText": "W: The professor changed the exam date. M: That's good, I need more time to prepare.",
+      "questions": [
+        {
+          "id": "L6-028",
+          "question": "What are they discussing?",
+          "choices": [
+            "Exam schedule change",
+            "New course",
+            "Grading policy",
+            "Assignment topic"
+          ],
+          "answer": 0,
+          "explanation": "They are discussing a change in the exam date."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-029",
+      "type": "conversation",
+      "title": "Short conversation about review session",
+      "ttsText": "W: Are you going to the review session? M: Absolutely, I don't want to miss it.",
+      "questions": [
+        {
+          "id": "L6-029",
+          "question": "What will the man do?",
+          "choices": [
+            "Skip the session",
+            "Attend the review",
+            "Study alone",
+            "Ask for notes"
+          ],
+          "answer": 1,
+          "explanation": "The man confirms he will attend the review session."
+        }
+      ]
+    },
+    {
+      "id": "L6-AUDIO-030",
+      "type": "conversation",
+      "title": "Short conversation about research paper progress",
+      "ttsText": "M: How's your research paper going? W: I'm still gathering sources.",
+      "questions": [
+        {
+          "id": "L6-030",
+          "question": "What does the woman imply?",
+          "choices": [
+            "She finished writing",
+            "She's in the research phase",
+            "She needs a topic",
+            "She's ready to submit"
+          ],
+          "answer": 1,
+          "explanation": "The woman indicates she's still in the research phase gathering sources."
+        }
+      ]
+    },
+    {
+      "id": "L6-EXTENDED-001",
+      "type": "conversation",
+      "title": "Extended conversation about campus housing",
+      "ttsText": "Extended conversation about campus housing options and dormitory rules. Discussion about housing requirements, deposit requirements, advisor recommendations, housing availability, and student decisions on housing applications.",
+      "questions": [
+        {
+          "id": "L6-031",
+          "question": "What is the main topic?",
+          "choices": [
+            "Housing policies",
+            "Meal plans",
+            "Class schedules",
+            "Campus security"
+          ],
+          "answer": 0,
+          "explanation": "The conversation focuses on campus housing options and rules."
+        },
+        {
+          "id": "L6-032",
+          "question": "According to the conversation, what is required?",
+          "choices": [
+            "Meal plan purchase",
+            "Housing deposit",
+            "Parking permit",
+            "Student ID"
+          ],
+          "answer": 1,
+          "explanation": "A housing deposit is required as discussed in the conversation."
+        },
+        {
+          "id": "L6-033",
+          "question": "What does the speaker suggest?",
+          "choices": [
+            "Apply early",
+            "Live off-campus",
+            "Share a room",
+            "Wait a semester"
+          ],
+          "answer": 0,
+          "explanation": "The advisor recommends applying early for housing."
+        },
+        {
+          "id": "L6-034",
+          "question": "What can be inferred?",
+          "choices": [
+            "Housing is limited",
+            "Many rooms available",
+            "No deadline",
+            "No freshmen allowed"
+          ],
+          "answer": 0,
+          "explanation": "The discussion implies housing availability is limited."
+        },
+        {
+          "id": "L6-035",
+          "question": "What will the student probably do?",
+          "choices": [
+            "Submit application",
+            "Look elsewhere",
+            "Wait and see",
+            "Ask parents"
+          ],
+          "answer": 0,
+          "explanation": "The student will likely submit the housing application."
+        }
+      ]
+    },
+    {
+      "id": "L6-EXTENDED-002",
+      "type": "conversation",
+      "title": "Extended conversation about engineering internships",
+      "ttsText": "Extended conversation about internship opportunities in engineering. Career advisor discusses internship requirements including grades, experience, and recommendations. Discussion about application timeline, deadline at end of month, advisor recommendations to apply to many places, and student plans to update resume.",
+      "questions": [
+        {
+          "id": "L6-036",
+          "question": "What is the main topic?",
+          "choices": [
+            "Job search",
+            "Internship programs",
+            "Course selection",
+            "Career fair"
+          ],
+          "answer": 1,
+          "explanation": "The conversation is about internship opportunities in engineering."
+        },
+        {
+          "id": "L6-037",
+          "question": "According to the speaker, what is important?",
+          "choices": [
+            "Good grades",
+            "Prior experience",
+            "Recommendations",
+            "All of the above"
+          ],
+          "answer": 3,
+          "explanation": "The advisor mentions grades, experience, and recommendations are all important."
+        },
+        {
+          "id": "L6-038",
+          "question": "When is the deadline?",
+          "choices": [
+            "Next week",
+            "End of month",
+            "Next semester",
+            "No deadline"
+          ],
+          "answer": 1,
+          "explanation": "The deadline is mentioned as end of the month."
+        },
+        {
+          "id": "L6-039",
+          "question": "What does the advisor recommend?",
+          "choices": [
+            "Apply to many places",
+            "Focus on one company",
+            "Wait until senior year",
+            "Study abroad instead"
+          ],
+          "answer": 0,
+          "explanation": "The advisor recommends applying to many places."
+        },
+        {
+          "id": "L6-040",
+          "question": "What will the student do next?",
+          "choices": [
+            "Update resume",
+            "Change major",
+            "Drop out",
+            "Take a break"
+          ],
+          "answer": 0,
+          "explanation": "The student plans to update their resume."
+        }
+      ]
+    },
+    {
+      "id": "L6-LECTURE-001",
+      "type": "lecture",
+      "title": "Lecture on renewable energy and sustainability",
+      "ttsText": "Professor discusses renewable energy sources and sustainability. Lecture covers solar energy benefits including unlimited supply, provides examples of wind farms, solar panels, and hydroelectric dams. Discussion of future energy trends showing renewables will increase, and professor emphasizes individual responsibility in energy use.",
+      "questions": [
+        {
+          "id": "L6-041",
+          "question": "What is the main topic of the lecture?",
+          "choices": [
+            "Fossil fuels",
+            "Renewable energy",
+            "Nuclear power",
+            "Energy conservation"
+          ],
+          "answer": 1,
+          "explanation": "The lecture focuses on renewable energy sources and sustainability."
+        },
+        {
+          "id": "L6-042",
+          "question": "According to the professor, what is an advantage?",
+          "choices": [
+            "Low cost",
+            "Unlimited supply",
+            "Easy installation",
+            "No maintenance"
+          ],
+          "answer": 1,
+          "explanation": "The professor mentions solar energy has an unlimited supply."
+        },
+        {
+          "id": "L6-043",
+          "question": "What example does the professor give?",
+          "choices": [
+            "Wind farms",
+            "Solar panels",
+            "Hydroelectric dams",
+            "All of the above"
+          ],
+          "answer": 3,
+          "explanation": "The professor provides examples of all three renewable energy types."
+        },
+        {
+          "id": "L6-044",
+          "question": "What can be inferred?",
+          "choices": [
+            "Renewables will increase",
+            "Fossil fuels will dominate",
+            "Energy use will decrease",
+            "No change expected"
+          ],
+          "answer": 0,
+          "explanation": "The discussion of future trends indicates renewables will increase."
+        },
+        {
+          "id": "L6-045",
+          "question": "What does the professor emphasize?",
+          "choices": [
+            "Individual responsibility",
+            "Government policy",
+            "Corporate investment",
+            "Technological innovation"
+          ],
+          "answer": 0,
+          "explanation": "The professor emphasizes individual responsibility in energy use."
+        }
+      ]
+    },
+    {
+      "id": "L6-LECTURE-002",
+      "type": "lecture",
+      "title": "Lecture on cognitive psychology and memory",
+      "ttsText": "Lecture on cognitive psychology and memory processes. Professor discusses factors affecting memory including sleep, stress, and nutrition. Memory techniques mentioned include chunking, repetition, and mnemonics. Professor recommends regular practice for students and concludes that memory can be improved with proper techniques.",
+      "questions": [
+        {
+          "id": "L6-046",
+          "question": "What is the main topic?",
+          "choices": [
+            "Brain structure",
+            "Memory processes",
+            "Learning disabilities",
+            "Child development"
+          ],
+          "answer": 1,
+          "explanation": "The lecture is about cognitive psychology and memory processes."
+        },
+        {
+          "id": "L6-047",
+          "question": "According to the lecture, what affects memory?",
+          "choices": [
+            "Sleep",
+            "Stress",
+            "Nutrition",
+            "All of the above"
+          ],
+          "answer": 3,
+          "explanation": "The professor mentions sleep, stress, and nutrition all affect memory."
+        },
+        {
+          "id": "L6-048",
+          "question": "What method is mentioned?",
+          "choices": [
+            "Chunking",
+            "Repetition",
+            "Mnemonics",
+            "All of the above"
+          ],
+          "answer": 3,
+          "explanation": "The professor describes all three memory techniques."
+        },
+        {
+          "id": "L6-049",
+          "question": "What does the professor suggest?",
+          "choices": [
+            "Practice regularly",
+            "Cram before exams",
+            "Avoid studying",
+            "Rely on notes only"
+          ],
+          "answer": 0,
+          "explanation": "The professor recommends regular practice for students."
+        },
+        {
+          "id": "L6-050",
+          "question": "What can be concluded?",
+          "choices": [
+            "Memory can be improved",
+            "Memory is fixed",
+            "Age determines memory",
+            "Memory isn't important"
+          ],
+          "answer": 0,
+          "explanation": "The lecture concludes that memory can be improved with proper techniques."
+        }
+      ]
+    }
+  ]
 }

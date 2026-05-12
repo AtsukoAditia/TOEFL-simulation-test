@@ -7,135 +7,175 @@
     "durationMinutes": 35,
     "totalQuestions": 20
   },
-  "conversations": [
+  "items": [
     {
       "id": "L4-CONV-001",
-      "type": "short-conversation",
-      "audio": null,
-      "transcript": "Man: I heard the library will be closed for renovations next week. Woman: Yes, but they said the online catalog will still be accessible, and we can borrow up to ten books before then.",
-      "question": "What does the woman say about the library?",
-      "choices": [
-        "It will be permanently closed.",
-        "Borrowing books will not be possible.",
-        "The online catalog and pre-borrowing are still available.",
-        "Only graduate students may access it."
-      ],
-      "answer": 2,
-      "explanation": "The woman says the online catalog is still accessible and they can borrow books before the closure."
+      "type": "conversation",
+      "title": "Short conversation about library closure",
+      "ttsText": "Man: I heard the library will be closed for renovations next week. Woman: Yes, but they said the online catalog will still be accessible, and we can borrow up to ten books before then.",
+      "questions": [
+        {
+          "id": "L4-001",
+          "question": "What does the woman say about the library?",
+          "choices": [
+            "It will be permanently closed.",
+            "Borrowing books will not be possible.",
+            "The online catalog and pre-borrowing are still available.",
+            "Only graduate students may access it."
+          ],
+          "answer": 2,
+          "explanation": "The woman says the online catalog is still accessible and they can borrow books before the closure."
+        }
+      ]
     },
     {
       "id": "L4-CONV-002",
-      "type": "short-conversation",
-      "audio": null,
-      "transcript": "Woman: Did you finish the lab report for chemistry? Man: Not yet. I still need to analyze the data from Tuesday's experiment. I was hoping you might have some time to help me.",
-      "question": "What does the man want the woman to help him with?",
-      "choices": [
-        "Writing the introduction of the report",
-        "Analyzing experiment data",
-        "Conducting a new chemistry experiment",
-        "Submitting the report online"
-      ],
-      "answer": 1,
-      "explanation": "The man says he needs to analyze the data from Tuesday's experiment and asks for help with that."
+      "type": "conversation",
+      "title": "Short conversation about lab report",
+      "ttsText": "Woman: Did you finish the lab report for chemistry? Man: Not yet. I still need to analyze the data from Tuesday's experiment. I was hoping you might have some time to help me.",
+      "questions": [
+        {
+          "id": "L4-002",
+          "question": "What does the man want the woman to help him with?",
+          "choices": [
+            "Writing the introduction of the report",
+            "Analyzing experiment data",
+            "Conducting a new chemistry experiment",
+            "Submitting the report online"
+          ],
+          "answer": 1,
+          "explanation": "The man says he needs to analyze the data from Tuesday's experiment and asks for help with that."
+        }
+      ]
     },
     {
       "id": "L4-CONV-003",
-      "type": "short-conversation",
-      "audio": null,
-      "transcript": "Man: The professor moved the deadline for the essay to Friday instead of Wednesday. Woman: That's a relief. I was worried I wouldn't have enough time to revise it properly.",
-      "question": "How does the woman feel about the deadline change?",
-      "choices": [
-        "Frustrated",
-        "Indifferent",
-        "Relieved",
-        "Confused"
-      ],
-      "answer": 2,
-      "explanation": "The woman says 'that's a relief,' showing she is happy about having more time."
+      "type": "conversation",
+      "title": "Short conversation about deadline extension",
+      "ttsText": "Man: The professor moved the deadline for the essay to Friday instead of Wednesday. Woman: That's a relief. I was worried I wouldn't have enough time to revise it properly.",
+      "questions": [
+        {
+          "id": "L4-003",
+          "question": "How does the woman feel about the deadline change?",
+          "choices": [
+            "Frustrated",
+            "Indifferent",
+            "Relieved",
+            "Confused"
+          ],
+          "answer": 2,
+          "explanation": "The woman says 'that's a relief,' showing she is happy about having more time."
+        }
+      ]
     },
     {
       "id": "L4-CONV-004",
-      "type": "short-conversation",
-      "audio": null,
-      "transcript": "Woman: I'm thinking of switching my major from biology to environmental science. Man: Have you spoken to your academic advisor yet? You should do that before making any decisions.",
-      "question": "What does the man suggest the woman should do?",
-      "choices": [
-        "Switch to a different major immediately",
-        "Consult her academic advisor first",
-        "Take more biology courses",
-        "Apply to environmental science graduate programs"
-      ],
-      "answer": 1,
-      "explanation": "The man recommends speaking to an academic advisor before making a decision."
+      "type": "conversation",
+      "title": "Short conversation about changing majors",
+      "ttsText": "Woman: I'm thinking of switching my major from biology to environmental science. Man: Have you spoken to your academic advisor yet? You should do that before making any decisions.",
+      "questions": [
+        {
+          "id": "L4-004",
+          "question": "What does the man suggest the woman should do?",
+          "choices": [
+            "Switch to a different major immediately",
+            "Consult her academic advisor first",
+            "Take more biology courses",
+            "Apply to environmental science graduate programs"
+          ],
+          "answer": 1,
+          "explanation": "The man recommends speaking to an academic advisor before making a decision."
+        }
+      ]
     },
     {
       "id": "L4-CONV-005",
-      "type": "short-conversation",
-      "audio": null,
-      "transcript": "Man: Is the campus shuttle running on a different schedule during the holiday? Woman: I believe it runs every thirty minutes instead of every fifteen, and it stops at 9 PM.",
-      "question": "What change in shuttle service does the woman describe?",
-      "choices": [
-        "The shuttle does not run during holidays.",
-        "The shuttle runs more frequently than usual.",
-        "The frequency is reduced and service ends earlier.",
-        "Only staff members may use the shuttle."
-      ],
-      "answer": 2,
-      "explanation": "The woman says the shuttle runs every 30 minutes (instead of 15) and stops at 9 PM, indicating reduced frequency and earlier end time."
+      "type": "conversation",
+      "title": "Short conversation about shuttle schedule",
+      "ttsText": "Man: Is the campus shuttle running on a different schedule during the holiday? Woman: I believe it runs every thirty minutes instead of every fifteen, and it stops at 9 PM.",
+      "questions": [
+        {
+          "id": "L4-005",
+          "question": "What change in shuttle service does the woman describe?",
+          "choices": [
+            "The shuttle does not run during holidays.",
+            "The shuttle runs more frequently than usual.",
+            "The frequency is reduced and service ends earlier.",
+            "Only staff members may use the shuttle."
+          ],
+          "answer": 2,
+          "explanation": "The woman says the shuttle runs every 30 minutes (instead of 15) and stops at 9 PM, indicating reduced frequency and earlier end time."
+        }
+      ]
     },
     {
       "id": "L4-CONV-006",
-      "type": "short-conversation",
-      "audio": null,
-      "transcript": "Woman: I can't find my student ID card anywhere. Man: You should report it to the student services office. They can issue a temporary card while a new one is being made.",
-      "question": "What does the man advise the woman to do?",
-      "choices": [
-        "Look for the card in the library",
-        "Contact student services to get a temporary card",
-        "Use her passport as identification",
-        "Wait until the semester ends to report it"
-      ],
-      "answer": 1,
-      "explanation": "The man advises her to report it to student services, who will provide a temporary card."
+      "type": "conversation",
+      "title": "Short conversation about lost student ID",
+      "ttsText": "Woman: I can't find my student ID card anywhere. Man: You should report it to the student services office. They can issue a temporary card while a new one is being made.",
+      "questions": [
+        {
+          "id": "L4-006",
+          "question": "What does the man advise the woman to do?",
+          "choices": [
+            "Look for the card in the library",
+            "Contact student services to get a temporary card",
+            "Use her passport as identification",
+            "Wait until the semester ends to report it"
+          ],
+          "answer": 1,
+          "explanation": "The man advises her to report it to student services, who will provide a temporary card."
+        }
+      ]
     },
     {
       "id": "L4-CONV-007",
-      "type": "short-conversation",
-      "audio": null,
-      "transcript": "Man: The results of the midterm exams are posted on the department board. Woman: Already? I thought they wouldn't be ready until next Monday.",
-      "question": "What does the woman imply?",
-      "choices": [
-        "She expected the results to be posted later.",
-        "She is not interested in her exam results.",
-        "She disagrees with her grade.",
-        "She has not taken the midterm exam yet."
-      ],
-      "answer": 0,
-      "explanation": "The woman says 'I thought they wouldn't be ready until next Monday,' implying she expected a later date."
+      "type": "conversation",
+      "title": "Short conversation about exam results",
+      "ttsText": "Man: The results of the midterm exams are posted on the department board. Woman: Already? I thought they wouldn't be ready until next Monday.",
+      "questions": [
+        {
+          "id": "L4-007",
+          "question": "What does the woman imply?",
+          "choices": [
+            "She expected the results to be posted later.",
+            "She is not interested in her exam results.",
+            "She disagrees with her grade.",
+            "She has not taken the midterm exam yet."
+          ],
+          "answer": 0,
+          "explanation": "The woman says 'I thought they wouldn't be ready until next Monday,' implying she expected a later date."
+        }
+      ]
     },
     {
       "id": "L4-CONV-008",
-      "type": "short-conversation",
-      "audio": null,
-      "transcript": "Woman: How was the guest lecture on renewable energy this afternoon? Man: It was quite informative. The speaker focused mostly on offshore wind farms and the challenges of connecting them to the main power grid.",
-      "question": "What was the main topic of the guest lecture?",
-      "choices": [
-        "Solar panel installation in residential areas",
-        "Government subsidies for renewable energy",
-        "Offshore wind farms and grid connection challenges",
-        "The history of fossil fuel use"
-      ],
-      "answer": 2,
-      "explanation": "The man says the speaker focused on offshore wind farms and challenges of grid connection."
+      "type": "conversation",
+      "title": "Short conversation about guest lecture",
+      "ttsText": "Woman: How was the guest lecture on renewable energy this afternoon? Man: It was quite informative. The speaker focused mostly on offshore wind farms and the challenges of connecting them to the main power grid.",
+      "questions": [
+        {
+          "id": "L4-008",
+          "question": "What was the main topic of the guest lecture?",
+          "choices": [
+            "Solar panel installation in residential areas",
+            "Government subsidies for renewable energy",
+            "Offshore wind farms and grid connection challenges",
+            "The history of fossil fuel use"
+          ],
+          "answer": 2,
+          "explanation": "The man says the speaker focused on offshore wind farms and challenges of grid connection."
+        }
+      ]
     },
     {
       "id": "L4-TALK-001",
-      "type": "academic-talk",
-      "audio": null,
-      "transcript": "Today I want to briefly discuss how scientists measure ocean temperatures and why it matters. Ocean temperature data is collected using instruments called Argo floats, which are autonomous devices that drift through the ocean at various depths, recording temperature and salinity. There are currently about four thousand of these floats operating worldwide. The data they collect is critical for understanding climate change, because oceans absorb more than ninety percent of the excess heat trapped by greenhouse gases. When ocean temperatures rise, coral reefs bleach, sea levels increase due to thermal expansion, and weather patterns shift significantly.",
+      "type": "lecture",
+      "title": "Academic talk about ocean temperature measurement",
+      "ttsText": "Today I want to briefly discuss how scientists measure ocean temperatures and why it matters. Ocean temperature data is collected using instruments called Argo floats, which are autonomous devices that drift through the ocean at various depths, recording temperature and salinity. There are currently about four thousand of these floats operating worldwide. The data they collect is critical for understanding climate change, because oceans absorb more than ninety percent of the excess heat trapped by greenhouse gases. When ocean temperatures rise, coral reefs bleach, sea levels increase due to thermal expansion, and weather patterns shift significantly.",
       "questions": [
         {
-          "id": "L4009",
+          "id": "L4-009",
           "question": "What instrument does the speaker describe for measuring ocean temperature?",
           "choices": [
             "Satellite sensors",
@@ -147,7 +187,7 @@
           "explanation": "The speaker describes Argo floats as autonomous devices used to record temperature and salinity at various depths."
         },
         {
-          "id": "L4010",
+          "id": "L4-010",
           "question": "According to the talk, approximately how many Argo floats are currently operating?",
           "choices": [
             "About 400",
@@ -159,7 +199,7 @@
           "explanation": "The speaker states there are 'about four thousand of these floats operating worldwide.'"
         },
         {
-          "id": "L4011",
+          "id": "L4-011",
           "question": "What percentage of excess heat from greenhouse gases do oceans absorb?",
           "choices": [
             "More than 50 percent",
@@ -171,7 +211,7 @@
           "explanation": "The speaker says oceans absorb 'more than ninety percent of the excess heat trapped by greenhouse gases.'"
         },
         {
-          "id": "L4012",
+          "id": "L4-012",
           "question": "What effect of rising ocean temperatures does the speaker NOT mention?",
           "choices": [
             "Coral reef bleaching",
@@ -186,12 +226,12 @@
     },
     {
       "id": "L4-TALK-002",
-      "type": "academic-talk",
-      "audio": null,
-      "transcript": "Let's talk about behavioral economics, specifically the concept of loss aversion. Research by psychologists Kahneman and Tversky showed that people feel the pain of a loss roughly twice as strongly as the pleasure of an equivalent gain. This means, for example, that losing twenty dollars causes more distress than gaining twenty dollars causes happiness. This principle helps explain many economic decisions that seem irrational from a traditional perspective — such as why people hold on to losing investments longer than they should, hoping to avoid realizing a loss, or why they prefer a certain smaller reward over a larger but uncertain one.",
+      "type": "lecture",
+      "title": "Academic talk about loss aversion in behavioral economics",
+      "ttsText": "Let's talk about behavioral economics, specifically the concept of loss aversion. Research by psychologists Kahneman and Tversky showed that people feel the pain of a loss roughly twice as strongly as the pleasure of an equivalent gain. This means, for example, that losing twenty dollars causes more distress than gaining twenty dollars causes happiness. This principle helps explain many economic decisions that seem irrational from a traditional perspective — such as why people hold on to losing investments longer than they should, hoping to avoid realizing a loss, or why they prefer a certain smaller reward over a larger but uncertain one.",
       "questions": [
         {
-          "id": "L4013",
+          "id": "L4-013",
           "question": "What is the main concept discussed in the talk?",
           "choices": [
             "Investment strategies for beginners",
@@ -203,7 +243,7 @@
           "explanation": "The entire talk is about the concept of loss aversion and how it affects decision-making."
         },
         {
-          "id": "L4014",
+          "id": "L4-014",
           "question": "According to the research described, how does the pain of a loss compare to the pleasure of an equivalent gain?",
           "choices": [
             "They are felt equally",
@@ -215,7 +255,7 @@
           "explanation": "The speaker states that 'people feel the pain of a loss roughly twice as strongly as the pleasure of an equivalent gain.'"
         },
         {
-          "id": "L4015",
+          "id": "L4-015",
           "question": "Which behavior does the speaker cite as an example of loss aversion?",
           "choices": [
             "Selling investments immediately when their value rises",
@@ -227,7 +267,7 @@
           "explanation": "The speaker mentions that people hold on to losing investments too long to avoid realizing a loss as an example of loss aversion."
         },
         {
-          "id": "L4016",
+          "id": "L4-016",
           "question": "Who conducted the research on loss aversion described in the talk?",
           "choices": [
             "Smith and Friedman",
@@ -239,7 +279,7 @@
           "explanation": "The speaker explicitly names 'psychologists Kahneman and Tversky' as the researchers."
         },
         {
-          "id": "L4017",
+          "id": "L4-017",
           "question": "What does the speaker say about people's preference for certain versus uncertain rewards?",
           "choices": [
             "People prefer larger uncertain rewards over smaller certain ones.",
@@ -251,7 +291,7 @@
           "explanation": "The speaker says loss aversion explains why people 'prefer a certain smaller reward over a larger but uncertain one.'"
         },
         {
-          "id": "L4018",
+          "id": "L4-018",
           "question": "According to the talk, what makes the behaviors described 'irrational' in traditional economics?",
           "choices": [
             "They involve amounts that are too small to matter.",
@@ -263,7 +303,7 @@
           "explanation": "The speaker says these decisions 'seem irrational from a traditional perspective,' implying traditional economics expects people to maximize gains rationally."
         },
         {
-          "id": "L4019",
+          "id": "L4-019",
           "question": "What is the speaker's implied purpose in giving this talk?",
           "choices": [
             "To criticize investors who make poor decisions",
@@ -275,7 +315,7 @@
           "explanation": "The talk explains the psychological concept of loss aversion to show how human behavior can deviate from rational economic models."
         },
         {
-          "id": "L4020",
+          "id": "L4-020",
           "question": "What example does the speaker use to illustrate loss aversion?",
           "choices": [
             "Winning and losing fifty dollars in a card game",

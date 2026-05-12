@@ -2,312 +2,412 @@
   "meta": {
     "testName": "TOEFL ITP-like Practice",
     "section": "listening",
-    "part": "set-5",
+    "set": "set-5",
     "version": "1.0.0",
     "description": "Long Academic Listening Module",
     "durationMinutes": 20,
     "totalQuestions": 20
   },
-  "questions": [
+  "items": [
     {
-      "id": "L5-001",
+      "id": "L5-AUDIO-001",
       "type": "conversation",
-      "audioUrl": "audio/l5-001.mp3",
-      "transcript": "(Man) Excuse me, Professor Davis. I'm having trouble with the research paper assignment. (Woman) What seems to be the problem? (Man) I can't find enough sources on the impact of social media on political campaigns. (Woman) Have you checked the university database? There are several peer-reviewed journals on that topic.",
-      "question": "What is the student's problem?",
-      "choices": [
-        "He doesn't understand the assignment",
-        "He can't find enough research sources",
-        "He missed the deadline for the paper",
-        "He doesn't know how to access the database"
-      ],
-      "answer": 1,
-      "explanation": "The student explicitly states he can't find enough sources."
+      "title": "Conversation about research paper sources",
+      "ttsText": "(Man) Excuse me, Professor Davis. I'm having trouble with the research paper assignment. (Woman) What seems to be the problem? (Man) I can't find enough sources on the impact of social media on political campaigns. (Woman) Have you checked the university database? There are several peer-reviewed journals on that topic.",
+      "questions": [
+        {
+          "id": "L5-001",
+          "question": "What is the student's problem?",
+          "choices": [
+            "He doesn't understand the assignment",
+            "He can't find enough research sources",
+            "He missed the deadline for the paper",
+            "He doesn't know how to access the database"
+          ],
+          "answer": 1,
+          "explanation": "The student explicitly states he can't find enough sources."
+        }
+      ]
     },
     {
-      "id": "L5-002",
+      "id": "L5-AUDIO-002",
       "type": "conversation",
-      "audioUrl": "audio/l5-002.mp3",
-      "transcript": "(Woman) Are you planning to attend the guest lecture on renewable energy next week? (Man) I'd like to, but it conflicts with my chemistry lab. (Woman) You should email the speaker for the slides. Many guest lecturers share their presentations afterward.",
-      "question": "What does the woman suggest the man do?",
-      "choices": [
-        "Skip the chemistry lab",
-        "Reschedule the lab session",
-        "Request the lecture slides from the speaker",
-        "Watch a recording of the lecture"
-      ],
-      "answer": 2,
-      "explanation": "The woman suggests emailing the speaker for the slides."
+      "title": "Conversation about guest lecture conflict",
+      "ttsText": "(Woman) Are you planning to attend the guest lecture on renewable energy next week? (Man) I'd like to, but it conflicts with my chemistry lab. (Woman) You should email the speaker for the slides. Many guest lecturers share their presentations afterward.",
+      "questions": [
+        {
+          "id": "L5-002",
+          "question": "What does the woman suggest the man do?",
+          "choices": [
+            "Skip the chemistry lab",
+            "Reschedule the lab session",
+            "Request the lecture slides from the speaker",
+            "Watch a recording of the lecture"
+          ],
+          "answer": 2,
+          "explanation": "The woman suggests emailing the speaker for the slides."
+        }
+      ]
     },
     {
-      "id": "L5-003",
+      "id": "L5-AUDIO-003",
       "type": "conversation",
-      "audioUrl": "audio/l5-003.mp3",
-      "transcript": "(Man) I heard the university is expanding the library. (Woman) Yes, they're adding a new wing dedicated to digital resources and study spaces. Construction starts next month. (Man) That's great. The current library gets too crowded during finals week.",
-      "question": "What can be inferred about the current library?",
-      "choices": [
-        "It lacks digital resources",
-        "It is undergoing renovation",
-        "It has insufficient space",
-        "It will be closed next month"
-      ],
-      "answer": 2,
-      "explanation": "The man says the library gets too crowded, implying it lacks sufficient space."
+      "title": "Conversation about library expansion",
+      "ttsText": "(Man) I heard the university is expanding the library. (Woman) Yes, they're adding a new wing dedicated to digital resources and study spaces. Construction starts next month. (Man) That's great. The current library gets too crowded during finals week.",
+      "questions": [
+        {
+          "id": "L5-003",
+          "question": "What can be inferred about the current library?",
+          "choices": [
+            "It lacks digital resources",
+            "It is undergoing renovation",
+            "It has insufficient space",
+            "It will be closed next month"
+          ],
+          "answer": 2,
+          "explanation": "The man says the library gets too crowded, implying it lacks sufficient space."
+        }
+      ]
     },
     {
-      "id": "L5-004",
+      "id": "L5-AUDIO-004",
       "type": "conversation",
-      "audioUrl": "audio/l5-004.mp3",
-      "transcript": "(Woman) Did you sign up for the internship program this summer? (Man) Not yet. I'm still deciding between the marketing internship and the data analytics position. (Woman) Both sound great, but the analytics role might give you more technical skills.",
-      "question": "What is the man considering?",
-      "choices": [
-        "Taking a summer course",
-        "Choosing between two internships",
-        "Applying for a full-time job",
-        "Switching his major"
-      ],
-      "answer": 1,
-      "explanation": "The man is deciding between a marketing and a data analytics internship."
+      "title": "Conversation about summer internship options",
+      "ttsText": "(Woman) Did you sign up for the internship program this summer? (Man) Not yet. I'm still deciding between the marketing internship and the data analytics position. (Woman) Both sound great, but the analytics role might give you more technical skills.",
+      "questions": [
+        {
+          "id": "L5-004",
+          "question": "What is the man considering?",
+          "choices": [
+            "Taking a summer course",
+            "Choosing between two internships",
+            "Applying for a full-time job",
+            "Switching his major"
+          ],
+          "answer": 1,
+          "explanation": "The man is deciding between a marketing and a data analytics internship."
+        }
+      ]
     },
     {
-      "id": "L5-005",
+      "id": "L5-AUDIO-005",
       "type": "conversation",
-      "audioUrl": "audio/l5-005.mp3",
-      "transcript": "(Man) Professor, can I get an extension on the midterm paper? (Woman) What's the reason? (Man) I've been dealing with a family emergency this week. (Woman) I understand. Submit the paper by Friday instead of Wednesday, and please provide documentation from the dean's office.",
-      "question": "What does the professor require from the student?",
-      "choices": [
-        "A doctor's note",
-        "Documentation from the dean's office",
-        "An email explaining the situation",
-        "Approval from another professor"
-      ],
-      "answer": 1,
-      "explanation": "The professor asks for documentation from the dean's office."
+      "title": "Conversation about paper extension request",
+      "ttsText": "(Man) Professor, can I get an extension on the midterm paper? (Woman) What's the reason? (Man) I've been dealing with a family emergency this week. (Woman) I understand. Submit the paper by Friday instead of Wednesday, and please provide documentation from the dean's office.",
+      "questions": [
+        {
+          "id": "L5-005",
+          "question": "What does the professor require from the student?",
+          "choices": [
+            "A doctor's note",
+            "Documentation from the dean's office",
+            "An email explaining the situation",
+            "Approval from another professor"
+          ],
+          "answer": 1,
+          "explanation": "The professor asks for documentation from the dean's office."
+        }
+      ]
     },
     {
-      "id": "L5-006",
-      "type": "talk",
-      "audioUrl": "audio/l5-006.mp3",
-      "transcript": "Today we'll discuss photosynthesis, the process by which plants convert light energy into chemical energy. Chlorophyll, the green pigment in plant cells, absorbs sunlight. This energy is used to convert carbon dioxide and water into glucose and oxygen. The overall equation is: 6CO2 + 6H2O + light energy → C6H12O6 + 6O2. This process occurs in the chloroplasts of plant cells.",
-      "question": "What is the main topic of the talk?",
-      "choices": [
-        "The structure of plant cells",
-        "The process of photosynthesis",
-        "The role of oxygen in respiration",
-        "The chemical composition of glucose"
-      ],
-      "answer": 1,
-      "explanation": "The speaker begins by stating the talk is about photosynthesis."
+      "id": "L5-TALK-001",
+      "type": "lecture",
+      "title": "Lecture about photosynthesis",
+      "ttsText": "Today we'll discuss photosynthesis, the process by which plants convert light energy into chemical energy. Chlorophyll, the green pigment in plant cells, absorbs sunlight. This energy is used to convert carbon dioxide and water into glucose and oxygen. The overall equation is: 6CO2 + 6H2O + light energy → C6H12O6 + 6O2. This process occurs in the chloroplasts of plant cells.",
+      "questions": [
+        {
+          "id": "L5-006",
+          "question": "What is the main topic of the talk?",
+          "choices": [
+            "The structure of plant cells",
+            "The process of photosynthesis",
+            "The role of oxygen in respiration",
+            "The chemical composition of glucose"
+          ],
+          "answer": 1,
+          "explanation": "The speaker begins by stating the talk is about photosynthesis."
+        }
+      ]
     },
     {
-      "id": "L5-007",
-      "type": "talk",
-      "audioUrl": "audio/l5-007.mp3",
-      "transcript": "The Renaissance was a period of cultural rebirth in Europe from the 14th to 17th centuries. It marked a renewed interest in classical Greek and Roman art, literature, and philosophy. Key figures include Leonardo da Vinci, Michelangelo, and Shakespeare. The invention of the printing press by Gutenberg facilitated the spread of knowledge.",
-      "question": "What role did the printing press play during the Renaissance?",
-      "choices": [
-        "It replaced traditional art forms",
-        "It helped spread knowledge more widely",
-        "It was invented by Leonardo da Vinci",
-        "It reduced interest in classical texts"
-      ],
-      "answer": 1,
-      "explanation": "The speaker states the printing press facilitated the spread of knowledge."
+      "id": "L5-TALK-002",
+      "type": "lecture",
+      "title": "Lecture about the Renaissance",
+      "ttsText": "The Renaissance was a period of cultural rebirth in Europe from the 14th to 17th centuries. It marked a renewed interest in classical Greek and Roman art, literature, and philosophy. Key figures include Leonardo da Vinci, Michelangelo, and Shakespeare. The invention of the printing press by Gutenberg facilitated the spread of knowledge.",
+      "questions": [
+        {
+          "id": "L5-007",
+          "question": "What role did the printing press play during the Renaissance?",
+          "choices": [
+            "It replaced traditional art forms",
+            "It helped spread knowledge more widely",
+            "It was invented by Leonardo da Vinci",
+            "It reduced interest in classical texts"
+          ],
+          "answer": 1,
+          "explanation": "The speaker states the printing press facilitated the spread of knowledge."
+        }
+      ]
     },
     {
-      "id": "L5-008",
-      "type": "talk",
-      "audioUrl": "audio/l5-008.mp3",
-      "transcript": "Market equilibrium occurs when the quantity demanded equals the quantity supplied. At this point, there is no shortage or surplus. If the price is above equilibrium, there will be a surplus, and sellers will lower prices. If the price is below equilibrium, there will be a shortage, and prices will rise.",
-      "question": "What happens when the price is above equilibrium?",
-      "choices": [
-        "A shortage occurs",
-        "Prices will rise",
-        "A surplus occurs",
-        "Demand increases"
-      ],
-      "answer": 2,
-      "explanation": "The speaker explains that a price above equilibrium creates a surplus."
+      "id": "L5-TALK-003",
+      "type": "lecture",
+      "title": "Lecture about market equilibrium",
+      "ttsText": "Market equilibrium occurs when the quantity demanded equals the quantity supplied. At this point, there is no shortage or surplus. If the price is above equilibrium, there will be a surplus, and sellers will lower prices. If the price is below equilibrium, there will be a shortage, and prices will rise.",
+      "questions": [
+        {
+          "id": "L5-008",
+          "question": "What happens when the price is above equilibrium?",
+          "choices": [
+            "A shortage occurs",
+            "Prices will rise",
+            "A surplus occurs",
+            "Demand increases"
+          ],
+          "answer": 2,
+          "explanation": "The speaker explains that a price above equilibrium creates a surplus."
+        }
+      ]
     },
     {
-      "id": "L5-009",
-      "type": "talk",
-      "audioUrl": "audio/l5-009.mp3",
-      "transcript": "The water cycle, also known as the hydrologic cycle, describes the continuous movement of water on, above, and below the Earth's surface. It involves evaporation, condensation, precipitation, and collection. Water evaporates from oceans and lakes, forms clouds, falls as rain or snow, and returns to bodies of water.",
-      "question": "Which process is NOT mentioned as part of the water cycle?",
-      "choices": [
-        "Evaporation",
-        "Condensation",
-        "Photosynthesis",
-        "Precipitation"
-      ],
-      "answer": 2,
-      "explanation": "Photosynthesis is not part of the water cycle described in the talk."
+      "id": "L5-TALK-004",
+      "type": "lecture",
+      "title": "Lecture about the water cycle",
+      "ttsText": "The water cycle, also known as the hydrologic cycle, describes the continuous movement of water on, above, and below the Earth's surface. It involves evaporation, condensation, precipitation, and collection. Water evaporates from oceans and lakes, forms clouds, falls as rain or snow, and returns to bodies of water.",
+      "questions": [
+        {
+          "id": "L5-009",
+          "question": "Which process is NOT mentioned as part of the water cycle?",
+          "choices": [
+            "Evaporation",
+            "Condensation",
+            "Photosynthesis",
+            "Precipitation"
+          ],
+          "answer": 2,
+          "explanation": "Photosynthesis is not part of the water cycle described in the talk."
+        }
+      ]
     },
     {
-      "id": "L5-010",
-      "type": "talk",
-      "audioUrl": "audio/l5-010.mp3",
-      "transcript": "The theory of plate tectonics explains the movement of Earth's lithospheric plates. These plates float on the semi-fluid asthenosphere beneath them. When plates collide, they form mountains. When they pull apart, they create rift valleys. The theory helps explain earthquakes and volcanic activity.",
-      "question": "What geological feature is formed when plates pull apart?",
-      "choices": [
-        "Mountains",
-        "Rift valleys",
-        "Volcanoes",
-        "Canyons"
-      ],
-      "answer": 1,
-      "explanation": "The speaker states that rift valleys are created when plates pull apart."
+      "id": "L5-TALK-005",
+      "type": "lecture",
+      "title": "Lecture about plate tectonics",
+      "ttsText": "The theory of plate tectonics explains the movement of Earth's lithospheric plates. These plates float on the semi-fluid asthenosphere beneath them. When plates collide, they form mountains. When they pull apart, they create rift valleys. The theory helps explain earthquakes and volcanic activity.",
+      "questions": [
+        {
+          "id": "L5-010",
+          "question": "What geological feature is formed when plates pull apart?",
+          "choices": [
+            "Mountains",
+            "Rift valleys",
+            "Volcanoes",
+            "Canyons"
+          ],
+          "answer": 1,
+          "explanation": "The speaker states that rift valleys are created when plates pull apart."
+        }
+      ]
     },
     {
-      "id": "L5-011",
+      "id": "L5-AUDIO-006",
       "type": "conversation",
-      "audioUrl": "audio/l5-011.mp3",
-      "transcript": "(Woman) I can't decide whether to take French or Mandarin next semester. (Man) What are your career goals? (Woman) I'm interested in international business. (Man) Then Mandarin might be more useful, given China's economic influence.",
-      "question": "What does the man imply about Mandarin?",
-      "choices": [
-        "It is easier to learn than French",
-        "It is more relevant for business",
-        "It is spoken in more countries",
-        "It is required for graduation"
-      ],
-      "answer": 1,
-      "explanation": "The man suggests Mandarin is more useful for business due to China's economic influence."
+      "title": "Conversation about language course selection",
+      "ttsText": "(Woman) I can't decide whether to take French or Mandarin next semester. (Man) What are your career goals? (Woman) I'm interested in international business. (Man) Then Mandarin might be more useful, given China's economic influence.",
+      "questions": [
+        {
+          "id": "L5-011",
+          "question": "What does the man imply about Mandarin?",
+          "choices": [
+            "It is easier to learn than French",
+            "It is more relevant for business",
+            "It is spoken in more countries",
+            "It is required for graduation"
+          ],
+          "answer": 1,
+          "explanation": "The man suggests Mandarin is more useful for business due to China's economic influence."
+        }
+      ]
     },
     {
-      "id": "L5-012",
+      "id": "L5-AUDIO-007",
       "type": "conversation",
-      "audioUrl": "audio/l5-012.mp3",
-      "transcript": "(Man) Did you hear about the new student center opening? (Woman) Yes, it has a fitness center, cafeteria, and lounge areas. (Man) I'm most excited about the study rooms. They're supposed to be soundproof.",
-      "question": "What feature of the new student center interests the man most?",
-      "choices": [
-        "The fitness center",
-        "The cafeteria",
-        "The soundproof study rooms",
-        "The lounge areas"
-      ],
-      "answer": 2,
-      "explanation": "The man explicitly states he is most excited about the soundproof study rooms."
+      "title": "Conversation about new student center",
+      "ttsText": "(Man) Did you hear about the new student center opening? (Woman) Yes, it has a fitness center, cafeteria, and lounge areas. (Man) I'm most excited about the study rooms. They're supposed to be soundproof.",
+      "questions": [
+        {
+          "id": "L5-012",
+          "question": "What feature of the new student center interests the man most?",
+          "choices": [
+            "The fitness center",
+            "The cafeteria",
+            "The soundproof study rooms",
+            "The lounge areas"
+          ],
+          "answer": 2,
+          "explanation": "The man explicitly states he is most excited about the soundproof study rooms."
+        }
+      ]
     },
     {
-      "id": "L5-013",
-      "type": "talk",
-      "audioUrl": "audio/l5-013.mp3",
-      "transcript": "Symbiosis is a close relationship between two different species. There are three types: mutualism, where both benefit; commensalism, where one benefits and the other is unaffected; and parasitism, where one benefits at the expense of the other. An example of mutualism is bees pollinating flowers while gathering nectar.",
-      "question": "In which type of symbiosis do both organisms benefit?",
-      "choices": [
-        "Parasitism",
-        "Commensalism",
-        "Mutualism",
-        "Competition"
-      ],
-      "answer": 2,
-      "explanation": "The speaker defines mutualism as a relationship where both organisms benefit."
+      "id": "L5-TALK-006",
+      "type": "lecture",
+      "title": "Lecture about symbiosis",
+      "ttsText": "Symbiosis is a close relationship between two different species. There are three types: mutualism, where both benefit; commensalism, where one benefits and the other is unaffected; and parasitism, where one benefits at the expense of the other. An example of mutualism is bees pollinating flowers while gathering nectar.",
+      "questions": [
+        {
+          "id": "L5-013",
+          "question": "In which type of symbiosis do both organisms benefit?",
+          "choices": [
+            "Parasitism",
+            "Commensalism",
+            "Mutualism",
+            "Competition"
+          ],
+          "answer": 2,
+          "explanation": "The speaker defines mutualism as a relationship where both organisms benefit."
+        }
+      ]
     },
     {
-      "id": "L5-014",
-      "type": "talk",
-      "audioUrl": "audio/l5-014.mp3",
-      "transcript": "The Industrial Revolution began in Britain in the late 18th century and spread to Europe and North America. It was characterized by the transition from hand production to machine manufacturing. Key inventions included the steam engine, spinning jenny, and power loom. This period led to urbanization and significant social changes.",
-      "question": "What was a major consequence of the Industrial Revolution?",
-      "choices": [
-        "Decreased population growth",
-        "Urbanization",
-        "Return to agrarian economies",
-        "Decline in trade"
-      ],
-      "answer": 1,
-      "explanation": "The speaker mentions urbanization as a consequence of the Industrial Revolution."
+      "id": "L5-TALK-007",
+      "type": "lecture",
+      "title": "Lecture about the Industrial Revolution",
+      "ttsText": "The Industrial Revolution began in Britain in the late 18th century and spread to Europe and North America. It was characterized by the transition from hand production to machine manufacturing. Key inventions included the steam engine, spinning jenny, and power loom. This period led to urbanization and significant social changes.",
+      "questions": [
+        {
+          "id": "L5-014",
+          "question": "What was a major consequence of the Industrial Revolution?",
+          "choices": [
+            "Decreased population growth",
+            "Urbanization",
+            "Return to agrarian economies",
+            "Decline in trade"
+          ],
+          "answer": 1,
+          "explanation": "The speaker mentions urbanization as a consequence of the Industrial Revolution."
+        }
+      ]
     },
     {
-      "id": "L5-015",
-      "type": "talk",
-      "audioUrl": "audio/l5-015.mp3",
-      "transcript": "DNA, or deoxyribonucleic acid, carries genetic information. It consists of two strands forming a double helix. The strands are made of nucleotides containing adenine, thymine, cytosine, and guanine. Adenine pairs with thymine, and cytosine pairs with guanine. This structure allows DNA to replicate and transmit genetic information.",
-      "question": "Which base pairs with adenine in DNA?",
-      "choices": [
-        "Cytosine",
-        "Guanine",
-        "Thymine",
-        "Uracil"
-      ],
-      "answer": 2,
-      "explanation": "The speaker states that adenine pairs with thymine."
+      "id": "L5-TALK-008",
+      "type": "lecture",
+      "title": "Lecture about DNA structure",
+      "ttsText": "DNA, or deoxyribonucleic acid, carries genetic information. It consists of two strands forming a double helix. The strands are made of nucleotides containing adenine, thymine, cytosine, and guanine. Adenine pairs with thymine, and cytosine pairs with guanine. This structure allows DNA to replicate and transmit genetic information.",
+      "questions": [
+        {
+          "id": "L5-015",
+          "question": "Which base pairs with adenine in DNA?",
+          "choices": [
+            "Cytosine",
+            "Guanine",
+            "Thymine",
+            "Uracil"
+          ],
+          "answer": 2,
+          "explanation": "The speaker states that adenine pairs with thymine."
+        }
+      ]
     },
     {
-      "id": "L5-016",
-      "type": "talk",
-      "audioUrl": "audio/l5-016.mp3",
-      "transcript": "The greenhouse effect is a natural process where gases in the atmosphere trap heat. Without it, Earth would be too cold to support life. However, human activities, particularly the burning of fossil fuels, have increased greenhouse gas concentrations, leading to global warming and climate change.",
-      "question": "What is the greenhouse effect?",
-      "choices": [
-        "A cooling process in the atmosphere",
-        "A process where gases trap heat",
-        "A type of renewable energy",
-        "A method of reducing pollution"
-      ],
-      "answer": 1,
-      "explanation": "The speaker defines the greenhouse effect as gases trapping heat in the atmosphere."
+      "id": "L5-TALK-009",
+      "type": "lecture",
+      "title": "Lecture about the greenhouse effect",
+      "ttsText": "The greenhouse effect is a natural process where gases in the atmosphere trap heat. Without it, Earth would be too cold to support life. However, human activities, particularly the burning of fossil fuels, have increased greenhouse gas concentrations, leading to global warming and climate change.",
+      "questions": [
+        {
+          "id": "L5-016",
+          "question": "What is the greenhouse effect?",
+          "choices": [
+            "A cooling process in the atmosphere",
+            "A process where gases trap heat",
+            "A type of renewable energy",
+            "A method of reducing pollution"
+          ],
+          "answer": 1,
+          "explanation": "The speaker defines the greenhouse effect as gases trapping heat in the atmosphere."
+        }
+      ]
     },
     {
-      "id": "L5-017",
+      "id": "L5-AUDIO-008",
       "type": "conversation",
-      "audioUrl": "audio/l5-017.mp3",
-      "transcript": "(Woman) I'm thinking about joining the debate team. (Man) That's a great idea. It'll help you develop public speaking skills. (Woman) I'm a bit nervous, though. I've never debated formally before. (Man) Don't worry. They provide training for beginners.",
-      "question": "What concern does the woman have?",
-      "choices": [
-        "She lacks formal debate experience",
-        "She doesn't have time for the team",
-        "She disagrees with the debate topics",
-        "She is afraid of public speaking"
-      ],
-      "answer": 0,
-      "explanation": "The woman states she has never debated formally before."
+      "title": "Conversation about joining debate team",
+      "ttsText": "(Woman) I'm thinking about joining the debate team. (Man) That's a great idea. It'll help you develop public speaking skills. (Woman) I'm a bit nervous, though. I've never debated formally before. (Man) Don't worry. They provide training for beginners.",
+      "questions": [
+        {
+          "id": "L5-017",
+          "question": "What concern does the woman have?",
+          "choices": [
+            "She lacks formal debate experience",
+            "She doesn't have time for the team",
+            "She disagrees with the debate topics",
+            "She is afraid of public speaking"
+          ],
+          "answer": 0,
+          "explanation": "The woman states she has never debated formally before."
+        }
+      ]
     },
     {
-      "id": "L5-018",
+      "id": "L5-AUDIO-009",
       "type": "conversation",
-      "audioUrl": "audio/l5-018.mp3",
-      "transcript": "(Man) Did you finish the group project presentation? (Woman) Almost. I still need to add the conclusion slide. (Man) Make sure to include our recommendations. Professor Lee always emphasizes that. (Woman) Good point. I'll add that now.",
-      "question": "What does the man remind the woman to include?",
-      "choices": [
-        "The introduction",
-        "The data analysis",
-        "The recommendations",
-        "The bibliography"
-      ],
-      "answer": 2,
-      "explanation": "The man reminds the woman to include recommendations."
+      "title": "Conversation about group project presentation",
+      "ttsText": "(Man) Did you finish the group project presentation? (Woman) Almost. I still need to add the conclusion slide. (Man) Make sure to include our recommendations. Professor Lee always emphasizes that. (Woman) Good point. I'll add that now.",
+      "questions": [
+        {
+          "id": "L5-018",
+          "question": "What does the man remind the woman to include?",
+          "choices": [
+            "The introduction",
+            "The data analysis",
+            "The recommendations",
+            "The bibliography"
+          ],
+          "answer": 2,
+          "explanation": "The man reminds the woman to include recommendations."
+        }
+      ]
     },
     {
-      "id": "L5-019",
-      "type": "talk",
-      "audioUrl": "audio/l5-019.mp3",
-      "transcript": "Artificial intelligence, or AI, refers to machines that can perform tasks typically requiring human intelligence. This includes learning, reasoning, and problem-solving. AI applications range from virtual assistants like Siri to self-driving cars. Machine learning, a subset of AI, allows systems to improve from experience without being explicitly programmed.",
-      "question": "What is machine learning?",
-      "choices": [
-        "A type of virtual assistant",
-        "A subset of AI that improves from experience",
-        "A programming language",
-        "A self-driving car technology"
-      ],
-      "answer": 1,
-      "explanation": "The speaker defines machine learning as a subset of AI that improves from experience."
+      "id": "L5-TALK-010",
+      "type": "lecture",
+      "title": "Lecture about artificial intelligence",
+      "ttsText": "Artificial intelligence, or AI, refers to machines that can perform tasks typically requiring human intelligence. This includes learning, reasoning, and problem-solving. AI applications range from virtual assistants like Siri to self-driving cars. Machine learning, a subset of AI, allows systems to improve from experience without being explicitly programmed.",
+      "questions": [
+        {
+          "id": "L5-019",
+          "question": "What is machine learning?",
+          "choices": [
+            "A type of virtual assistant",
+            "A subset of AI that improves from experience",
+            "A programming language",
+            "A self-driving car technology"
+          ],
+          "answer": 1,
+          "explanation": "The speaker defines machine learning as a subset of AI that improves from experience."
+        }
+      ]
     },
     {
-      "id": "L5-020",
-      "type": "talk",
-      "audioUrl": "audio/l5-020.mp3",
-      "transcript": "Vaccines work by stimulating the immune system to recognize and fight pathogens. They contain weakened or inactive forms of a pathogen or its components. When introduced into the body, the immune system produces antibodies without causing the disease. This provides immunity against future infections.",
-      "question": "How do vaccines provide immunity?",
-      "choices": [
-        "By killing all pathogens in the body",
-        "By stimulating antibody production without causing disease",
-        "By replacing the immune system",
-        "By preventing exposure to pathogens"
-      ],
-      "answer": 1,
-      "explanation": "The speaker explains that vaccines stimulate antibody production without causing disease."
+      "id": "L5-TALK-011",
+      "type": "lecture",
+      "title": "Lecture about vaccines",
+      "ttsText": "Vaccines work by stimulating the immune system to recognize and fight pathogens. They contain weakened or inactive forms of a pathogen or its components. When introduced into the body, the immune system produces antibodies without causing the disease. This provides immunity against future infections.",
+      "questions": [
+        {
+          "id": "L5-020",
+          "question": "How do vaccines provide immunity?",
+          "choices": [
+            "By killing all pathogens in the body",
+            "By stimulating antibody production without causing disease",
+            "By replacing the immune system",
+            "By preventing exposure to pathogens"
+          ],
+          "answer": 1,
+          "explanation": "The speaker explains that vaccines stimulate antibody production without causing disease."
+        }
+      ]
     }
   ]
 }
