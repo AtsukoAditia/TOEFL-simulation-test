@@ -133,7 +133,6 @@ async function loadSection(sectionName) {
   currentSelectedSetId = null;
   currentSelectedSet = null;
 
-  practiceArea.innerHTML = `
     <h2>Loading ${formatSectionTitle(sectionName)} Sets...</h2>
     <p>Please wait.</p>
   `;
@@ -141,6 +140,8 @@ async function loadSection(sectionName) {
   try {
     await loadManifest();
     renderPracticeSetSelection(sectionName);
+        // Smooth scroll to practice area
+            practiceArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (error) {
     practiceArea.innerHTML = `
       <h2>Error</h2>
