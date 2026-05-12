@@ -133,6 +133,7 @@ async function loadSection(sectionName) {
   currentSelectedSetId = null;
   currentSelectedSet = null;
 
+  practiceArea.innerHTML = `
     <h2>Loading ${formatSectionTitle(sectionName)} Sets...</h2>
     <p>Please wait.</p>
   `;
