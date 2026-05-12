@@ -75,7 +75,30 @@
         "listening": "data/listening-set-5.json",
         "structure": "data/structure-set-5.json",
         "reading": "data/reading-set-5.json"
+      },
+              {
+      "id": "set-6",
+      "title": "Practice Set 6 - Full TOEFL ITP",
+      "description": "Complete full-length TOEFL ITP test with 50 Listening, 40 Structure, and 50 Reading questions following official test format",
+      "status": "active",
+      "type": "full-length",
+      "fullTestOnly": true,
+      "targetQuestions": {
+        "listening": 50,
+        "structure": 40,
+        "reading": 50
+      },
+      "durationMinutes": {
+        "listening": 35,
+        "structure": 25,
+        "reading": 55
+      },
+      "files": {
+        "listening": "data/listening-set-6.json",
+        "structure": "data/structure-set-6.json",
+        "reading": "data/reading-set-6.json"
       }
+    }
     }
   ]
 }
