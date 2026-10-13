@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/redesign.css?v=7" />
+  <link rel="stylesheet" href="css/redesign.css?v=8" />
   <style>
     .lb-wrap { max-width: 680px; margin: 0 auto; padding: 96px 20px 140px; }
     .lb-hero { text-align: center; margin-bottom: 34px; }
@@ -21,6 +21,16 @@
     .lb-period { display: inline-flex; align-items: center; gap: 7px; background: var(--surface-2); border: 1px solid var(--border-soft); padding: 6px 14px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--text-dim); margin-top: 12px; }
     .lb-period .dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; animation: pulse-dot 2s infinite; }
     @keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+    .lb-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 26px; flex-wrap: wrap; }
+    .lb-tab {
+      padding: 10px 22px; border-radius: 999px; border: 1.5px solid var(--border-soft);
+      background: var(--surface); color: var(--text-dim); font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: all 0.22s; min-height: 44px;
+      font-family: inherit;
+    }
+    .lb-tab:hover { border-color: var(--primary); color: var(--text); }
+    .lb-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 6px 18px rgba(79,140,255,0.35); }
 
     .podium { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 10px; align-items: end; margin-bottom: 28px; }
     .pod { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 18px; padding: 18px 10px 14px; text-align: center; position: relative; }
@@ -60,7 +70,12 @@
     <div class="lb-hero">
       <h1>🏆 Leaderboard</h1>
       <p>Skor Full Test ITP terbaik dari komunitas TOEFL Yuk</p>
-      <div class="lb-period"><span class="dot"></span>30 hari terakhir</div>
+      <div class="lb-period"><span class="dot"></span>Semua skor Full Test ITP · diperbarui real-time</div>
+    </div>
+    <div class="lb-tabs" role="tablist">
+      <button class="lb-tab" data-period="daily" role="tab">Hari ini</button>
+      <button class="lb-tab" data-period="weekly" role="tab">Minggu ini</button>
+      <button class="lb-tab active" data-period="monthly" role="tab" aria-selected="true">30 hari</button>
     </div>
     <div id="lb-content">
       <div class="lb-empty"><p>Memuat peringkat…</p></div>
@@ -112,7 +127,7 @@
         var podiumHtml = '<div class="podium">' + order.map(function (i) {
           var r = top3[i];
           if (!r) return "<div></div>";
-          var nm = shortName(r.full_name);
+          var nm = shortName(r.player_name || r.full_name);
           var ava = r.avatar_url
             ? '<img class="ava" src="' + esc(r.avatar_url) + '" alt="" referrerpolicy="no-referrer">'
             : '<span class="ava-i">' + esc(nm.charAt(0).toUpperCase()) + "</span>";
@@ -125,7 +140,7 @@
         }).join("") + "</div>";
 
         var listHtml = '<div class="lb-list">' + rest.map(function (r, i) {
-          var nm = shortName(r.full_name);
+          var nm = shortName(r.player_name || r.full_name);
           var ava = r.avatar_url
             ? '<img class="lb-ava" src="' + esc(r.avatar_url) + '" alt="" referrerpolicy="no-referrer">'
             : '<span class="lb-ava-i">' + esc(nm.charAt(0).toUpperCase()) + "</span>";
@@ -140,13 +155,32 @@
         content.innerHTML = podiumHtml + listHtml;
       }
 
-      function init() {
+      var currentPeriod = "monthly";
+
+      function load(period) {
+        currentPeriod = period;
+        content.innerHTML = '<div class="lb-empty"><p>Memuat peringkat…</p></div>';
         if (!window.ToeflAuth) { render([], null); return; }
         ToeflAuth.init().then(function () {
-          Promise.all([ToeflAuth.fetchLeaderboard(30), ToeflAuth.getUser()]).then(function (rs) {
+          Promise.all([ToeflAuth.fetchLeaderboard(30, period), ToeflAuth.getUser()]).then(function (rs) {
             render(rs[0], rs[1] ? rs[1].id : null);
           });
         });
+      }
+
+      function init() {
+        document.querySelectorAll(".lb-tab").forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            document.querySelectorAll(".lb-tab").forEach(function (t) {
+              t.classList.remove("active");
+              t.removeAttribute("aria-selected");
+            });
+            tab.classList.add("active");
+            tab.setAttribute("aria-selected", "true");
+            load(tab.getAttribute("data-period"));
+          });
+        });
+        load(currentPeriod);
       }
       document.addEventListener("DOMContentLoaded", init);
       if (document.readyState !== "loading") init();

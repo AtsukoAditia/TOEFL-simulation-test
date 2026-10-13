@@ -905,3 +905,6 @@ html[data-theme="light"] .bottom-nav { background: rgba(255, 255, 255, 0.94); }
   .topnav .topnav-links .nav-link { display: none; }
   .topnav .topnav-links a.nav-link { display: none; }
 }
+
+/* FIX: atribut [hidden] kalah dari display:flex — dropdown user sempat selalu muncul */
+.user-menu[hidden] { display: none; }

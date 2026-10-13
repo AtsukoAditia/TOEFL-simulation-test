@@ -133,16 +133,19 @@
     });
   }
 
-  /** Ambil leaderboard 30 hari (view publik agregat). */
-  function fetchLeaderboard(limit) {
+  /** Ambil leaderboard per periode: 'daily' | 'weekly' | 'monthly' (default).
+   *  'monthly' memakai view leaderboard_monthly (menggantikan leaderboard_30d). */
+  function fetchLeaderboard(limit, period) {
     limit = limit || 20;
+    period = period || "monthly";
     if (!ready) return Promise.resolve([]);
-    return sb.from("leaderboard_30d")
-      .select("full_name, avatar_url, best_score, attempts, last_attempt")
+    var viewName = "leaderboard_" + period;
+    return sb.from(viewName)
+      .select("player_name, avatar_url, best_score, attempts, last_attempt")
       .order("best_score", { ascending: false })
       .limit(limit)
       .then(function (res) {
-        if (res.error) { console.warn("[auth] leaderboard gagal:", res.error.message); return []; }
+        if (res.error) { console.warn("[auth] leaderboard " + period + " gagal:", res.error.message); return []; }
         return res.data || [];
       });
   }
