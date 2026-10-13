@@ -98,6 +98,20 @@
     setText("s-reading-raw", R.score + " / " + R.total);
     setBar("bar-reading", rp);
 
+    function detailChips(elId, sec) {
+      var el = document.getElementById(elId);
+      if (!el || !sec || !sec.total) return;
+      var wrong = sec.wrong != null ? sec.wrong : Math.max(0, (sec.answered != null ? sec.answered : sec.total) - sec.score);
+      var skipped = sec.skipped != null ? sec.skipped : (sec.answered != null ? sec.total - sec.answered : 0);
+      el.innerHTML =
+        '<span class="sec-chip c">✓ ' + sec.score + ' benar</span>' +
+        '<span class="sec-chip w">✗ ' + wrong + ' salah</span>' +
+        (skipped ? '<span class="sec-chip s">○ ' + skipped + ' kosong</span>' : '');
+    }
+    detailChips("d-listening", L);
+    detailChips("d-structure", S);
+    detailChips("d-reading", R);
+
     var totalCorrect = L.score + S.score + R.score;
     var totalQ = L.total + S.total + R.total;
     var accuracy = totalQ ? Math.round(totalCorrect / totalQ * 100) : 0;

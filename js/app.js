@@ -630,9 +630,12 @@
     stopTimer(); stopAudio();
     var score = 0, total = STATE.flat.length;
     STATE.flat.forEach(function (q) { if (STATE.answers[q.id] === q.answer) score++; });
+    var answered = Object.keys(STATE.answers).length;
+    var skipped = total - answered;
+    var wrong = answered - score;
 
     STATE.results = STATE.results || {};
-    STATE.results[STATE.section] = { score: score, total: total };
+    STATE.results[STATE.section] = { score: score, total: total, wrong: wrong, skipped: skipped, answered: answered };
     STATE.reviewed = true;
     ToeflStore.del("draft");
 
