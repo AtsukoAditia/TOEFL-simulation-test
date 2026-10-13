@@ -62,7 +62,8 @@
           "answer": 2,
           "explanation": "The teaching assistant says to put the raw measurements in the appendix."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L2-AUDIO-002",
@@ -118,7 +119,8 @@
           "answer": 0,
           "explanation": "The advisor recommends registering for another class now and switching later if a seat opens."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L2-AUDIO-003",
@@ -174,7 +176,8 @@
           "answer": 0,
           "explanation": "Students are encouraged to schedule appointments early during midterm and final exam periods."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L2-AUDIO-004",
@@ -230,7 +233,8 @@
           "answer": 0,
           "explanation": "The professor says ordinary plants would quickly dry out in desert conditions."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L2-AUDIO-005",
@@ -286,7 +290,8 @@
           "answer": 0,
           "explanation": "The professor says digital technology changed information access, but libraries still support education and civic life."
         }
-      ]
+      ],
+      "part": "C"
     }
   ]
 }

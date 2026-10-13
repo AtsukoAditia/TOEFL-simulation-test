@@ -27,7 +27,8 @@
           "answer": 1,
           "explanation": "The student explicitly states he can't find enough sources."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-AUDIO-002",
@@ -47,7 +48,8 @@
           "answer": 2,
           "explanation": "The woman suggests emailing the speaker for the slides."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-AUDIO-003",
@@ -67,7 +69,8 @@
           "answer": 2,
           "explanation": "The man says the library gets too crowded, implying it lacks sufficient space."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-AUDIO-004",
@@ -87,7 +90,8 @@
           "answer": 1,
           "explanation": "The man is deciding between a marketing and a data analytics internship."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-AUDIO-005",
@@ -107,7 +111,8 @@
           "answer": 1,
           "explanation": "The professor asks for documentation from the dean's office."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-TALK-001",
@@ -127,7 +132,8 @@
           "answer": 1,
           "explanation": "The speaker begins by stating the talk is about photosynthesis."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-TALK-002",
@@ -147,7 +153,8 @@
           "answer": 1,
           "explanation": "The speaker states the printing press facilitated the spread of knowledge."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-TALK-003",
@@ -167,7 +174,8 @@
           "answer": 2,
           "explanation": "The speaker explains that a price above equilibrium creates a surplus."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-TALK-004",
@@ -187,7 +195,8 @@
           "answer": 2,
           "explanation": "Photosynthesis is not part of the water cycle described in the talk."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-TALK-005",
@@ -207,7 +216,8 @@
           "answer": 1,
           "explanation": "The speaker states that rift valleys are created when plates pull apart."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-AUDIO-006",
@@ -227,7 +237,8 @@
           "answer": 1,
           "explanation": "The man suggests Mandarin is more useful for business due to China's economic influence."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-AUDIO-007",
@@ -247,7 +258,8 @@
           "answer": 2,
           "explanation": "The man explicitly states he is most excited about the soundproof study rooms."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-TALK-006",
@@ -267,7 +279,8 @@
           "answer": 2,
           "explanation": "The speaker defines mutualism as a relationship where both organisms benefit."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-TALK-007",
@@ -287,7 +300,8 @@
           "answer": 1,
           "explanation": "The speaker mentions urbanization as a consequence of the Industrial Revolution."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-TALK-008",
@@ -307,7 +321,8 @@
           "answer": 2,
           "explanation": "The speaker states that adenine pairs with thymine."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-TALK-009",
@@ -327,7 +342,8 @@
           "answer": 1,
           "explanation": "The speaker defines the greenhouse effect as gases trapping heat in the atmosphere."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-AUDIO-008",
@@ -347,7 +363,8 @@
           "answer": 0,
           "explanation": "The woman states she has never debated formally before."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-AUDIO-009",
@@ -367,7 +384,8 @@
           "answer": 2,
           "explanation": "The man reminds the woman to include recommendations."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L5-TALK-010",
@@ -387,7 +405,8 @@
           "answer": 1,
           "explanation": "The speaker defines machine learning as a subset of AI that improves from experience."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L5-TALK-011",
@@ -407,7 +426,8 @@
           "answer": 1,
           "explanation": "The speaker explains that vaccines stimulate antibody production without causing disease."
         }
-      ]
+      ],
+      "part": "C"
     }
   ]
 }

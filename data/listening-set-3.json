@@ -74,7 +74,8 @@
           "answer": 0,
           "explanation": "The professor says a map will help classmates understand the connections between regions."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L3-AUDIO-002",
@@ -142,7 +143,8 @@
           "answer": 0,
           "explanation": "The employee tells the student to submit a resume and a short application form by Friday afternoon."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L3-AUDIO-003",
@@ -210,7 +212,8 @@
           "answer": 0,
           "explanation": "He says he can lend her his notes from last week if she cannot find the notebook."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L3-AUDIO-004",
@@ -278,7 +281,8 @@
           "answer": 0,
           "explanation": "The fertility of volcanic soil helps explain why people sometimes live near volcanoes despite the risks."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L3-AUDIO-005",
@@ -346,7 +350,8 @@
           "answer": 0,
           "explanation": "The professor says signals may involve color, posture, chemicals, or motion, not only sounds."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L3-AUDIO-006",
@@ -414,7 +419,8 @@
           "answer": 0,
           "explanation": "The professor says digital maps can combine information about traffic, weather, population, and land use."
         }
-      ]
+      ],
+      "part": "C"
     }
   ]
 }

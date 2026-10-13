@@ -62,7 +62,8 @@
           "answer": 0,
           "explanation": "The student suggests focusing on how online discussion boards affect participation in college classes."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L-AUDIO-002",
@@ -106,7 +107,8 @@
           "answer": 2,
           "explanation": "The librarian says the student can borrow it for three weeks."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L-AUDIO-003",
@@ -150,7 +152,8 @@
           "answer": 0,
           "explanation": "The speaker says some bus stops will be moved due to construction near the science building."
         }
-      ]
+      ],
+      "part": "C"
     }
   ]
 }

@@ -97,13 +97,14 @@
     var out = [];
     if (section === "listening") {
       data.items.forEach(function (item, idx) {
+        var part = item.part || 'A';
         item.questions.forEach(function (q, qi) {
           out.push({
             id: q.id, question: q.question, choices: q.choices, answer: q.answer,
             explanation: q.explanation, type: q.type || null,
             audio: item.ttsText, audioTitle: "Audio " + (idx + 1) + " — " + item.title,
             audioType: item.type,
-            partLabel: "Audio " + (idx + 1) + " · Q" + (qi + 1)
+            partLabel: "Part " + part + " · Audio " + (idx + 1) + " · Q" + (qi + 1)
           });
         });
       });

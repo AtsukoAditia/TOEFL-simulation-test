@@ -27,7 +27,8 @@
           "answer": 2,
           "explanation": "The woman states the library is now open until midnight on weekdays."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-002",
@@ -47,7 +48,8 @@
           "answer": 1,
           "explanation": "The man expresses urgency about buying textbooks before the store closes."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-003",
@@ -67,7 +69,8 @@
           "answer": 1,
           "explanation": "The man suggests taking a course related to her major."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-004",
@@ -87,7 +90,8 @@
           "answer": 2,
           "explanation": "The woman indicates the price exceeds her budget."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-005",
@@ -107,7 +111,8 @@
           "answer": 1,
           "explanation": "They are discussing a scholarship application, which is financial aid."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-006",
@@ -127,7 +132,8 @@
           "answer": 2,
           "explanation": "The man expresses regret about not studying more, implying dissatisfaction."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-007",
@@ -147,7 +153,8 @@
           "answer": 1,
           "explanation": "The woman confirms she will attend the career fair."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-008",
@@ -167,7 +174,8 @@
           "answer": 2,
           "explanation": "The woman suggests trying the tutoring center for help."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-009",
@@ -187,7 +195,8 @@
           "answer": 1,
           "explanation": "The man explains he lost his essay when his laptop crashed."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-010",
@@ -207,7 +216,8 @@
           "answer": 1,
           "explanation": "The woman explains she can't join because she has to work."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-011",
@@ -227,7 +237,8 @@
           "answer": 0,
           "explanation": "They are discussing the heavy reading assignment."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-012",
@@ -247,7 +258,8 @@
           "answer": 1,
           "explanation": "They agree to form a study group and meet at the library."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-013",
@@ -267,7 +279,8 @@
           "answer": 1,
           "explanation": "The man's comment suggests he thinks five courses is too much."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-014",
@@ -287,7 +300,8 @@
           "answer": 1,
           "explanation": "The woman expresses worry about her presentation, indicating nervousness."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-015",
@@ -307,7 +321,8 @@
           "answer": 1,
           "explanation": "The man suggests using the quiet floor of the library."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-016",
@@ -327,7 +342,8 @@
           "answer": 0,
           "explanation": "The man states all parking spots are full nearby."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-017",
@@ -347,7 +363,8 @@
           "answer": 2,
           "explanation": "The woman indicates they're progressing but not finished."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-018",
@@ -367,7 +384,8 @@
           "answer": 1,
           "explanation": "The man thanks her for the reminder, implying he'll attend."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-019",
@@ -387,7 +405,8 @@
           "answer": 0,
           "explanation": "They are discussing renovation of the student center."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-020",
@@ -407,7 +426,8 @@
           "answer": 1,
           "explanation": "The woman indicates the cafeteria has high prices."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-021",
@@ -427,7 +447,8 @@
           "answer": 2,
           "explanation": "The man found it informative but thought it was too long."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-022",
@@ -447,7 +468,8 @@
           "answer": 1,
           "explanation": "The woman suggests visiting the writing center for help."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-023",
@@ -467,7 +489,8 @@
           "answer": 1,
           "explanation": "They are discussing a field trip to the museum."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-024",
@@ -487,7 +510,8 @@
           "answer": 1,
           "explanation": "The man will get supplies from the lab supply room."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-025",
@@ -507,7 +531,8 @@
           "answer": 1,
           "explanation": "The man indicates he doesn't have time this semester."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-026",
@@ -527,7 +552,8 @@
           "answer": 0,
           "explanation": "The man can't log into his student account."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-027",
@@ -547,7 +573,8 @@
           "answer": 1,
           "explanation": "The woman indicates she needs to do homework instead."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-028",
@@ -567,7 +594,8 @@
           "answer": 0,
           "explanation": "They are discussing a change in the exam date."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-029",
@@ -587,7 +615,8 @@
           "answer": 1,
           "explanation": "The man confirms he will attend the review session."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-AUDIO-030",
@@ -607,7 +636,8 @@
           "answer": 1,
           "explanation": "The woman indicates she's still in the research phase gathering sources."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L6-EXTENDED-001",
@@ -675,7 +705,8 @@
           "answer": 0,
           "explanation": "The student will likely submit the housing application."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L6-EXTENDED-002",
@@ -743,7 +774,8 @@
           "answer": 0,
           "explanation": "The student plans to update their resume."
         }
-      ]
+      ],
+      "part": "B"
     },
     {
       "id": "L6-LECTURE-001",
@@ -811,7 +843,8 @@
           "answer": 0,
           "explanation": "The professor emphasizes individual responsibility in energy use."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L6-LECTURE-002",
@@ -879,7 +912,8 @@
           "answer": 0,
           "explanation": "The lecture concludes that memory can be improved with proper techniques."
         }
-      ]
+      ],
+      "part": "C"
     }
   ]
 }

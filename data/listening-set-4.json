@@ -26,7 +26,8 @@
           "answer": 2,
           "explanation": "The woman says the online catalog is still accessible and they can borrow books before the closure."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L4-CONV-002",
@@ -46,7 +47,8 @@
           "answer": 1,
           "explanation": "The man says he needs to analyze the data from Tuesday's experiment and asks for help with that."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L4-CONV-003",
@@ -66,7 +68,8 @@
           "answer": 2,
           "explanation": "The woman says 'that's a relief,' showing she is happy about having more time."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L4-CONV-004",
@@ -86,7 +89,8 @@
           "answer": 1,
           "explanation": "The man recommends speaking to an academic advisor before making a decision."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L4-CONV-005",
@@ -106,7 +110,8 @@
           "answer": 2,
           "explanation": "The woman says the shuttle runs every 30 minutes (instead of 15) and stops at 9 PM, indicating reduced frequency and earlier end time."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L4-CONV-006",
@@ -126,7 +131,8 @@
           "answer": 1,
           "explanation": "The man advises her to report it to student services, who will provide a temporary card."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L4-CONV-007",
@@ -146,7 +152,8 @@
           "answer": 0,
           "explanation": "The woman says 'I thought they wouldn't be ready until next Monday,' implying she expected a later date."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L4-CONV-008",
@@ -166,7 +173,8 @@
           "answer": 2,
           "explanation": "The man says the speaker focused on offshore wind farms and challenges of grid connection."
         }
-      ]
+      ],
+      "part": "A"
     },
     {
       "id": "L4-TALK-001",
@@ -222,7 +230,8 @@
           "answer": 2,
           "explanation": "The speaker mentions coral bleaching, sea level rise due to thermal expansion, and weather pattern shifts, but does not mention hurricane frequency."
         }
-      ]
+      ],
+      "part": "C"
     },
     {
       "id": "L4-TALK-002",
@@ -326,7 +335,8 @@
           "answer": 1,
           "explanation": "The speaker uses the example of losing twenty dollars versus gaining twenty dollars to illustrate that losses are felt more strongly."
         }
-      ]
+      ],
+      "part": "C"
     }
   ]
 }
