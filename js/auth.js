@@ -25,7 +25,15 @@
     if (!sb) {
       sb = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
       // Re-render user chip saat auth berubah (login/logout)
-      sb.auth.onAuthStateChange(function () { paintUserChip(); });
+      sb.auth.onAuthStateChange(function (event, session) {
+        paintUserChip();
+        try {
+          if (event === "SIGNED_IN") {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: "login", method: "google" });
+          }
+        } catch (e) {}
+      });
     }
     ready = true;
     return sb.auth.getSession().then(function () { return true; });

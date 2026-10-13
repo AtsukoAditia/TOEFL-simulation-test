@@ -728,6 +728,18 @@
       STATE.section === "structure" ? { score: score, total: total } : { score: 0, total: 40 },
       STATE.section === "reading" ? { score: score, total: total } : { score: 0, total: 50 }
     );
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "submit_section",
+        section: STATE.section,
+        raw_score: score,
+        raw_total: total,
+        scaled_score: scaled && scaled.totalScore,
+        timed_out: !!timedOut,
+        mode: STATE.practiceMode ? "practice" : "mock"
+      });
+    } catch (e) {}
     // save result (single section history, setName tags section)
     try {
       var resultData = {
@@ -800,6 +812,21 @@
       ToeflStore.pushCapped("history.v1", resultData, 20);
       ToeflStore.del("draft");
     } catch (e) { /* storage unavailable */ }
+    try {
+      var itp = calculateITPScore(L.score !== undefined ? L : {score:0,total:0},
+                                  S.score !== undefined ? S : {score:0,total:0},
+                                  R.score !== undefined ? R : {score:0,total:0});
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "finish_full_test",
+        total_score: itp && itp.totalScore,
+        listening_scale: itp && itp.listeningScale,
+        structure_scale: itp && itp.structureScale,
+        reading_scale: itp && itp.readingScale,
+        level: itp && itp.level,
+        elapsed_seconds: STATE.startedAt ? Math.round((Date.now() - STATE.startedAt) / 1000) : undefined
+      });
+    } catch (e) {}
     syncResultToCloud("fulltest", resultData.setName, null, L, S, R, {
       elapsed_seconds: STATE.startedAt ? Math.round((Date.now() - STATE.startedAt) / 1000) : undefined
     }).finally(function () {
@@ -1019,6 +1046,15 @@
     if (btn) btn.addEventListener("click", function () {
       var picked = document.querySelector('input[name="mode-pick"]:checked');
       STATE.practiceMode = !!(picked && picked.value === "practice");
+      try {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "start_test",
+          section: sectionName,
+          mode: STATE.practiceMode ? "practice" : "mock",
+          is_full_test: !!isFull
+        });
+      } catch (e) {}
       closeModal();
       onStart();
     });
