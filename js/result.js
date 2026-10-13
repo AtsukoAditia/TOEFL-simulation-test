@@ -153,6 +153,35 @@
       }).join("");
     })();
 
+    // Pacing analysis (kalau data timings tersedia dari full test)
+    (function renderPacing() {
+      var wrap = document.getElementById("pace-wrap");
+      if (!wrap || !data.timings) return;
+      var arr = [];
+      for (var k in data.timings) { if (Object.prototype.hasOwnProperty.call(data.timings, k)) arr.push(data.timings[k]); }
+      if (!arr.length) return;
+      var total = arr.reduce(function (a, b) { return a + b; }, 0);
+      var avg = Math.round(total / arr.length);
+      var sorted = arr.slice().sort(function (a, b) { return b - a; });
+      var top3 = sorted.slice(0, 3);
+      var variance = sorted[0] / Math.max(1, sorted[sorted.length - 1]);
+      wrap.style.display = "block";
+      var list = document.getElementById("pace-list");
+      list.innerHTML =
+        '<div class="bench-row"><div class="bench-info"><div class="bench-name">Rata-rata per soal</div>' +
+          '<div class="bench-desc">' + arr.length + ' soal dijawab dengan tracking waktu</div></div>' +
+          '<span class="bench-target">' + avg + ' dtk</span><span class="bench-status ok">' +
+          (avg <= 40 ? '✓ Ideal' : avg <= 60 ? '⚠ Lambat' : '⏱ Terlalu lama') + '</span></div>' +
+        top3.map(function (s, i) {
+          return '<div class="bench-row"><div class="bench-info"><div class="bench-name">Soal paling lambat #' + (i + 1) + '</div>' +
+            '<div class="bench-desc">Review soal ini — bisa jadi pattern yang perlu dilatih</div></div>' +
+            '<span class="bench-target">' + s + ' dtk</span></div>';
+        }).join("") +
+        (variance > 5 ? '<div class="bench-row"><div class="bench-info"><div class="bench-name">⚠ Variansi waktu besar</div>' +
+          '<div class="bench-desc">Ada soal yang kamu tendang instan dan ada yang lama banget. Latih konsistensi pacing.</div></div>' +
+          '<span class="bench-target">×' + variance.toFixed(1) + '</span></div>' : "");
+    })();
+
     // Previous comparison
     var hist = getHistory();
     var comp = document.getElementById("prev-comparison");

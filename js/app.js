@@ -17,6 +17,7 @@
     flat: [],              // [{qid, q, ref}...] flattened questions
     answers: {},           // qid -> choiceIndex
     flagged: {},           // qid -> true
+    timings: {},           // qid -> detik dihabiskan (approx)
     pos: 0,                // current flat index
     reviewed: false,       // explanations shown (post submit or wrong-only)
     full: { index: 0, results: {}, sections: ["listening", "structure", "reading"] }
@@ -449,6 +450,9 @@
 
     stage.innerHTML = html;
 
+    // Pace tracking: pertama kali soal terlihat
+    if (!q._firstSeenAt) q._firstSeenAt = Date.now();
+
     // Bind choices
     stage.querySelectorAll("[data-cl]").forEach(function (label) {
       label.addEventListener("click", function () { selectChoice(q, Number(label.dataset.idx)); });
@@ -466,6 +470,11 @@
     if (STATE.reviewed) return;
     if (STATE.answers[q.id] === idx) return;
     STATE.answers[q.id] = idx;
+    // Pacing: waktu sejak soal pertama terlihat
+    if (q._firstSeenAt) {
+      var spent = (Date.now() - q._firstSeenAt) / 1000;
+      STATE.timings[q.id] = Math.max(STATE.timings[q.id] || 0, Math.round(spent));
+    }
     document.querySelectorAll("[data-cl]").forEach(function (l) {
       l.classList.toggle("selected", Number(l.dataset.idx) === idx);
       var inp = l.querySelector("input"); if (inp) inp.checked = Number(l.dataset.idx) === idx;
@@ -505,6 +514,19 @@
       box.innerHTML = '<div class="ex-verdict"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Incorrect</div>' +
         '<p class="ex-answer">Jawaban benar: <b>' + "ABCD"[q.answer] + ". " + esc(q.choices[q.answer]) + "</b></p>" + esc(q.explanation || "");
     }
+  }
+
+  /* ══════════ PACING ══════════ */
+  function computePacingReport() {
+    if (!STATE.results || !STATE.section) return null;
+    var t = STATE.timings, arr = [];
+    for (var k in t) { if (Object.prototype.hasOwnProperty.call(t, k)) arr.push(t[k]); }
+    if (!arr.length) return null;
+    var total = arr.reduce(function (a, b) { return a + b; }, 0);
+    var avg = Math.round(total / arr.length);
+    var sorted = arr.slice().sort(function (a, b) { return b - a; });
+    var highVar = sorted.length > 3 && (sorted[0] / Math.max(1, sorted[sorted.length - 1])) > 4;
+    return { avgSecPerQ: avg, slowestSec: sorted.slice(0, 3), count: arr.length, highVariance: highVar };
   }
 
   /* ══════════ NAVIGATION ══════════ */
