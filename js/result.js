@@ -129,6 +129,30 @@
       seg.classList.toggle("active", i === activeIdx);
     });
 
+    // Benchmark institusi Indonesia
+    (function renderBenchmarks() {
+      var list = document.getElementById("bench-list");
+      if (!list) return;
+      var targets = [
+        { name: "S1 / SMA / Masuk kerja umum", desc: "Level entry", target: 450 },
+        { name: "LPDP S2 dalam negeri", desc: "Beasiswa magister", target: 500 },
+        { name: "LPDP S3 / S2 luar negeri", desc: "Beasiswa doktoral / S2 LN", target: 530 },
+        { name: "CPNS dengan syarat bahasa", desc: "Formasi tertentu", target: 475 },
+        { name: "BUMN tingkat officer", desc: "Rekrutmen bersama", target: 450 },
+        { name: "Tokoh level (SI tersertifikasi internasional)", desc: "Benchmark maksimal latihan", target: 600 }
+      ];
+      list.innerHTML = targets.map(function (t) {
+        var pass = itp.totalScore >= t.target;
+        var delta = t.target - itp.totalScore;
+        return '<div class="bench-row' + (pass ? ' passed' : '') + '">' +
+          '<div class="bench-info"><div class="bench-name">' + t.name + '</div>' +
+          '<div class="bench-desc">' + t.desc + '</div></div>' +
+          '<span class="bench-target">' + t.target + '+</span>' +
+          '<span class="bench-status ' + (pass ? 'ok' : 'miss') + '">' +
+          (pass ? '✓ Tercapai' : '▲ +' + delta) + '</span></div>';
+      }).join("");
+    })();
+
     // Previous comparison
     var hist = getHistory();
     var comp = document.getElementById("prev-comparison");

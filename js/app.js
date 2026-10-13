@@ -358,6 +358,7 @@
   /* ══════════ TIMER ══════════ */
   function startTimer(minutes) {
     TIMER.remaining = minutes * 60;
+    STATE.startedAt = Date.now();
     paintTimer();
     ToeflTimerUI.resetWarnings();
     TIMER.id = setInterval(function () {
@@ -627,7 +628,7 @@
 
   /* ══════════ SUBMIT + REVIEW + NEXT ══════════ */
   function submitSection(timedOut) {
-    stopTimer(); stopAudio();
+    stopTimer(); stopAudio(); guardUnbind();
     var score = 0, total = STATE.flat.length;
     STATE.flat.forEach(function (q) { if (STATE.answers[q.id] === q.answer) score++; });
     var answered = Object.keys(STATE.answers).length;
@@ -688,7 +689,9 @@
       localStorage.setItem("toeflResult", JSON.stringify(resultData));
       ToeflStore.pushCapped("history.v1", resultData, 20);
     } catch (e) { /* storage unavailable */ }
-    syncResultToCloud("section", resultData.setName, STATE.section, resultData.listening, resultData.structure, resultData.reading);
+    syncResultToCloud("section", resultData.setName, STATE.section, resultData.listening, resultData.structure, resultData.reading, {
+      elapsed_seconds: STATE.startedAt ? Math.round((Date.now() - STATE.startedAt) / 1000) : undefined
+    });
 
     openModal(
       "<h3>" + (timedOut ? "Waktu habis ⏱" : "Section selesai ✓") + "</h3>" +
@@ -745,7 +748,9 @@
       ToeflStore.pushCapped("history.v1", resultData, 20);
       ToeflStore.del("draft");
     } catch (e) { /* storage unavailable */ }
-    syncResultToCloud("fulltest", resultData.setName, null, L, S, R).finally(function () {
+    syncResultToCloud("fulltest", resultData.setName, null, L, S, R, {
+      elapsed_seconds: STATE.startedAt ? Math.round((Date.now() - STATE.startedAt) / 1000) : undefined
+    }).finally(function () {
       location.href = "result.html";
     });
   }
@@ -959,6 +964,7 @@
     renderPalette();
     renderQuestion();
     startTimer(data.meta.durationMinutes);
+    guardBind();
   }
 
   function cloneShuffled(section, data) {
@@ -1098,8 +1104,14 @@
     animateWave();
   }
   function audioReplay() {
+    // Mode tes meniru TOEFL asli: audio hanya sekali, tanpa replay.
+    // Replay hanya boleh saat review setelah submit.
     var q = currentAudioText();
     if (!q) return;
+    if (STATE.section && !STATE.reviewed) {
+      showToast("Di tes asli audio tidak bisa diulang. Fokus dengarkan!", "warn");
+      return;
+    }
     stopAudio();
     var line = $("audio-progress"); if (line) line.style.width = "0%";
     audioPlay();
@@ -1112,11 +1124,41 @@
   }
 
   /* ══════════ CLOUD SYNC ══════════ */
-  function syncResultToCloud(mode, setName, section, L, S, R) {
+  function syncResultToCloud(mode, setName, section, L, S, R, extraOps) {
     if (!window.ToeflAuth || !ToeflAuth.ready) return Promise.resolve();
-    var dur = 0;
-    return ToeflAuth.saveResult(mode, setName, section, L, S, R);
+    return ToeflAuth.saveResult(mode, setName, section, L, S, R, extraOps);
   }
+
+  /* ══════════ ANTI TAB-SWITCH ══════════ */
+  function guardBind() {
+    if (guard.bound || !STATE.section || STATE.reviewed) return;
+    guard.bound = true;
+    document.addEventListener("visibilitychange", guardHandler);
+    window.addEventListener("blur", guardHandler);
+  }
+  function guardUnbind() {
+    guard.bound = false; guard.count = 0;
+    document.removeEventListener("visibilitychange", guardHandler);
+    window.removeEventListener("blur", guardHandler);
+  }
+  function guardHandler() {
+    if (!STATE.section || STATE.reviewed || guard.locked) return;
+    if (document.hidden || document.hasFocus() === false) {
+      guard.count++;
+      if (guard.count >= 3) {
+        guard.locked = true;
+        showToast("Terlalu sering keluar tab. Section disubmit otomatis.", "danger");
+        submitSection(true);
+      } else {
+        openModal(
+          "<h3>⚠️ Jangan keluar dari halaman</h3>" +
+          "<p>Ini pelanggaran <b>" + guard.count + " dari 3</b>. Di tes TOEFL asli, keluar halaman = diskualifikasi.</p>" +
+          '<div class="modal-actions"><button class="btn btn-accent" onclick="App.closeModal()">Kembali mengerjakan</button></div>'
+        );
+      }
+    }
+  }
+  var guard = { count: 0, bound: false, locked: false };
 
   /* ══════════ DRAFT ══════════ */
   function saveDraft() {
