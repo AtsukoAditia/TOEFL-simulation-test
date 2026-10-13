@@ -43,7 +43,7 @@
     sb.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: location.origin + "/login.html",
+        redirectTo: location.origin + "/login",
         skipBrowserRedirect: false
       }
     });
@@ -158,7 +158,7 @@
       if (!ready) { mount.innerHTML = ""; return; }
       if (!user) {
         mount.innerHTML =
-          '<a class="btn btn-soft btn-sm" href="login.html" style="min-height:38px">' +
+          '<a class="btn btn-soft btn-sm" href="/login" style="min-height:38px">' +
           '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>' +
           "Masuk</a>";
         return;
@@ -176,7 +176,7 @@
           "</button>" +
           '<div class="user-menu" id="user-menu" hidden>' +
             '<a href="#history-wrap" id="menu-history">Riwayat skor</a>' +
-            '<a href="login.html" id="menu-relogin">Akun</a>' +
+            '<a href="/login" id="menu-relogin">Akun</a>' +
             '<button id="menu-logout">Keluar</button>' +
           "</div>" +
         "</div>";
@@ -208,7 +208,7 @@
     return getUser().then(function (user) {
       if (user) return true;
       var next = encodeURIComponent(trigger || "start-test");
-      location.href = "login.html?next=" + next;
+      location.href = "/login?next=" + next;
       return false;
     });
   }

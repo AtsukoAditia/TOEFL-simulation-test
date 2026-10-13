@@ -230,8 +230,8 @@
   }
 
   attach("btn-save-image", saveImage);
-  attach("btn-try-again", function () { window.location.href = "index.html"; });
-  attach("btn-home", function () { window.location.href = "index.html"; });
+  attach("btn-try-again", function () { window.location.href = "./"; });
+  attach("btn-home", function () { window.location.href = "./"; });
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

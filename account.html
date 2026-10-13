@@ -73,7 +73,7 @@
             '<span class="brand-mark" style="width:64px;height:64px;font-size:30px;border-radius:18px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),#ff8a3d);color:var(--accent-ink);font-weight:800;margin-bottom:20px">T</span>' +
             '<h2 style="margin-bottom:10px">Masuk untuk melihat akun</h2>' +
             '<p style="color:var(--text-dim);margin-bottom:26px">Kelola profil dan lihat statistik TOEFL kamu.</p>' +
-            '<a class="btn btn-primary" href="login.html?next=account" style="display:inline-flex">Masuk dengan Google</a>' +
+            '<a class="btn btn-primary" href="/login?next=account" style="display:inline-flex">Masuk dengan Google</a>' +
           '</div>';
       }
 
@@ -160,7 +160,7 @@
           });
 
           document.getElementById("btn-logout").addEventListener("click", function () {
-            if (confirm("Keluar dari akun ini?")) ToeflAuth.signOut().then(function () { location.href = "index.html"; });
+            if (confirm("Keluar dari akun ini?")) ToeflAuth.signOut().then(function () { location.href = "./"; });
           });
         });
       }

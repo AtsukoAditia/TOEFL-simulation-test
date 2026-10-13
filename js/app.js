@@ -803,7 +803,7 @@
     syncResultToCloud("fulltest", resultData.setName, null, L, S, R, {
       elapsed_seconds: STATE.startedAt ? Math.round((Date.now() - STATE.startedAt) / 1000) : undefined
     }).finally(function () {
-      location.href = "result.html";
+      location.href = "/result";
     });
   }
 

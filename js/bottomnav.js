@@ -6,14 +6,14 @@
 (function () {
   "use strict";
 
-  var path = location.pathname.split("/").pop() || "index.html";
+  var path = location.pathname.split("/").pop() || "index";
 
   var LINKS = [
-    { href: "index.html",      label: "Beranda",  id: "index.html",
+    { href: "/",            label: "Beranda",  id: "index",
       icon: '<path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>' },
-    { href: "leaderboard.html", label: "Peringkat", id: "leaderboard.html",
+    { href: "/leaderboard", label: "Peringkat", id: "leaderboard",
       icon: '<path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a1 1 0 0 0-1 1c0 2.5 2 4 4 4M17 6h3a1 1 0 0 1 1 1c0 2.5-2 4-4 4"/>' },
-    { href: "account.html",    label: "Akun",     id: "account.html",
+    { href: "/account",     label: "Akun",     id: "account",
       icon: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/>' }
   ];
 
@@ -21,7 +21,7 @@
     var mount = document.getElementById("bottomnav-mount");
     if (!mount) return;
     var items = LINKS.map(function (l) {
-      var active = path === l.id || (path === "" && l.id === "index.html");
+      var active = path === l.id || (path === "" && l.id === "index");
       return '<a href="' + l.href + '" class="bn-item' + (active ? " active" : "") + '"' +
         (active ? ' aria-current="page"' : "") + ">" +
         '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + l.icon + "</svg>" +

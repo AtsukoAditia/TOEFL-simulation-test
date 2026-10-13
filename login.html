@@ -43,7 +43,7 @@
       </button>
       <div id="login-status"></div>
       <p class="login-note">Tidak bikin password baru. Kami cuma simpan nama, email, dan hasil test kamu.</p>
-      <a class="login-back" href="index.html">← Kembali ke beranda</a>
+      <a class="login-back" href="./">← Kembali ke beranda</a>
     </div>
   </div>
 
@@ -69,7 +69,7 @@
         }).then(function (user) {
           if (user) {
             status.textContent = "Kamu sudah masuk — mengalihkan…";
-            setTimeout(function () { location.href = "index.html"; }, 900);
+            setTimeout(function () { location.href = "./"; }, 900);
             return;
           }
           btn.addEventListener("click", function () {
