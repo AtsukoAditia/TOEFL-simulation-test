@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
 Disallow: /admin.html
-Disallow: /login.html
 Disallow: /js/supabase-config.js
+Disallow: /data/
 
 Sitemap: https://toeflyuk.my.id/sitemap.xml
