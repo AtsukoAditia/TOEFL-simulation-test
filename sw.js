@@ -7,7 +7,7 @@
  * Versioned cache — bump CACHE_VER tiap deploy mayor.
  */
 
-const CACHE_VER = "v9";
+const CACHE_VER = "v10";
 const STATIC_CACHE = `toefl-static-${CACHE_VER}`;
 const HTML_CACHE = `toefl-html-${CACHE_VER}`;
 
