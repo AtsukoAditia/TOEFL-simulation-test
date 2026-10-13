@@ -759,6 +759,19 @@
   }
 
   function startSectionWith(sectionName, setId) {
+    // Gate login SEBELUM fetch soal (kalau config aktif)
+    if (window.ToeflAuth && ToeflAuth.isConfigured && ToeflAuth.isConfigured()) {
+      return ToeflAuth.init().then(function () {
+        return ToeflAuth.requireAuth("section:" + sectionName);
+      }).then(function (ok) {
+        if (!ok) return;
+        _startSectionWith(sectionName, setId);
+      });
+    }
+    _startSectionWith(sectionName, setId);
+  }
+
+  function _startSectionWith(sectionName, setId) {
     var set = getSet(setId);
     if (!set) return;
     if (set.type === "mixed") { showToast("Set 0 khusus Full Test", "warn"); return; }
@@ -774,6 +787,19 @@
   }
 
   function startFullTestWith(setId) {
+    // Gate login SEBELUM fetch soal (kalau config aktif)
+    if (window.ToeflAuth && ToeflAuth.isConfigured && ToeflAuth.isConfigured()) {
+      return ToeflAuth.init().then(function () {
+        return ToeflAuth.requireAuth("fulltest");
+      }).then(function (ok) {
+        if (!ok) return;
+        _startFullTestWith(setId);
+      });
+    }
+    _startFullTestWith(setId);
+  }
+
+  function _startFullTestWith(setId) {
     var set = getSet(setId);
     if (!set) return;
     showToast("Memuat full test…", "info");

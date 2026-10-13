@@ -159,11 +159,23 @@
     if (window.ToeflTimerUI && ToeflTimerUI.showToast) ToeflTimerUI.showToast(msg);
   }
 
+  /** Batasi aksi hanya ke user login. Return Promise<boolean> boleh lanjut; kalau tidak, redirect ke login. */
+  function requireAuth(trigger) {
+    if (!ready) return Promise.resolve(true); // config kosong → izinkan guest
+    return getUser().then(function (user) {
+      if (user) return true;
+      var next = encodeURIComponent(trigger || "start-test");
+      location.href = "login.html?next=" + next;
+      return false;
+    });
+  }
+
   window.ToeflAuth = {
     isConfigured: isConfigured,
     init: init,
     ready: function () { return ready; },
     getUser: getUser,
+    requireAuth: requireAuth,
     signInWithGoogle: signInWithGoogle,
     signOut: signOut,
     saveResult: saveResult,
