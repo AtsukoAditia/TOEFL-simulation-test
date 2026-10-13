@@ -57,8 +57,10 @@
     });
   }
 
-  /** Simpan hasil test; fallback ke local history kalau offline/belum login. */
-  function saveResult(mode, setName, section, L, S, R) {
+  /** Simpan hasil test; fallback ke local history kalau offline/belum login.
+   * extraOps opsional: { elapsed_seconds }
+   */
+  function saveResult(mode, setName, section, L, S, R, extraOps) {
     var payload = (function () {
       var itp = null, accuracy = 0, total = L.score + S.score + R.score;
       var totalQ = L.total + S.total + R.total;
@@ -67,7 +69,7 @@
         itp = calculateITPScore(L, S, R);
       } catch (e) { /* scoring belum load */ }
 
-      return {
+      var p = {
         mode: mode,
         set_name: setName,
         section: section,
@@ -76,8 +78,14 @@
         reading: R.score || R.total ? R : null,
         total_score: itp ? itp.totalScore : null,
         cefr: itp ? itp.level : null,
-        accuracy: accuracy
+        accuracy: accuracy,
+        questions_answered: total,
+        questions_total: totalQ
       };
+      if (extraOps && typeof extraOps.elapsed_seconds === "number") {
+        p.elapsed_seconds = extraOps.elapsed_seconds;
+      }
+      return p;
     })();
 
     return getUser().then(function (user) {
@@ -105,6 +113,38 @@
           return res.data || [];
         });
     });
+  }
+
+  /** Update nama tampilan user di tabel profiles + auth metadata. */
+  function updateProfileName(fullName) {
+    if (!ready) return Promise.resolve({ ok: false, reason: "not-configured" });
+    return getUser().then(function (user) {
+      if (!user) return { ok: false, reason: "not-logged-in" };
+      var trimmed = String(fullName || "").trim().slice(0, 60);
+      if (trimmed.length < 2) return { ok: false, reason: "too-short" };
+      return sb.from("profiles").upsert({ id: user.id, full_name: trimmed })
+        .then(function (res) {
+          if (res.error) return { ok: false, reason: res.error.message };
+          return sb.auth.updateUser({ data: { full_name: trimmed } }).then(function () {
+            paintUserChip();
+            return { ok: true, name: trimmed };
+          });
+        });
+    });
+  }
+
+  /** Ambil leaderboard 30 hari (view publik agregat). */
+  function fetchLeaderboard(limit) {
+    limit = limit || 20;
+    if (!ready) return Promise.resolve([]);
+    return sb.from("leaderboard_30d")
+      .select("full_name, avatar_url, best_score, attempts, last_attempt")
+      .order("best_score", { ascending: false })
+      .limit(limit)
+      .then(function (res) {
+        if (res.error) { console.warn("[auth] leaderboard gagal:", res.error.message); return []; }
+        return res.data || [];
+      });
   }
 
   /* ── UI helpers ── */
@@ -180,6 +220,8 @@
     signOut: signOut,
     saveResult: saveResult,
     fetchHistory: fetchHistory,
+    updateProfileName: updateProfileName,
+    fetchLeaderboard: fetchLeaderboard,
     paintUserChip: paintUserChip
   };
 

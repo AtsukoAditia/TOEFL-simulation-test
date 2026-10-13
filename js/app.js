@@ -584,15 +584,16 @@
     });
     openModal(
       "<h3>Review sebelum Submit</h3>" +
+      "<p style='color:var(--text-dim);font-size:13.5px;margin-bottom:14px'>Cek dulu sebelum kunci jawaban. Skor masih bisa berubah selama belum submit.</p>" +
       "<p><b>" + answered + "</b> dari <b>" + total + "</b> soal terjawab.</p>" +
-      (flagged ? '<p class="warn-p">⚑ Flagged: <b>Q ' + flaggedList.slice(0, 12).join(", ") + (flaggedList.length > 12 ? "…" : "") + "</b></p>" : "") +
+      (flagged ? "<p class='warn-p'>⚑ Ditandai: <b>Q " + flaggedList.slice(0, 12).join(', ') + (flaggedList.length > 12 ? '…' : '') + "</b></p>" : "") +
       (unList.length
-        ? '<p class="bad-p">Kosong: <b>Q ' + unList.slice(0, 12).join(", ") + (unList.length > 12 ? "… (" + unList.length + ")" : "") + "</b></p>"
-        : '<p class="ok-p">✓ Semua soal terjawab. Mantap!</p>') +
+        ? '<p class="bad-p">Belum dijawab: <b>Q ' + unList.slice(0, 12).join(", ") + (unList.length > 12 ? "… (" + unList.length + " lagi)" : "") + "</b></p>"
+        : '<p class="ok-p">✓ Semua soal terjawab. Mantap, siap submit!</p>') +
       '<div class="modal-actions">' +
-        (unList.length ? '<button class="btn btn-soft" onclick="App.goFirstEmpty()">Isi soal kosong</button>' : "") +
+        (unList.length ? '<button class="btn btn-soft" onclick="App.goFirstEmpty()">Lompat ke soal kosong</button>' : "") +
         '<button class="btn btn-ghost" onclick="App.closeModal()">Lanjut kerja</button>' +
-        '<button class="btn btn-accent" onclick="App.confirmSubmit()">Submit sekarang</button>' +
+        '<button class="btn btn-accent" onclick="App.confirmSubmit()">Kunci & Submit</button>' +
       "</div>"
     );
   }

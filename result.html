@@ -2,13 +2,16 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
   <title>Score Report — TOEFL Simulator</title>
   <meta name="theme-color" content="#081226" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/redesign.css?v=5" />
+  <link rel="stylesheet" href="css/redesign.css?v=6" />
   <style>
     /* result-page specific */
     .result-body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 28px 16px 60px; }
@@ -181,8 +184,10 @@
     </div>
   </div>
 
+  <div id="bottomnav-mount"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="js/scoring.js?v=5"></script>
-  <script src="js/result.js?v=5"></script>
+  <script src="js/scoring.js?v=6"></script>
+  <script src="js/bottomnav.js?v=6"></script>
+  <script src="js/result.js?v=6"></script>
 </body>
 </html>

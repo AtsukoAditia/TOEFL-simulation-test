@@ -1,0 +1,40 @@
+{
+  "name": "TOEFL Yuk — Latihan TOEFL ITP Gratis",
+  "short_name": "TOEFL Yuk",
+  "description": "Simulasi TOEFL ITP online gratis: Listening, Structure & Reading. Timer seperti tes asli, skor 310–677, CEFR.",
+  "id": "/index.html",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#081226",
+  "theme_color": "#081226",
+  "lang": "id",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mulai Full Test",
+      "url": "/index.html#modes",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Leaderboard",
+      "url": "/leaderboard.html",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

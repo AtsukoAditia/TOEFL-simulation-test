@@ -775,3 +775,79 @@ kbd {
 }
 .user-menu a:hover, .user-menu button:hover { background: var(--surface-2); }
 .user-menu #menu-logout { color: var(--bad); }
+
+/* ═══════════════ BOTTOM NAV (mobile) ═══════════════ */
+.bottom-nav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+  display: none;
+  background: rgba(13, 27, 51, 0.92);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-top: 1px solid var(--border-soft);
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+}
+html[data-theme="light"] .bottom-nav { background: rgba(255, 255, 255, 0.94); }
+.bn-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 8px 4px 6px; border-radius: 14px; text-decoration: none;
+  color: var(--text-faint); font-size: 11px; font-weight: 600;
+  min-height: 48px; justify-content: center;
+  transition: color 0.2s, background 0.2s;
+}
+.bn-item.active { color: var(--accent); }
+.bn-item.active svg { stroke: var(--accent); }
+.bn-item svg { stroke: currentColor; }
+.bn-item:active { background: var(--surface-2); }
+
+@media (max-width: 900px) {
+  .bottom-nav { display: flex; }
+  /* ruang bawah konten supaya tidak ketutup nav */
+  body { padding-bottom: 72px; }
+  /* Sembunyikan topbar nav links di mobile, user chip tetap */
+  .topbar .nav-links { display: none; }
+}
+
+/* ═══════════════ PWA install banner ═══════════════ */
+#pwa-install-banner {
+  position: fixed; left: 14px; right: 14px; bottom: calc(86px + env(safe-area-inset-bottom));
+  z-index: 95; animation: fadeUp 0.35s var(--ease-out) both;
+}
+@media (min-width: 901px) {
+  #pwa-install-banner { left: auto; right: 24px; bottom: 24px; max-width: 400px; }
+}
+.pwa-banner {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 18px; padding: 14px; box-shadow: var(--shadow-pop);
+}
+.pwa-icon {
+  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), #ff8a3d);
+  color: var(--accent-ink); font-weight: 800; font-size: 20px;
+  display: grid; place-items: center;
+}
+.pwa-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.pwa-text strong { font-size: 14px; }
+.pwa-text span { font-size: 12px; color: var(--text-dim); }
+.pwa-close {
+  background: none; border: none; color: var(--text-faint); font-size: 22px;
+  cursor: pointer; padding: 4px 8px; line-height: 1;
+}
+
+/* ═══════════════ MOBILE POLISH: test shell ═══════════════ */
+@media (max-width: 640px) {
+  /* pertanyaan tidak boleh mepet tepi */
+  #qstage .q-card { border-radius: 18px; padding: 20px 16px; }
+  #qstage .q-text { font-size: 16.5px; line-height: 1.65; }
+  .choice-btn { padding: 15px 14px; font-size: 15px; min-height: 52px; border-radius: 14px; gap: 12px; }
+  .choice-btn .choice-key { width: 32px; height: 32px; font-size: 14px; }
+  /* tombol next/prev besar */
+  .q-nav-row .btn { min-height: 52px; font-size: 15px; border-radius: 14px; }
+  /* timer bar compact */
+  .test-timer { font-size: 15px; }
+  /* passage reading scroll nyaman */
+  .passage-box { max-height: 42vh; overflow-y: auto; -webkit-overflow-scrolling: touch; border-radius: 14px; padding: 16px; font-size: 14.5px; line-height: 1.75; }
+  /* palette grid HP: 5 kolom besar */
+  #palette-grid { grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  #palette-grid .pal-btn { min-height: 46px; font-size: 14px; border-radius: 12px; }
+}

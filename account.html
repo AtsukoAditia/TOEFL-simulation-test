@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Akun Saya — TOEFL Yuk</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#081226" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/redesign.css?v=6" />
+  <style>
+    .account-wrap { max-width: 640px; margin: 0 auto; padding: 96px 20px 140px; }
+    .account-head { display: flex; align-items: center; gap: 18px; margin-bottom: 36px; }
+    .account-head .ava { width: 72px; height: 72px; border-radius: 20px; object-fit: cover; box-shadow: var(--shadow-pop); }
+    .account-head .ava-initial { width: 72px; height: 72px; border-radius: 20px; background: linear-gradient(135deg, var(--accent), #ff8a3d); color: var(--accent-ink); font-weight: 800; font-size: 30px; display: grid; place-items: center; box-shadow: var(--shadow-pop); }
+    .account-head h1 { font-size: 26px; margin-bottom: 4px; }
+    .account-head p { color: var(--text-dim); font-size: 14px; }
+    .panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 20px; padding: 24px; margin-bottom: 22px; }
+    .panel h2 { font-size: 17px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; color: var(--text-dim); margin-bottom: 7px; }
+    .field input { width: 100%; padding: 13px 16px; border-radius: 12px; border: 1.5px solid var(--border-soft); background: var(--surface-2); color: var(--text); font-size: 16px; font-family: inherit; transition: border 0.2s; }
+    .field input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79,140,255,0.15); }
+    .field .hint { font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+    .field .err { color: var(--bad); font-size: 12.5px; margin-top: 6px; min-height: 16px; }
+    .row-between { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .danger-link { color: var(--bad); background: none; border: none; font-size: 13.5px; font-weight: 600; cursor: pointer; padding: 8px 12px; border-radius: 8px; }
+    .danger-link:hover { background: rgba(244,63,94,0.08); }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .stat-box { background: var(--surface-2); border-radius: 14px; padding: 16px 12px; text-align: center; }
+    .stat-box .n { font-size: 22px; font-weight: 800; font-family: var(--font-display); }
+    .stat-box .l { font-size: 11.5px; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .login-prompt { text-align: center; padding: 60px 20px; }
+    @media (max-width: 480px) {
+      .account-wrap { padding: 80px 16px 120px; }
+      .account-head h1 { font-size: 22px; }
+      .panel { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-fx"></div>
+  <div id="topbar-mount"></div>
+  <main class="account-wrap">
+    <div id="account-content">
+      <div class="login-prompt">
+        <div class="skel" style="width:72px;height:72px;border-radius:20px;margin:0 auto 20px"></div>
+        <p style="color:var(--text-dim)">Memuat akun…</p>
+      </div>
+    </div>
+  </main>
+  <div id="bottomnav-mount"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/bottomnav.js"></script>
+  <script>
+    (function () {
+      var content = document.getElementById("account-content");
+
+      function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+      function renderLoginPrompt() {
+        content.innerHTML =
+          '<div class="login-prompt">' +
+            '<span class="brand-mark" style="width:64px;height:64px;font-size:30px;border-radius:18px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),#ff8a3d);color:var(--accent-ink);font-weight:800;margin-bottom:20px">T</span>' +
+            '<h2 style="margin-bottom:10px">Masuk untuk melihat akun</h2>' +
+            '<p style="color:var(--text-dim);margin-bottom:26px">Kelola profil dan lihat statistik TOEFL kamu.</p>' +
+            '<a class="btn btn-primary" href="login.html?next=account" style="display:inline-flex">Masuk dengan Google</a>' +
+          '</div>';
+      }
+
+      function init() {
+        if (!window.ToeflAuth) { renderLoginPrompt(); return; }
+        ToeflAuth.init().then(function () { return ToeflAuth.getUser(); }).then(function (user) {
+          if (!user) { renderLoginPrompt(); return; }
+          var meta = user.user_metadata || {};
+          var name = meta.full_name || meta.name || "User";
+          var avatar = meta.avatar_url || "";
+          var email = user.email || "";
+
+          content.innerHTML =
+            '<div class="account-head">' +
+              (avatar
+                ? '<img class="ava" src="' + esc(avatar) + '" alt="" referrerpolicy="no-referrer">'
+                : '<div class="ava-initial">' + esc(name.charAt(0).toUpperCase()) + '</div>') +
+              '<div>' +
+                '<h1>' + esc(name) + '</h1>' +
+                '<p>' + esc(email) + '</p>' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="panel">' +
+              '<h2>Profil</h2>' +
+              '<form id="name-form" novalidate>' +
+                '<div class="field">' +
+                  '<label for="inp-name">Nama tampilan</label>' +
+                  '<input id="inp-name" type="text" value="' + esc(name) + '" maxlength="60" autocomplete="name" />' +
+                  '<div class="hint">Nama ini tampil di leaderboard &amp; review jawaban.</div>' +
+                  '<div class="err" id="name-err"></div>' +
+                '</div>' +
+                '<button type="submit" class="btn btn-primary" id="btn-save" style="width:100%">Simpan nama</button>' +
+              '</form>' +
+            '</div>' +
+
+            '<div class="panel">' +
+              '<h2>Statistik saya</h2>' +
+              '<div class="stat-grid" id="stat-grid">' +
+                '<div class="stat-box"><div class="n" id="stat-attempts">–</div><div class="l">Test selesai</div></div>' +
+                '<div class="stat-box"><div class="n" id="stat-best">–</div><div class="l">Skor terbaik</div></div>' +
+                '<div class="stat-box"><div class="n" id="stat-avg">–</div><div class="l">Rata-rata</div></div>' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="panel">' +
+              '<div class="row-between">' +
+                '<div><h2 style="margin-bottom:4px">Keluar</h2>' +
+                '<p style="color:var(--text-dim);font-size:13px">Sesi ini akan dihapus dari browser.</p></div>' +
+                '<button class="danger-link" id="btn-logout">Keluar akun</button>' +
+              '</div>' +
+            '</div>';
+
+          // Statistik dari cloud
+          ToeflAuth.fetchHistory(50).then(function (rows) {
+            document.getElementById("stat-attempts").textContent = rows.length;
+            var scores = rows.map(function (r) { return r.total_score; }).filter(function (s) { return s != null; });
+            document.getElementById("stat-best").textContent = scores.length ? Math.max.apply(null, scores) : "–";
+            document.getElementById("stat-avg").textContent = scores.length
+              ? Math.round(scores.reduce(function (a, b) { return a + b; }, 0) / scores.length)
+              : "–";
+          });
+
+          document.getElementById("name-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var inp = document.getElementById("inp-name");
+            var btn = document.getElementById("btn-save");
+            var err = document.getElementById("name-err");
+            var val = inp.value.trim();
+            if (val.length < 2) { err.textContent = "Minimal 2 karakter."; return; }
+            err.textContent = "";
+            btn.disabled = true;
+            btn.textContent = "Menyimpan…";
+            ToeflAuth.updateProfileName(val).then(function (r) {
+              btn.disabled = false;
+              btn.textContent = "Simpan nama";
+              if (r.ok) {
+                btn.textContent = "Tersimpan ✓";
+                setTimeout(function () { btn.textContent = "Simpan nama"; }, 2000);
+              } else {
+                err.textContent = "Gagal menyimpan. Coba lagi.";
+              }
+            });
+          });
+
+          document.getElementById("btn-logout").addEventListener("click", function () {
+            if (confirm("Keluar dari akun ini?")) ToeflAuth.signOut().then(function () { location.href = "index.html"; });
+          });
+        });
+      }
+      document.addEventListener("DOMContentLoaded", init);
+      if (document.readyState !== "loading") init();
+    })();
+  </script>
+</body>
+</html>
