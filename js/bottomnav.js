@@ -85,9 +85,59 @@
     if (b) b.remove();
   }
 
+  /* ── Hamburger menu (mobile) ── */
+  function bindHamburger() {
+    var btn = document.getElementById("hamburger-btn");
+    var sheet = document.getElementById("mobile-menu");
+    var overlay = document.getElementById("mm-overlay");
+    var closeBtn = document.getElementById("mm-close");
+    if (!btn || !sheet || !overlay) return;
+
+    var openIcon = btn.querySelector(".hb-open");
+    var closeIcon = btn.querySelector(".hb-close");
+
+    function openMenu() {
+      sheet.hidden = false;
+      overlay.hidden = false;
+      // reflow agar transisi jalan
+      sheet.getBoundingClientRect();
+      sheet.classList.add("open");
+      overlay.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+      if (openIcon) openIcon.style.display = "none";
+      if (closeIcon) closeIcon.style.display = "block";
+      document.body.style.overflow = "hidden";
+    }
+    function closeMenu() {
+      sheet.classList.remove("open");
+      overlay.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
+      if (openIcon) openIcon.style.display = "block";
+      if (closeIcon) closeIcon.style.display = "none";
+      document.body.style.overflow = "";
+      setTimeout(function () {
+        if (!sheet.classList.contains("open")) { sheet.hidden = true; overlay.hidden = true; }
+      }, 320);
+    }
+
+    btn.addEventListener("click", function () {
+      if (sheet.classList.contains("open")) closeMenu(); else openMenu();
+    });
+    overlay.addEventListener("click", closeMenu);
+    if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+    // klik link di sheet → tutup
+    sheet.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", closeMenu);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && sheet.classList.contains("open")) closeMenu();
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     buildBottomNav();
     registerSW();
     bindInstallPrompt();
+    bindHamburger();
   });
 })();

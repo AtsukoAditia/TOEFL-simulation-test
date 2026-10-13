@@ -851,3 +851,57 @@ html[data-theme="light"] .bottom-nav { background: rgba(255, 255, 255, 0.94); }
   #palette-grid { grid-template-columns: repeat(5, 1fr); gap: 10px; }
   #palette-grid .pal-btn { min-height: 46px; font-size: 14px; border-radius: 12px; }
 }
+
+/* ═══════════════ HAMBURGER + MOBILE MENU SHEET ═══════════════ */
+.hamburger-btn {
+  display: none;
+  width: 42px; height: 42px; border-radius: 12px;
+  border: 1px solid var(--border-soft); background: var(--surface);
+  color: var(--text-dim); cursor: pointer;
+  place-items: center; transition: all 0.22s;
+  -webkit-tap-highlight-color: transparent;
+}
+.hamburger-btn:hover { color: var(--text); border-color: var(--primary); }
+.mm-sheet-overlay {
+  position: fixed; inset: 0; z-index: 85;
+  background: rgba(3, 8, 20, 0.55);
+  opacity: 0; transition: opacity 0.22s;
+}
+.mm-sheet-overlay.open { opacity: 1; }
+.mm-sheet {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 86;
+  width: min(320px, 84vw);
+  background: var(--surface); border-left: 1px solid var(--border-soft);
+  box-shadow: -12px 0 40px rgba(2, 8, 24, 0.5);
+  transform: translateX(100%); transition: transform 0.3s var(--ease-out);
+  display: flex; flex-direction: column;
+  padding-top: max(14px, env(safe-area-inset-top));
+}
+.mm-sheet.open { transform: translateX(0); }
+.mm-head {
+  display: flex; align-items: center; gap: 11px;
+  padding: 14px 20px 12px; border-bottom: 1px solid var(--border-soft);
+  font-family: var(--font-display); font-size: 16px;
+}
+.mm-close-btn {
+  margin-left: auto; width: 38px; height: 38px; border-radius: 10px;
+  border: 1px solid var(--border-soft); background: var(--surface-2);
+  color: var(--text-dim); cursor: pointer; display: grid; place-items: center;
+}
+.mm-close-btn:hover { color: var(--text); border-color: var(--primary); }
+.mm-links { display: flex; flex-direction: column; padding: 14px 14px; gap: 4px; }
+.mm-link {
+  display: flex; align-items: center; padding: 14px 16px; border-radius: 13px;
+  color: var(--text); text-decoration: none; font-size: 15.5px; font-weight: 600;
+  min-height: 50px; transition: background 0.18s;
+  -webkit-tap-highlight-color: transparent;
+}
+.mm-link:active { background: var(--surface-2); }
+.mm-link:hover { background: var(--surface-2); }
+
+@media (max-width: 900px) {
+  .hamburger-btn { display: grid; }
+  /* fix selector lama yang typo (class asli .topnav-links) */
+  .topnav .topnav-links .nav-link { display: none; }
+  .topnav .topnav-links a.nav-link { display: none; }
+}
