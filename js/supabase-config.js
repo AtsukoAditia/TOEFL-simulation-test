@@ -12,6 +12,6 @@
  *        Redirect URLs tambahkan: https://toeflyuk.my.id/login.html
  */
 window.SUPABASE_CONFIG = {
-  url: "https://YOUR_PROJECT.supabase.co",
-  anonKey: "YOUR_SUPABASE_ANON_KEY"
+  url: "https://poblxqvzokhujwjxqcam.supabase.co",
+  anonKey: "sb_publishable_yyQT7jBkuyKkvlvvCI3MVQ_RktPxNyY"
 };
