@@ -5,8 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Simulasi Tes TOEFL Online GRATIS</title>
-
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="Free TOEFL ITP-like simulator: Listening, Structure & Written Expression, and Reading practice with timers, instant explanations, and estimated ITP scores." />
+  <meta name="theme-color" content="#0b1f4b" />
+  <meta property="og:title" content="TOEFL Simulator — Free Online Practice Test" />
+  <meta property="og:description" content="Practice Listening, Structure, and Reading with timers, answer explanations, and estimated TOEFL ITP scores. 100% free." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toefl.atsukoaditia.my.id/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="TOEFL Simulator — Free Online Practice Test" />
+  <meta name="twitter:description" content="Free TOEFL ITP-like practice: timed sections, instant explanations, estimated scores." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1f4b'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23e8a838' font-family='Georgia,serif' font-weight='bold'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css?v=2" />
 </head>
 <body>
 
@@ -27,8 +36,9 @@
   </header>
 
   <main class="container">
+    <button type="button" id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" onclick="toggleTheme()">🌙 Dark</button>
 
-    <section class="intro-card">
+   <section class="intro-card">
       <div class="intro-left">
         <h2>Choose Practice Mode</h2>
         <p>
@@ -54,6 +64,7 @@
           🚀 Start Full Test
         </button>
       </div>
+      <p class="kbd-hint">⌨️ Tip: press A/B/C/D to answer, arrow keys to move between questions.</p>
     </section>
 
     <div class="home-three-column">
@@ -230,6 +241,8 @@
 
   </main>
 
+  <div id="score-history-panel" class="score-history-panel"></div>
+
   <footer class="app-footer">
     <p>
       This project is not affiliated with, endorsed by, or sponsored by ETS.
@@ -264,12 +277,22 @@
 
       scrollToPracticeArea();
     }
+
+    // Init theme + history panel + resume banner on load
+    document.addEventListener("DOMContentLoaded", function () {
+      if (window.ToeflStore) {
+        initTheme();
+        renderScoreHistoryPanel();
+        setTimeout(maybeShowResumeBanner, 400);
+      }
+      bindKeyboardNav();
+    });
   </script>
 
-  <script src="js/tts.js"></script>
-  <script src="js/timer.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/scoring.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/tts.js?v=2"></script>
+  <script src="js/timer.js?v=2"></script>
+  <script src="js/storage.js?v=2"></script>
+  <script src="js/scoring.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
 </body>
 </html>

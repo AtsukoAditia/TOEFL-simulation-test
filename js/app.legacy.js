@@ -18,9 +18,18 @@ let fullTestResults = {};
 let fullTestSectionIndex = 0;
 let fullTestSections = ["listening", "structure", "reading"];
 
+// Test-mode state: "test" (default) | "practice" (instant explanations)
+let testMode = "test";
+let flaggedQuestions = {}; // questionId -> true
+
+function isPracticeMode() {
+  return testMode === "practice";
+}
+
 let appManifest = null;
 let currentSelectedSetId = null;
 let currentSelectedSet = null;
+let autoSaveInterval = null;
 
 function handleMainNavClick(mode) {
   if (mode === 'fulltest') {
@@ -675,6 +684,8 @@ function renderFullTestSectionStart(sectionName) {
         Click start when you are ready. The timer for this section will begin after you press the button.
       </p>
 
+      ${renderModeToggle(sectionName)}
+
       <button type="button" onclick="startSelectedSection()">
         Start ${formatSectionTitle(sectionName)}
       </button>
@@ -708,6 +719,8 @@ function renderSectionStartScreen(sectionName, data) {
         you press the start button.
       </p>
 
+      ${renderModeToggle(sectionName)}
+
       <button type="button" onclick="startSelectedSection()">
         Start ${formatSectionTitle(sectionName)}
       </button>
@@ -723,6 +736,8 @@ function startSelectedSection() {
 
   stopSpeech();
   stopTimer();
+  stopAutoSave();
+  clearTestDraft();
 
   isSubmitted = false;
   isTestRunning = true;
@@ -763,6 +778,7 @@ function forceStopTest() {
   isManualStop = true;
   stopSpeech();
   stopTimer();
+  stopAutoSave();
 
   setTimeout(() => {
     isManualStop = false;
@@ -801,6 +817,8 @@ function resetCurrentSectionToStartScreen() {
 
   stopSpeech();
   stopTimer();
+  stopAutoSave();
+  clearTestDraft();
 
   isSubmitted = false;
   isTestRunning = false;
@@ -817,6 +835,8 @@ function markStoppedWithAnswerKey() {
 
   stopTimer();
   stopSpeech();
+  stopAutoSave();
+  clearTestDraft();
   setSectionButtonsDisabled(false);
 
   if (currentSectionName === "listening") {
@@ -984,6 +1004,8 @@ function restartSameQuestions() {
 
   stopSpeech();
   stopTimer();
+  stopAutoSave();
+  clearTestDraft();
 
   isSubmitted = false;
   isTestRunning = true;
@@ -1018,6 +1040,8 @@ function retryWithShuffledQuestions() {
 
   stopSpeech();
   stopTimer();
+  stopAutoSave();
+  clearTestDraft();
 
   isSubmitted = false;
   isTestRunning = true;
@@ -1218,12 +1242,20 @@ function showFullTestFinalResult() {
       structure: { score: structure.score, total: structure.total },
       reading: { score: reading.score, total: reading.total },
       date: new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }),
-      setName: currentSelectedSet ? currentSelectedSet.title : 'Full Test'
+      setName: currentSelectedSet ? currentSelectedSet.title : 'Full Test',
+      savedAt: Date.now()
     };
     localStorage.setItem('toeflResult', JSON.stringify(resultData));
+
+    // Push to score history (cap 20) and clear any running draft
+    if (window.ToeflStore) {
+      ToeflStore.pushCapped("history.v1", resultData, 20);
+      ToeflStore.del("draft");
+    }
   } catch (e) {
     console.warn('localStorage not available', e);
   }
+  stopAutoSave();
   resetFullTestState();
   window.location.href = 'result.html';
 }
@@ -1251,7 +1283,7 @@ function calculateEstimatedITPScore(listening, structure, reading) {
 function renderActionButtons(sectionName) {
   return `
     <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px;">
-      <button id="submit-${sectionName}" type="button" onclick="check${capitalizeFirstLetter(sectionName)}Answers(false)">
+      <button id="submit-${sectionName}" type="button" onclick="requestSubmitAnswers('${sectionName}')">
         Submit Answers
       </button>
 
@@ -1266,11 +1298,147 @@ function capitalizeFirstLetter(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+// ─── Test chrome helpers (palette sidebar, mode toggle, flags, draft restore) ───
+
+function renderFlagButton(questionId) {
+  return `<button type="button" class="btn-flag${flaggedQuestions[questionId] ? " flag-on" : ""}" id="flag-${questionId}" aria-pressed="${flaggedQuestions[questionId] ? "true" : "false"}" onclick="toggleFlag('${questionId}')">${flaggedQuestions[questionId] ? "🚩 Flagged" : "🏳️ Flag"}</button>`;
+}
+
+function insertTestChrome(sectionName) {
+  const practiceArea = document.getElementById("practice-area");
+  if (!practiceArea) return;
+
+  const chrome = document.createElement("div");
+  chrome.className = "test-chrome";
+  chrome.innerHTML = `
+    <div class="test-chrome-top">
+      <div class="section-progress-wrap">
+        <div class="section-progress" role="progressbar" aria-label="Section progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="section-progress">
+          <div class="section-progress-fill" id="section-progress-fill"></div>
+        </div>
+        <span class="section-progress-label" id="section-progress-label">0% answered</span>
+      </div>
+      ${renderModeToggle(sectionName)}
+    </div>
+    <aside class="test-chrome-side" aria-label="Question navigation">
+      <div id="question-palette" class="question-palette"></div>
+      <button type="button" class="btn-jump-submit" onclick="scrollToSubmit()">Submit / Review</button>
+    </aside>
+  `;
+
+  const form = practiceArea.querySelector("form");
+  if (form) {
+    form.parentNode.insertBefore(chrome, form);
+  } else {
+    practiceArea.insertBefore(chrome, practiceArea.firstChild);
+  }
+}
+
+function scrollToSubmit() {
+  const btn = document.getElementById(`submit-${currentSectionName}`);
+  if (btn) btn.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function restoreDraftSelections() {
+  const data = window.currentListeningData || window.currentStructureData || window.currentReadingData;
+  if (!data) return;
+
+  const applyToQuestion = (q) => {
+    if (q._savedAnswer !== undefined && q._savedAnswer !== null) {
+      const input = document.querySelector(`input[name="${q.id}"][value="${q._savedAnswer}"]`);
+      if (input) input.checked = true;
+    }
+  };
+
+  if (currentSectionName === "listening" && data.items) {
+    data.items.forEach((item) => item.questions.forEach(applyToQuestion));
+  }
+  if (currentSectionName === "structure" && data.items) {
+    data.items.forEach(applyToQuestion);
+  }
+  if (currentSectionName === "reading" && data.passages) {
+    data.passages.forEach((p) => p.questions.forEach(applyToQuestion));
+  }
+}
+
+function attachPaletteAutoUpdate() {
+  const practiceArea = document.getElementById("practice-area");
+  if (!practiceArea) return;
+
+  practiceArea.querySelectorAll("input[type='radio']").forEach((input) => {
+    input.addEventListener("change", () => {
+      renderQuestionPalette();
+      if (isPracticeMode()) {
+        showPracticeExplanation(input.name);
+      }
+      saveTestDraft();
+    });
+  });
+}
+
+// ─── Practice Mode: instant explanation after answering ───
+
+function showPracticeExplanation(questionId) {
+  const q = findQuestionById(questionId);
+  if (!q || !q.explanation) return;
+
+  const selected = document.querySelector(`input[name="${questionId}"]:checked`);
+  if (!selected) return;
+
+  const explanation = document.getElementById(`explanation-${questionId}`);
+  if (!explanation) return;
+
+  const selectedValue = Number(selected.value);
+  const labels = document.querySelectorAll(`input[name="${questionId}"]`);
+
+  labels.forEach((input) => {
+    const label = input.closest("label");
+    if (!label) return;
+    label.classList.remove("choice-correct", "choice-wrong");
+    if (Number(input.value) === q.answer) label.classList.add("choice-correct");
+    if (Number(input.value) === selectedValue && selectedValue !== q.answer) label.classList.add("choice-wrong");
+    input.disabled = true;
+  });
+
+  if (selectedValue === q.answer) {
+    explanation.innerHTML = `<span class="correct">✅ Correct.</span> ${q.explanation}`;
+  } else {
+    explanation.innerHTML = `<span class="wrong">❌ Incorrect.</span> Correct answer: <strong>${String.fromCharCode(65 + q.answer)}. ${q.choices[q.answer]}</strong><br>${q.explanation}`;
+  }
+  explanation.classList.add("explanation-visible");
+}
+
+function findQuestionById(questionId) {
+  if (window.currentListeningData) {
+    for (const item of window.currentListeningData.items) {
+      const hit = item.questions.find((q) => q.id === questionId);
+      if (hit) return hit;
+    }
+  }
+  if (window.currentStructureData) {
+    const hit = window.currentStructureData.items.find((q) => q.id === questionId);
+    if (hit) return hit;
+  }
+  if (window.currentReadingData) {
+    for (const passage of window.currentReadingData.passages) {
+      const hit = passage.questions.find((q) => q.id === questionId);
+      if (hit) return hit;
+    }
+  }
+  return null;
+}
+
 function startTimer(durationMinutes, sectionName) {
   stopTimer();
 
   remainingSeconds = durationMinutes * 60;
   updateTimerDisplay();
+
+  if (window.ToeflTimerUI) {
+    ToeflTimerUI.resetWarnings();
+  }
+
+  startAutoSave();
 
   timerInterval = setInterval(() => {
     remainingSeconds--;
@@ -1288,6 +1456,154 @@ function stopTimer() {
     clearInterval(timerInterval);
     timerInterval = null;
   }
+}
+
+// ─── Question Palette (answered / flagged / unanswered nav) ───
+
+function getPaletteQuestions() {
+  const questions = [];
+
+  if (currentSectionName === "listening" && window.currentListeningData) {
+    let n = 0;
+    window.currentListeningData.items.forEach((item) => {
+      item.questions.forEach((q) => {
+        n++;
+        questions.push({ id: q.id, label: n, anchor: q.id });
+      });
+    });
+  }
+  if (currentSectionName === "structure" && window.currentStructureData) {
+    window.currentStructureData.items.forEach((q, i) => {
+      questions.push({ id: q.id, label: i + 1, anchor: q.id });
+    });
+  }
+  if (currentSectionName === "reading" && window.currentReadingData) {
+    let n = 0;
+    window.currentReadingData.passages.forEach((p) => {
+      p.questions.forEach((q) => {
+        n++;
+        questions.push({ id: q.id, label: n, anchor: q.id });
+      });
+    });
+  }
+  return questions;
+}
+
+function toggleFlag(questionId) {
+  flaggedQuestions[questionId] = !flaggedQuestions[questionId];
+  if (!flaggedQuestions[questionId]) delete flaggedQuestions[questionId];
+  renderQuestionPalette(currentSectionName);
+  updateFlagButtons(questionId);
+}
+
+function updateFlagButtons(questionId) {
+  const btn = document.getElementById(`flag-${questionId}`);
+  if (btn) {
+    const on = !!flaggedQuestions[questionId];
+    btn.classList.toggle("flag-on", on);
+    btn.textContent = on ? "🚩 Flagged" : "🏳️ Flag";
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+  }
+}
+
+function renderQuestionPalette() {
+  const paletteEl = document.getElementById("question-palette");
+  if (!paletteEl || !currentSectionName) return;
+
+  const questions = getPaletteQuestions();
+  let answeredCount = 0;
+
+  let html = `<div class="palette-title">Questions</div><div class="palette-grid">`;
+  questions.forEach((q) => {
+    const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+    const cls = selected ? "palette-btn answered" : "palette-btn";
+    if (selected) answeredCount++;
+    const flagCls = flaggedQuestions[q.id] ? " flagged" : "";
+    html += `<button type="button" class="${cls}${flagCls}" data-qid="${q.id}" title="Question ${q.label}${flaggedQuestions[q.id] ? " (flagged)" : ""}" onclick="jumpToQuestion('${q.anchor}')">${q.label}</button>`;
+  });
+  html += `</div>`;
+  html += `<div class="palette-legend">
+    <span class="legend-dot answered-dot"></span> Answered (${answeredCount})
+    <span class="legend-dot flag-dot"></span> Flagged (${Object.keys(flaggedQuestions).length})
+    <span class="legend-dot todo-dot"></span> Unanswered (${questions.length - answeredCount})
+  </div>`;
+
+  paletteEl.innerHTML = html;
+  updateSectionProgress(questions.length, answeredCount);
+}
+
+function updateSectionProgress(total, answered) {
+  const fill = document.getElementById("section-progress-fill");
+  const bar = document.getElementById("section-progress");
+  const label = document.getElementById("section-progress-label");
+  if (!fill || !bar || !label) return;
+
+  const pct = total === 0 ? 0 : Math.round((answered / total) * 100);
+  fill.style.width = pct + "%";
+  bar.setAttribute("aria-valuenow", String(pct));
+  label.textContent = `${answered}/${total} answered (${pct}%)`;
+}
+
+function jumpToQuestion(questionId) {
+  const el = document.getElementById(`qcard-${questionId}`);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+    el.classList.add("qcard-flash");
+    setTimeout(() => el.classList.remove("qcard-flash"), 1200);
+  }
+}
+
+function renderReviewSummaryModal() {
+  const questions = getPaletteQuestions();
+  let answered = 0;
+  let flagged = 0;
+  let unansweredList = [];
+  let flaggedList = [];
+
+  questions.forEach((q) => {
+    const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+    if (selected) answered++;
+    else unansweredList.push(q.label);
+    if (flaggedQuestions[q.id]) {
+      flagged++;
+      flaggedList.push(q.label);
+    }
+  });
+
+  return `
+    <div class="review-modal-overlay" id="review-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="review-modal-title">
+      <div class="review-modal">
+        <h3 id="review-modal-title">Review Before Submit</h3>
+        <p><strong>${answered}</strong> of <strong>${questions.length}</strong> questions answered.</p>
+        ${flagged ? `<p>🚩 Flagged for review: <strong>${flaggedList.join(", ")}</strong></p>` : ""}
+        ${unansweredList.length ? `<p class="review-warn">⚠️ Unanswered: <strong>${unansweredList.join(", ")}</strong></p>` : `<p class="review-ok">✅ All questions answered.</p>`}
+        <div class="review-modal-actions">
+          <button type="button" class="btn-secondary" onclick="closeReviewModal()">Keep Working</button>
+          <button type="button" class="btn-primary" onclick="confirmSubmitAnswers()">Submit Now</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function requestSubmitAnswers(sectionName) {
+  const overlay = document.getElementById("review-modal-overlay");
+  if (overlay) {
+    overlay.remove();
+  }
+  document.getElementById("practice-area").insertAdjacentHTML("beforeend", renderReviewSummaryModal());
+}
+
+function closeReviewModal() {
+  const overlay = document.getElementById("review-modal-overlay");
+  if (overlay) overlay.remove();
+}
+
+function confirmSubmitAnswers() {
+  closeReviewModal();
+  if (currentSectionName === "listening") checkListeningAnswers(false, true);
+  if (currentSectionName === "structure") checkStructureAnswers(false, true);
+  if (currentSectionName === "reading") checkReadingAnswers(false, true);
 }
 
 function updateTimerDisplay() {
@@ -1309,6 +1625,10 @@ function updateTimerDisplay() {
     timerBox.classList.add("timer-danger");
   } else if (remainingSeconds <= 300) {
     timerBox.classList.add("timer-warning");
+  }
+
+  if (window.ToeflTimerUI) {
+    ToeflTimerUI.checkWarnings(remainingSeconds);
   }
 }
 
@@ -1356,6 +1676,8 @@ function markSubmitted(formId) {
   isTestRunning = false;
 
   stopTimer();
+  stopAutoSave();
+  clearTestDraft();
   disableCurrentForm(formId);
   stopSpeech();
 
@@ -1467,7 +1789,7 @@ function renderListening(data) {
 
     item.questions.forEach((q, questionIndex) => {
       html += `
-        <div class="question-card">
+        <div class="question-card" id="qcard-${q.id}">
           <p class="question-meta">
             <strong>Audio ${itemIndex + 1} · Question ${questionIndex + 1}</strong>
           </p>
@@ -1485,6 +1807,7 @@ function renderListening(data) {
       });
 
       html += `
+          ${renderFlagButton(q.id)}
           <p id="explanation-${q.id}" class="explanation"></p>
         </div>
       `;
@@ -1505,6 +1828,10 @@ function renderListening(data) {
   currentPlayingAudioId = null;
   isManualStop = false;
   updateAudioButtons();
+  insertTestChrome("listening");
+  restoreDraftSelections();
+  renderQuestionPalette();
+  attachPaletteAutoUpdate();
 }
 
 function renderStructure(data) {
@@ -1523,7 +1850,7 @@ function renderStructure(data) {
 
   data.items.forEach((q, index) => {
     html += `
-      <div class="question-card">
+      <div class="question-card" id="qcard-${q.id}">
         <p class="question-meta">
           <strong>Question ${index + 1}</strong> · ${formatQuestionType(q.type)} · ${q.topic}
         </p>
@@ -1540,6 +1867,7 @@ function renderStructure(data) {
     });
 
     html += `
+        ${renderFlagButton(q.id)}
         <p id="explanation-${q.id}" class="explanation"></p>
       </div>
     `;
@@ -1554,6 +1882,10 @@ function renderStructure(data) {
 
   practiceArea.innerHTML = html;
   window.currentStructureData = data;
+  insertTestChrome("structure");
+  restoreDraftSelections();
+  renderQuestionPalette();
+  attachPaletteAutoUpdate();
 }
 
 function renderReading(data) {
@@ -1585,7 +1917,7 @@ function renderReading(data) {
 
     passage.questions.forEach((q, questionIndex) => {
       html += `
-        <div class="question-card">
+        <div class="question-card" id="qcard-${q.id}">
           <p class="question-meta">
             <strong>Question ${questionIndex + 1}</strong> · ${formatReadingType(q.type)}
           </p>
@@ -1602,6 +1934,7 @@ function renderReading(data) {
       });
 
       html += `
+          ${renderFlagButton(q.id)}
           <p id="explanation-${q.id}" class="explanation"></p>
         </div>
       `;
@@ -1617,6 +1950,10 @@ function renderReading(data) {
 
   practiceArea.innerHTML = html;
   window.currentReadingData = data;
+  insertTestChrome("reading");
+  restoreDraftSelections();
+  renderQuestionPalette();
+  attachPaletteAutoUpdate();
 }
 
 function formatQuestionType(type) {
@@ -1706,10 +2043,14 @@ function speakListeningAudio(audioId) {
     currentPlayingAudioId = audioId;
 
     currentUtterance = new SpeechSynthesisUtterance(item.ttsText);
-    currentUtterance.lang = "en-US";
-    currentUtterance.rate = 0.82;
-    currentUtterance.pitch = 0.95;
-    currentUtterance.volume = 1;
+    if (window.ToeflTTS) {
+      ToeflTTS.applyVoice(currentUtterance);
+    } else {
+      currentUtterance.lang = "en-US";
+      currentUtterance.rate = 0.95;
+      currentUtterance.pitch = 0.95;
+      currentUtterance.volume = 1;
+    }
 
     currentUtterance.onstart = function () {
       currentAudioState = "playing";
@@ -1772,6 +2113,372 @@ function stopSpeech() {
   setTimeout(() => {
     isManualStop = false;
   }, 300);
+}
+
+function clearTestDraft() {
+  ToeflStore.del("draft");
+  flaggedQuestions = {};
+}
+
+function collectAnswers() {
+  const answers = {};
+  document.querySelectorAll("#practice-area input[type='radio']:checked").forEach((input) => {
+    answers[input.name] = Number(input.value);
+  });
+  return answers;
+}
+
+function saveTestDraft() {
+  if (isSubmitted || !isTestRunning || !currentSectionName) return;
+  const draft = {
+    mode: isFullTestMode ? "fulltest" : "section",
+    section: currentSectionName,
+    setId: currentSelectedSetId,
+    modePref: testMode,
+    remaining: remainingSeconds,
+    fullTestSectionIndex: fullTestSectionIndex,
+    answers: collectAnswers(),
+    flagged: flaggedQuestions,
+    savedAt: Date.now()
+  };
+  ToeflStore.set("draft", draft);
+}
+
+let beforeUnloadBound = false;
+
+function startAutoSave() {
+  stopAutoSave();
+  autoSaveInterval = setInterval(saveTestDraft, 10000);
+  if (!beforeUnloadBound) {
+    beforeUnloadBound = true;
+    window.addEventListener("beforeunload", saveTestDraft);
+  }
+}
+
+function stopAutoSave() {
+  if (autoSaveInterval) {
+    clearInterval(autoSaveInterval);
+    autoSaveInterval = null;
+  }
+}
+
+function getSavedDraft() {
+  const draft = ToeflStore.get("draft", null);
+  if (!draft) return null;
+  if (!draft.setId || !draft.section) return null;
+  return draft;
+}
+
+function resumeFromDraft() {
+  const draft = getSavedDraft();
+  if (!draft) return;
+
+  loadManifest().then(() => {
+    if (draft.mode === "fulltest") {
+      loadFullTestWithSet(draft.setId).then(() => {
+        if (!fullTestData || !fullTestData[draft.section]) return;
+        fullTestSectionIndex = draft.fullTestSectionIndex || fullTestSections.indexOf(draft.section);
+        testMode = draft.modePref || "test";
+        renderFullTestSectionStart(draft.section);
+        prepareResumedSection(draft);
+      });
+    } else {
+      startPracticeSectionWithSet(draft.section, draft.setId).then(() => {
+        testMode = draft.modePref || "test";
+        prepareResumedSection(draft);
+      });
+    }
+  });
+}
+
+function prepareResumedSection(draft) {
+  const data = cloneData(currentLoadedData);
+  applyDraftAnswers(data, draft.answers || {});
+  flaggedQuestions = draft.flagged || {};
+  const minutesLeft = Math.max(1, Math.ceil((draft.remaining || 60) / 60));
+  renderResumedSection(currentSectionName, data, draft.remaining || 60);
+  showToast("Progress restored — continuing from your saved draft.", "info");
+}
+
+function applyDraftAnswers(data, answers) {
+  const applyToQuestion = (q) => {
+    if (Object.prototype.hasOwnProperty.call(answers, q.id)) {
+      q._savedAnswer = answers[q.id];
+    }
+  };
+
+  if (currentSectionName === "listening" && data.items) {
+    data.items.forEach((item) => item.questions.forEach(applyToQuestion));
+  }
+  if (currentSectionName === "structure" && data.items) {
+    data.items.forEach(applyToQuestion);
+  }
+  if (currentSectionName === "reading" && data.passages) {
+    data.passages.forEach((p) => p.questions.forEach(applyToQuestion));
+  }
+}
+
+function renderResumedSection(sectionName, data, remainingSecondsFromDraft) {
+  currentSectionName = sectionName;
+  isSubmitted = false;
+  isTestRunning = true;
+
+  if (sectionName === "listening") renderListening(data);
+  if (sectionName === "structure") renderStructure(data);
+  if (sectionName === "reading") renderReading(data);
+
+  setSectionButtonsDisabled(true);
+  startAutoSave();
+
+  stopTimer();
+  remainingSeconds = remainingSecondsFromDraft;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    remainingSeconds--;
+    updateTimerDisplay();
+    if (remainingSeconds <= 0) {
+      stopTimer();
+      handleTimeUp(sectionName);
+    }
+  }, 1000);
+
+  renderQuestionPalette(sectionName);
+}
+
+function renderModeToggle(sectionName) {
+  return `
+    <div class="mode-toggle-wrap">
+      <button type="button" class="mode-toggle-btn ${testMode === "test" ? "mode-active" : ""}" id="mode-test-btn" onclick="setTestMode('test', '${sectionName}')">
+        📝 Full Test Mode
+      </button>
+      <button type="button" class="mode-toggle-btn ${testMode === "practice" ? "mode-active" : ""}" id="mode-practice-btn" onclick="setTestMode('practice', '${sectionName}')">
+        💡 Practice Mode
+      </button>
+    </div>
+  `;
+}
+
+function setTestMode(mode, sectionName) {
+  const answers = collectAnswersFromData();
+  stopSpeech();
+  testMode = mode;
+  const data = window.currentListeningData || window.currentStructureData || window.currentReadingData;
+  if (isTestRunning && !isSubmitted && data) {
+    const rerender = sectionName === "listening" ? renderListening : sectionName === "structure" ? renderStructure : renderReading;
+    rerender(cloneData(data));
+    Object.keys(answers).forEach((qid) => {
+      const input = document.querySelector(`input[name="${qid}"][value="${answers[qid]}"]`);
+      if (input) input.checked = true;
+    });
+    renderQuestionPalette(sectionName);
+  }
+  showToast(mode === "practice" ? "Practice Mode ON — explanation shows after each answer." : "Full Test Mode ON — explanations show after submit.", "info");
+}
+
+// ─── Resume banner (auto-save draft) ───
+
+function maybeShowResumeBanner() {
+  const draft = getSavedDraft();
+  if (!draft) return;
+  if (isTestRunning && !isSubmitted) return;
+  const practiceArea = document.getElementById("practice-area");
+  if (!practiceArea || document.getElementById("resume-banner")) return;
+  const ageMin = Math.round((Date.now() - (draft.savedAt || Date.now())) / 60000);
+  const banner = document.createElement("div");
+  banner.id = "resume-banner";
+  banner.className = "resume-banner";
+  banner.innerHTML = `
+    <p><strong>⏸️ Unfinished test found</strong> — ${formatSectionTitle(draft.section)} (${draft.setId}, saved ~${ageMin} min ago).</p>
+    <div class="resume-actions">
+      <button type="button" class="btn-primary" onclick="resumeFromDraft()">Resume Test</button>
+      <button type="button" class="btn-secondary" onclick="dismissDraft()">Discard</button>
+    </div>
+  `;
+  practiceArea.insertBefore(banner, practiceArea.firstChild);
+}
+
+function dismissDraft() {
+  clearTestDraft();
+  const banner = document.getElementById("resume-banner");
+  if (banner) banner.remove();
+  showToast("Saved draft discarded.", "info");
+}
+
+// ─── Dark mode toggle (persisted) ───
+
+function initTheme() {
+  const saved = ToeflStore.get("theme", null);
+  const theme = saved || "light";
+  document.documentElement.setAttribute("data-theme", theme);
+  updateThemeToggle(theme);
+  return theme;
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  const next = current === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  ToeflStore.set("theme", next);
+  updateThemeToggle(next);
+}
+
+function updateThemeToggle(theme) {
+  const btn = document.getElementById("theme-toggle-btn");
+  if (btn) {
+    btn.textContent = theme === "dark" ? "☀️ Light" : "🌙 Dark";
+    btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+  }
+}
+
+// ─── Score history (previous comparison, pure CSS bar chart) ───
+
+function renderScoreHistoryPanel() {
+  const panel = document.getElementById("score-history-panel");
+  if (!panel) return;
+
+  const history = ToeflStore.get("history.v1", []);
+  if (!Array.isArray(history) || history.length === 0) {
+    panel.innerHTML = `
+      <section class="test-info color-block-fulltest history-card">
+        <h2>📊 Score History</h2>
+        <div class="vertical-info-list">
+          <div class="info-box">
+            <p>No full test results yet. Complete a Full Test to build your progress history.</p>
+          </div>
+        </div>
+      </section>
+    `;
+    return;
+  }
+
+  const rows = history.slice(-8).map((entry, idx, arr) => {
+    const listening = entry.listening || { score: 0, total: 0 };
+    const structure = entry.structure || { score: 0, total: 0 };
+    const reading = entry.reading || { score: 0, total: 0 };
+    const totalCorrect = listening.score + structure.score + reading.score;
+    const totalQ = listening.total + structure.total + reading.total;
+    const pct = totalQ === 0 ? 0 : Math.round((totalCorrect / totalQ) * 100);
+    const itp = (typeof calculateITPScore === "function")
+      ? calculateITPScore(listening, structure, reading)
+      : { totalScore: "--" };
+    const prev = idx > 0 ? arr[idx - 1] : null;
+    let deltaText = "";
+    if (prev) {
+      const prevListening = prev.listening || { score: 0, total: 0 };
+      const prevStructure = prev.structure || { score: 0, total: 0 };
+      const prevReading = prev.reading || { score: 0, total: 0 };
+      const prevItp = (typeof calculateITPScore === "function")
+        ? calculateITPScore(prevListening, prevStructure, prevReading)
+        : { totalScore: "--" };
+      const delta = itp.totalScore - prevItp.totalScore;
+      var deltaCls = delta >= 0 ? "history-delta" : "history-delta down";
+      deltaText = `<span class="${deltaCls}">${delta >= 0 ? `▲ +${delta}` : `▼ ${delta}`}</span>`;
+    }
+    return `
+      <div class="history-row">
+        <div class="history-meta">
+          <strong>${entry.date || ""}</strong> · ${entry.setName || "Test"}
+          ${deltaText || ""}
+        </div>
+        <div class="history-bar-track">
+          <div class="history-bar-fill" style="width: ${pct}%"></div>
+        </div>
+        <div class="history-score">${itp.totalScore} <span class="history-pct">(${pct}%)</span></div>
+      </div>
+    `;
+  }).join("");
+
+  panel.innerHTML = `
+    <section class="test-info color-block-fulltest history-card">
+      <h2>📊 Score History & Progress</h2>
+      <div class="vertical-info-list">
+        ${rows}
+      </div>
+    </section>
+  `;
+}
+
+// ─── Keyboard navigation (A/B/C/D + arrows) ───
+
+let keyboardQid = null;
+let keyboardNavBound = false;
+
+function bindKeyboardNav() {
+  if (keyboardNavBound) return;
+  keyboardNavBound = true;
+
+  document.addEventListener("focusin", (e) => {
+    if (e.target && e.target.matches && e.target.matches("#practice-area input[type='radio']")) {
+      keyboardQid = e.target.name;
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!isTestRunning || isSubmitted) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement && document.activeElement.tagName)) {
+      if (document.activeElement.type !== "radio") return;
+    }
+    const key = e.key.toLowerCase();
+    const choiceKeys = { a: 0, b: 1, c: 2, d: 3 };
+
+    if (Object.prototype.hasOwnProperty.call(choiceKeys, key) && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const qid = keyboardQid || firstVisibleQuestionId();
+      if (!qid) return;
+      const input = document.querySelector(`input[name="${qid}"][value="${choiceKeys[key]}"]`);
+      if (input && !input.disabled) {
+        input.checked = true;
+        input.focus();
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+        e.preventDefault();
+      }
+      return;
+    }
+
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+      stepQuestion(1);
+      e.preventDefault();
+    }
+    if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+      stepQuestion(-1);
+      e.preventDefault();
+    }
+  });
+}
+
+function firstVisibleQuestionId() {
+  const q = getPaletteQuestions();
+  return q.length ? q[0].id : null;
+}
+
+function stepQuestion(dir) {
+  const q = getPaletteQuestions();
+  if (!q.length) return;
+  let idx = q.findIndex((item) => item.id === keyboardQid);
+  if (idx === -1) idx = dir > 0 ? -1 : 0;
+  idx = Math.min(q.length - 1, Math.max(0, idx + dir));
+  keyboardQid = q[idx].id;
+  const input = document.querySelector(`input[name="${keyboardQid}"]`);
+  if (input) input.focus();
+  jumpToQuestion(keyboardQid);
+}
+
+function collectAnswersFromData() {
+  const answers = {};
+  const gather = (q) => {
+    const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+    if (selected) answers[q.id] = Number(selected.value);
+  };
+
+  if (currentSectionName === "listening" && window.currentListeningData) {
+    window.currentListeningData.items.forEach((i) => i.questions.forEach(gather));
+  }
+  if (currentSectionName === "structure" && window.currentStructureData) {
+    window.currentStructureData.items.forEach(gather);
+  }
+  if (currentSectionName === "reading" && window.currentReadingData) {
+    window.currentReadingData.passages.forEach((p) => p.questions.forEach(gather));
+  }
+  return answers;
 }
 
 function updateAudioButtons() {
@@ -1873,7 +2580,7 @@ function saveFullTestSectionResult(sectionName, score, total) {
   };
 }
 
-function checkListeningAnswers(isAutoSubmit = false) {
+function checkListeningAnswers(isAutoSubmit = false, skipValidation = false) {
   if (isSubmitted) {
     return;
   }
@@ -1889,7 +2596,7 @@ function checkListeningAnswers(isAutoSubmit = false) {
     });
   });
 
-  if (!isAutoSubmit) {
+  if (!isAutoSubmit && !skipValidation) {
     const allAnswered = validateAllAnswered(questionIds);
 
     if (!allAnswered) {
@@ -1938,7 +2645,7 @@ function checkListeningAnswers(isAutoSubmit = false) {
   markSubmitted("listening-form");
 }
 
-function checkStructureAnswers(isAutoSubmit = false) {
+function checkStructureAnswers(isAutoSubmit = false, skipValidation = false) {
   if (isSubmitted) {
     return;
   }
@@ -1947,7 +2654,7 @@ function checkStructureAnswers(isAutoSubmit = false) {
   let score = 0;
   const questionIds = data.items.map((q) => q.id);
 
-  if (!isAutoSubmit) {
+  if (!isAutoSubmit && !skipValidation) {
     const allAnswered = validateAllAnswered(questionIds);
 
     if (!allAnswered) {
@@ -1992,7 +2699,7 @@ function checkStructureAnswers(isAutoSubmit = false) {
   markSubmitted("structure-form");
 }
 
-function checkReadingAnswers(isAutoSubmit = false) {
+function checkReadingAnswers(isAutoSubmit = false, skipValidation = false) {
   if (isSubmitted) {
     return;
   }
@@ -2008,7 +2715,7 @@ function checkReadingAnswers(isAutoSubmit = false) {
     });
   });
 
-  if (!isAutoSubmit) {
+  if (!isAutoSubmit && !skipValidation) {
     const allAnswered = validateAllAnswered(questionIds);
 
     if (!allAnswered) {

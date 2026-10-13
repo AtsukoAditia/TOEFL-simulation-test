@@ -126,6 +126,44 @@
     if (accEl) animateCounter(accEl, accuracy, 1400);
     setText('result-set', setName);
 
+    // ---- Previous score comparison ----
+    var historyRaw = null;
+    try { historyRaw = localStorage.getItem('toefl.history.v1'); } catch (e) { historyRaw = null; }
+    var prevEntry = null;
+    if (historyRaw) {
+      try {
+        var history = JSON.parse(historyRaw);
+        if (Array.isArray(history) && history.length > 1) {
+          // Current attempt is last; find the previous one of the same set if possible
+          var current = history[history.length - 1];
+          for (var i = history.length - 2; i >= 0; i--) {
+            if (history[i].setName === current.setName) { prevEntry = history[i]; break; }
+          }
+          if (!prevEntry) prevEntry = history[history.length - 2];
+        }
+      } catch (e) { prevEntry = null; }
+    }
+
+    var compEl = document.getElementById('prev-comparison');
+    if (compEl) {
+      if (prevEntry) {
+        var prevL = prevEntry.listening || { score: 0, total: 0 };
+        var prevS = prevEntry.structure || { score: 0, total: 0 };
+        var prevR = prevEntry.reading || { score: 0, total: 0 };
+        var prevItp = (typeof calculateITPScore === 'function')
+          ? calculateITPScore(prevL, prevS, prevR)
+          : { totalScore: 0 };
+        var delta = itp.totalScore - prevItp.totalScore;
+        var arrow = delta >= 0 ? '▲' : '▼';
+        var cls = delta >= 0 ? 'delta-up' : 'delta-down';
+        compEl.innerHTML = 'Previous attempt: <strong>' + prevItp.totalScore + '</strong> (' +
+          (prevEntry.date || '') + ') — <span class="' + cls + '">' + arrow + ' ' + Math.abs(delta) + ' points</span>';
+        compEl.style.display = 'block';
+      } else {
+        compEl.style.display = 'none';
+      }
+    }
+
     // ---- CEFR indicator position ----
     // Segments: A2=310-432, B1=433-542, B2=543-619, C1=620-677
     var cefrIndicator = document.getElementById('cefr-indicator');

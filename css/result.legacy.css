@@ -602,3 +602,15 @@ body {
     min-height: 48px;
   }
 }
+
+/* Previous score comparison */
+.prev-comparison {
+  text-align: center;
+  font-size: 14px;
+  color: #c7d2ea;
+  margin: 10px auto 0;
+  max-width: 420px;
+}
+
+.delta-up { color: #34d399; font-weight: 700; }
+.delta-down { color: #f87171; font-weight: 700; }
