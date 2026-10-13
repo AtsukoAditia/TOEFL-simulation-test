@@ -1,2058 +1,1145 @@
-let currentUtterance = null;
-let currentAudioState = "ready";
-let isManualStop = false;
-
-let timerInterval = null;
-let remainingSeconds = 0;
-let currentSectionName = null;
-let isSubmitted = false;
-let isTestRunning = false;
-
-let currentOriginalData = null;
-let currentLoadedData = null;
-let currentPlayingAudioId = null;
-
-let isFullTestMode = false;
-let fullTestData = {};
-let fullTestResults = {};
-let fullTestSectionIndex = 0;
-let fullTestSections = ["listening", "structure", "reading"];
-
-let appManifest = null;
-let currentSelectedSetId = null;
-let currentSelectedSet = null;
-
-function handleMainNavClick(mode) {
-  if (mode === 'fulltest') {
-    loadFullTestIntro();
-  } else {
-    loadSection(mode);
-  }
-}
-
-async function loadManifest() {
-  if (appManifest) {
-    return appManifest;
-  }
-
-  const response = await fetch("data/manifest.json");
-  appManifest = await response.json();
-
-  return appManifest;
-}
-
-function getActiveSets() {
-  if (!appManifest || !Array.isArray(appManifest.sets)) {
-    return [];
-  }
-
-  return appManifest.sets.filter((set) => {
-    return set.status === "active";
-  });
-}
-
-function getPracticeSets() {
-  return getActiveSets().filter((set) => {
-    return set.type !== "mixed" && set.files;
-  });
-}
-
-function getFullTestSets() {
-  return getActiveSets();
-}
-
-function getSourceSetsForMixed(mixedSet) {
-  const activeSets = getActiveSets();
-
-  if (mixedSet.sourceSets === "all-active") {
-    return activeSets.filter((set) => {
-      return set.type !== "mixed" && set.files;
-    });
-  }
-
-  if (Array.isArray(mixedSet.sourceSets)) {
-    return activeSets.filter((set) => {
-      return mixedSet.sourceSets.includes(set.id) && set.type !== "mixed" && set.files;
-    });
-  }
-
-  return activeSets.filter((set) => {
-    return set.type !== "mixed" && set.files;
-  });
-}
-
-function getSetById(setId) {
-  const sets = getActiveSets();
-
-  return sets.find((set) => {
-    return set.id === setId;
-  });
-}
-function setActiveMainButton(mode) {
-  const buttons = [
-    "btn-nav-listening",
-    "btn-nav-structure",
-    "btn-nav-reading",
-    "btn-nav-fulltest"
-  ];
-
-  buttons.forEach((buttonId) => {
-    const button = document.getElementById(buttonId);
-
-    if (button) {
-      button.classList.remove("main-button-active");
-    }
-  });
-
-  const activeButton = document.getElementById(`btn-nav-${mode}`);
-
-  if (activeButton) {
-    activeButton.classList.add("main-button-active");
-  }
-}
-
-async function loadSection(sectionName) {
-  if (isTestRunning && !isSubmitted) {
-    alert("You cannot change sections while the test is running. Please submit or stop the current section first.");
-    return;
-  }
-  setActiveMainButton(sectionName);   document.body.classList.remove('test-active');
-  resetFullTestState();
-
-  const practiceArea = document.getElementById("practice-area");
-
-  stopSpeech();
-  stopTimer();
-  setSectionButtonsDisabled(false);
-
-  currentSectionName = sectionName;
-  isSubmitted = false;
-  isTestRunning = false;
-  currentPlayingAudioId = null;
-  currentLoadedData = null;
-  currentSelectedSetId = null;
-  currentSelectedSet = null;
-
-  practiceArea.innerHTML = `
-    <h2>Loading ${formatSectionTitle(sectionName)} Sets...</h2>
-    <p>Please wait.</p>
-  `;
-
-  try {
-    await loadManifest();
-    renderPracticeSetSelection(sectionName);
-        // Smooth scroll to practice area
-            practiceArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } catch (error) {
-    practiceArea.innerHTML = `
-      <h2>Error</h2>
-      <p>Could not load practice set list from manifest.json.</p>
-      <p>Please make sure <code>data/manifest.json</code> exists and is valid.</p>
-    `;
-    console.error(error);
-  }
-}
-
-function renderPracticeSetSelection(sectionName) {
-  const practiceArea = document.getElementById("practice-area");
-  const sets = getPracticeSets();
-
-  if (sets.length === 0) {
-    practiceArea.innerHTML = `
-      <h2>${formatSectionTitle(sectionName)}</h2>
-      <p>No active practice sets found in manifest.json.</p>
-    `;
-    return;
-  }
-
-  let html = `
-    <h2>${formatSectionTitle(sectionName)}</h2>
-
-    <div class="question-card">
-      <h3>Choose Practice Set</h3>
-      <p>Select a question set before starting this section.</p>
-      <p><strong>Note:</strong> Set 0 is available only in Full Test mode.</p>
-    </div>
-  `;
-
-  sets.forEach((set) => {
-    html += `
-      <div class="question-card">
-        <h3>${set.title}</h3>
-        <p>${set.description || "No description."}</p>
-        <p><strong>Set ID:</strong> ${set.id}</p>
-
-        <button type="button" onclick="startPracticeSectionWithSet('${sectionName}', '${set.id}')">
-          Use ${set.title}
-        </button>
-      </div>
-    `;
-  });
-
-  practiceArea.innerHTML = html;
-}
-
-async function startPracticeSectionWithSet(sectionName, setId) {
-  const practiceArea = document.getElementById("practice-area");
-    document.body.classList.add('test-active');
-  const selectedSet = getSetById(setId);
-
-  if (!selectedSet) {
-    alert("Selected set was not found.");
-    return;
-  }
-
-  if (selectedSet.type === "mixed") {
-    alert("Set 0 is available only in Full Test mode.");
-    return;
-  }
-
-  practiceArea.innerHTML = `
-    <h2>Loading ${formatSectionTitle(sectionName)}...</h2>
-    <p>Selected set: ${selectedSet.title}</p>
-  `;
-
-  try {
-    const data = await fetchSectionData(sectionName, selectedSet);
-
-    currentSectionName = sectionName;
-    currentSelectedSetId = setId;
-    currentSelectedSet = selectedSet;
-    currentOriginalData = cloneData(data);
-    currentLoadedData = cloneData(data);
-    currentPlayingAudioId = null;
-    isSubmitted = false;
-    isTestRunning = false;
-
-    renderSectionStartScreen(sectionName, data);
-  } catch (error) {
-    practiceArea.innerHTML = `
-      <h2>Error</h2>
-      <p>Could not load ${formatSectionTitle(sectionName)} question bank for ${selectedSet.title}.</p>
-      <p>Please check the file path in <code>data/manifest.json</code>.</p>
-    `;
-    console.error(error);
-  }
-}
-
-async function fetchSectionData(sectionName, selectedSet = null) {
-  let filePath = "";
-
-  if (selectedSet && selectedSet.files && selectedSet.files[sectionName]) {
-    filePath = selectedSet.files[sectionName];
-  } else {
-    if (sectionName === "listening") {
-      filePath = "data/listening-set-1.json";
-    }
-
-    if (sectionName === "structure") {
-      filePath = "data/structure-set-1.json";
-    }
-
-    if (sectionName === "reading") {
-      filePath = "data/reading-set-1.json";
-    }
-  }
-
-  const response = await fetch(filePath);
-  return await response.json();
-}
-
-async function loadFullTestIntro() {
-  if (isTestRunning && !isSubmitted) {
-    alert("You cannot start a full test while another test is running.");
-    return;
-  }
-  setActiveMainButton("fulltest");
-    document.body.classList.add('test-active');
-  const practiceArea = document.getElementById("practice-area");
-
-  stopSpeech();
-  stopTimer();
-
-  resetFullTestState();
-    localStorage.removeItem('toeflResult');
-
-  isFullTestMode = true;
-  currentSectionName = null;
-  isSubmitted = false;
-  isTestRunning = false;
-  currentSelectedSetId = null;
-  currentSelectedSet = null;
-
-  practiceArea.innerHTML = `
-    <h2>Loading Full Test Sets...</h2>
-    <p>Please wait.</p>
-  `;
-
-  try {
-    await loadManifest();
-    renderFullTestSetSelection();
-  } catch (error) {
-    practiceArea.innerHTML = `
-      <h2>Error</h2>
-      <p>Could not load full test set list from manifest.json.</p>
-    `;
-    console.error(error);
-  }
-}
-
-function renderFullTestSetSelection() {
-  const practiceArea = document.getElementById("practice-area");
-  const sets = getFullTestSets();
-
-  if (sets.length === 0) {
-    practiceArea.innerHTML = `
-      <h2>Full TOEFL ITP-like Test</h2>
-      <p>No active test sets found in manifest.json.</p>
-    `;
-    return;
-  }
-
-  let html = `
-    <h2>Full TOEFL ITP-like Test</h2>
-
-    <div class="question-card">
-      <h3>Choose Full Test Set</h3>
-      <p>
-        Select one set. Regular sets use their own Listening, Structure, and Reading files.
-        Set 0 creates a random mixed test from all active sets.
-      </p>
-    </div>
-  `;
-
-  sets.forEach((set) => {
-    const buttonLabel = set.type === "mixed"
-      ? `Start ${set.title}`
-      : `Start ${set.title}`;
-
-    html += `
-      <div class="question-card">
-        <h3>${set.title}</h3>
-        <p>${set.description || "No description."}</p>
-        <p><strong>Set ID:</strong> ${set.id}</p>
-        <p><strong>Type:</strong> ${set.type === "mixed" ? "Mixed Random Full Test" : "Regular Set"}</p>
-
-        <button type="button" class="btn-full-test" onclick="loadFullTestWithSet('${set.id}')">
-          ${buttonLabel}
-        </button>
-      </div>
-    `;
-  });
-
-  practiceArea.innerHTML = html;
-}
-
-async function loadFullTestWithSet(setId) {
-  const practiceArea = document.getElementById("practice-area");
-  const selectedSet = getSetById(setId);
-
-  if (!selectedSet) {
-    alert("Selected set was not found.");
-    return;
-  }
-
-  currentSelectedSetId = setId;
-  currentSelectedSet = selectedSet;
-
-  practiceArea.innerHTML = `
-    <h2>Loading Full Test...</h2>
-    <p>Selected set: ${selectedSet.title}</p>
-  `;
-
-  try {
-    if (selectedSet.type === "mixed") {
-      fullTestData = await generateMixedFullTestData(selectedSet);
-    } else {
-      const listeningData = await fetchSectionData("listening", selectedSet);
-      const structureData = await fetchSectionData("structure", selectedSet);
-      const readingData = await fetchSectionData("reading", selectedSet);
-
-      fullTestData = {
-        listening: cloneData(listeningData),
-        structure: cloneData(structureData),
-        reading: cloneData(readingData)
-      };
-    }
-
-    fullTestResults = {};
-    fullTestSectionIndex = 0;
-    isFullTestMode = true;
-
-    renderFullTestIntro();
-  } catch (error) {
-    practiceArea.innerHTML = `
-      <h2>Error</h2>
-      <p>Could not load full test data for ${selectedSet.title}.</p>
-      <p>Please check the file paths in <code>data/manifest.json</code>.</p>
-    `;
-    console.error(error);
-  }
-}
-
-async function generateMixedFullTestData(mixedSet) {
-  const sourceSets = getSourceSetsForMixed(mixedSet);
-
-  if (sourceSets.length === 0) {
-    throw new Error("No source sets available for mixed test.");
-  }
-
-  const loadedSets = [];
-
-  for (const set of sourceSets) {
-    const listening = await fetchSectionData("listening", set);
-    const structure = await fetchSectionData("structure", set);
-    const reading = await fetchSectionData("reading", set);
-
-    loadedSets.push({
-      set,
-      listening,
-      structure,
-      reading
-    });
-  }
-
-  const listeningTarget = mixedSet.targetQuestions?.listening || 50;
-  const structureTarget = mixedSet.targetQuestions?.structure || 40;
-  const readingTarget = mixedSet.targetQuestions?.reading || 50;
-
-  const listeningDuration = mixedSet.durationMinutes?.listening || 35;
-  const structureDuration = mixedSet.durationMinutes?.structure || 25;
-  const readingDuration = mixedSet.durationMinutes?.reading || 55;
-
-  return {
-    listening: createMixedListeningData(loadedSets, listeningTarget, listeningDuration),
-    structure: createMixedStructureData(loadedSets, structureTarget, structureDuration),
-    reading: createMixedReadingData(loadedSets, readingTarget, readingDuration)
+/**
+ * app.js — TOEFL Simulator (v3 redesign)
+ * One-question-per-screen test engine + landing interactions.
+ * Supports: single section practice, full test (L→S→R), palette nav,
+ * flag, review-before-submit, post-submit review with explanations,
+ * score history, TTS listening player with canvas visual.
+ */
+(function () {
+  "use strict";
+
+  /* ══════════ STATE ══════════ */
+  var STATE = {
+    mode: null,            // "section" | "fulltest"
+    section: null,         // current section name
+    set: null,             // selected set object
+    data: null,            // current section data (arrays normalized)
+    flat: [],              // [{qid, q, ref}...] flattened questions
+    answers: {},           // qid -> choiceIndex
+    flagged: {},           // qid -> true
+    pos: 0,                // current flat index
+    reviewed: false,       // explanations shown (post submit or wrong-only)
+    full: { index: 0, results: {}, sections: ["listening", "structure", "reading"] }
   };
-}
 
-function createMixedListeningData(loadedSets, targetQuestions, durationMinutes) {
-  let allItems = [];
+  var TIMER = { id: null, remaining: 0 };
+  var manifest = null;
+  var AUDIO = { playingId: null, state: "idle", raf: null, startedAt: 0, estDur: 0 };
 
-  loadedSets.forEach((loadedSet) => {
-    if (loadedSet.listening && Array.isArray(loadedSet.listening.items)) {
-      loadedSet.listening.items.forEach((item) => {
-        const clonedItem = cloneData(item);
-
-        clonedItem.sourceSet = loadedSet.set.id;
-        clonedItem.questions = clonedItem.questions.map((question) => {
-          return shuffleQuestionChoices(question);
-        });
-
-        allItems.push(clonedItem);
-      });
-    }
-  });
-
-  allItems = shuffleArray(allItems);
-
-  const selectedItems = selectGroupedItemsByQuestionTarget(
-    allItems,
-    (item) => item.questions.length,
-    targetQuestions
-  );
-
-  const totalQuestions = selectedItems.reduce((total, item) => {
-    return total + item.questions.length;
-  }, 0);
-
-  return {
-    meta: {
-      testName: "TOEFL ITP-like Practice",
-      section: "listening",
-      set: "set-0",
-      version: "1.0.0",
-      durationMinutes: durationMinutes,
-      totalQuestions: totalQuestions,
-      mixed: true
-    },
-    items: selectedItems
+  var SECTION_META = {
+    listening: { title: "Listening Comprehension", short: "Listening" },
+    structure: { title: "Structure & Written Expression", short: "Structure" },
+    reading: { title: "Reading Comprehension", short: "Reading" }
   };
-}
 
-function createMixedStructureData(loadedSets, targetQuestions, durationMinutes) {
-  let allQuestions = [];
-
-  loadedSets.forEach((loadedSet) => {
-    if (loadedSet.structure && Array.isArray(loadedSet.structure.items)) {
-      loadedSet.structure.items.forEach((question) => {
-        const clonedQuestion = cloneData(question);
-        clonedQuestion.sourceSet = loadedSet.set.id;
-        allQuestions.push(shuffleQuestionChoices(clonedQuestion));
-      });
+  /* ══════════ UTIL ══════════ */
+  function $(id) { return document.getElementById(id); }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function shuffle(arr) {
+    var a = arr.slice(), i, j, t;
+    for (i = a.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      t = a[i]; a[i] = a[j]; a[j] = t;
     }
-  });
-
-  allQuestions = shuffleArray(allQuestions);
-
-  const selectedQuestions = allQuestions.slice(0, Math.min(targetQuestions, allQuestions.length));
-
-  return {
-    meta: {
-      testName: "TOEFL ITP-like Practice",
-      section: "structure",
-      set: "set-0",
-      version: "1.0.0",
-      durationMinutes: durationMinutes,
-      totalQuestions: selectedQuestions.length,
-      mixed: true
-    },
-    items: selectedQuestions
-  };
-}
-
-function createMixedReadingData(loadedSets, targetQuestions, durationMinutes) {
-  let allPassages = [];
-
-  loadedSets.forEach((loadedSet) => {
-    if (loadedSet.reading && Array.isArray(loadedSet.reading.passages)) {
-      loadedSet.reading.passages.forEach((passage) => {
-        const clonedPassage = cloneData(passage);
-
-        clonedPassage.sourceSet = loadedSet.set.id;
-        clonedPassage.questions = clonedPassage.questions.map((question) => {
-          return shuffleQuestionChoices(question);
-        });
-
-        allPassages.push(clonedPassage);
-      });
-    }
-  });
-
-  allPassages = shuffleArray(allPassages);
-
-  const selectedPassages = selectGroupedItemsByQuestionTarget(
-    allPassages,
-    (passage) => passage.questions.length,
-    targetQuestions
-  );
-
-  const totalQuestions = selectedPassages.reduce((total, passage) => {
-    return total + passage.questions.length;
-  }, 0);
-
-  return {
-    meta: {
-      testName: "TOEFL ITP-like Practice",
-      section: "reading",
-      set: "set-0",
-      version: "1.0.0",
-      durationMinutes: durationMinutes,
-      totalQuestions: totalQuestions,
-      mixed: true
-    },
-    passages: selectedPassages
-  };
-}
-
-function selectGroupedItemsByQuestionTarget(items, getQuestionCount, targetQuestions) {
-  if (!Array.isArray(items) || items.length === 0) {
-    return [];
+    return a;
   }
-
-  const totalAvailable = items.reduce((total, item) => {
-    return total + getQuestionCount(item);
-  }, 0);
-
-  if (totalAvailable <= targetQuestions) {
-    return items;
-  }
-
-  const shuffledItems = shuffleArray(items);
-  const dp = new Map();
-
-  dp.set(0, []);
-
-  shuffledItems.forEach((item, index) => {
-    const count = getQuestionCount(item);
-    const currentEntries = Array.from(dp.entries());
-
-    currentEntries.forEach(([sum, indexes]) => {
-      const newSum = sum + count;
-
-      if (newSum <= targetQuestions && !dp.has(newSum)) {
-        dp.set(newSum, [...indexes, index]);
-      }
-    });
-  });
-
-  let bestSum = 0;
-
-  dp.forEach((indexes, sum) => {
-    if (sum > bestSum && sum <= targetQuestions) {
-      bestSum = sum;
-    }
-  });
-
-  const selectedIndexes = dp.get(bestSum) || [];
-
-  if (selectedIndexes.length === 0) {
-    return shuffledItems.slice(0, 1);
-  }
-
-  return selectedIndexes.map((index) => {
-    return shuffledItems[index];
-  });
-}
-
-function renderFullTestIntro() {
-  const practiceArea = document.getElementById("practice-area");
-
-  const listeningTotal = getTotalQuestions(fullTestData.listening, "listening");
-  const structureTotal = getTotalQuestions(fullTestData.structure, "structure");
-  const readingTotal = getTotalQuestions(fullTestData.reading, "reading");
-
-  practiceArea.innerHTML = `
-    <h2>Full TOEFL ITP-like Test</h2>
-
-    <div class="question-card">
-      <h3>Full Test Instructions</h3>
-
-      <p><strong>Selected set:</strong> ${currentSelectedSet ? currentSelectedSet.title : "Practice Set"}</p>
-
-      <p>This mode simulates a TOEFL ITP-like test flow using the selected practice question bank.</p>
-
-      <p><strong>Current test size:</strong></p>
-      <ul>
-        <li>Listening: ${listeningTotal} questions · ${fullTestData.listening.meta.durationMinutes} minutes</li>
-        <li>Structure: ${structureTotal} questions · ${fullTestData.structure.meta.durationMinutes} minutes</li>
-        <li>Reading: ${readingTotal} questions · ${fullTestData.reading.meta.durationMinutes} minutes</li>
-      </ul>
-
-      <p>
-        You will complete the sections in order:
-        <strong>Listening → Structure → Reading</strong>.
-      </p>
-
-      <p>
-        During the test, the practice section buttons will be locked.
-      </p>
-
-      <button type="button" class="btn-full-test" onclick="startFullTest()">
-        Start Full Test
-      </button>
-    </div>
-  `;
-}
-
-function startFullTest() {
-  isFullTestMode = true;
-  isSubmitted = false;
-  isTestRunning = false;
-  fullTestSectionIndex = 0;
-  fullTestResults = {};
-
-  setSectionButtonsDisabled(true);
-
-  const firstSection = fullTestSections[fullTestSectionIndex];
-  renderFullTestSectionStart(firstSection);
-}
-
-function renderFullTestSectionStart(sectionName) {
-  const practiceArea = document.getElementById("practice-area");
-  const data = fullTestData[sectionName];
-  const totalQuestions = getTotalQuestions(data, sectionName);
-
-  currentSectionName = sectionName;
-  currentLoadedData = cloneData(data);
-  currentOriginalData = cloneData(data);
-  currentPlayingAudioId = null;
-  isSubmitted = false;
-  isTestRunning = false;
-
-  practiceArea.innerHTML = `
-    <h2>Full Test - ${formatSectionTitle(sectionName)}</h2>
-
-    <div class="question-card">
-      <h3>Section ${fullTestSectionIndex + 1} of ${fullTestSections.length}</h3>
-      <p><strong>Selected set:</strong> ${currentSelectedSet ? currentSelectedSet.title : "-"}</p>
-      <p><strong>Section:</strong> ${formatSectionTitle(sectionName)}</p>
-      <p><strong>Duration:</strong> ${data.meta.durationMinutes} minutes</p>
-      <p><strong>Total questions:</strong> ${totalQuestions}</p>
-
-      <p>
-        Click start when you are ready. The timer for this section will begin after you press the button.
-      </p>
-
-      <button type="button" onclick="startSelectedSection()">
-        Start ${formatSectionTitle(sectionName)}
-      </button>
-    </div>
-  `;
-}
-
-function resetFullTestState() {
-  isFullTestMode = false;
-  fullTestData = {};
-  fullTestResults = {};
-  fullTestSectionIndex = 0;
-}
-
-function renderSectionStartScreen(sectionName, data) {
-  const practiceArea = document.getElementById("practice-area");
-  const totalQuestions = getTotalQuestions(data, sectionName);
-
-  practiceArea.innerHTML = `
-    <h2>${formatSectionTitle(sectionName)}</h2>
-
-    <div class="question-card">
-      <h3>Section Instructions</h3>
-      <p><strong>Selected set:</strong> ${currentSelectedSet ? currentSelectedSet.title : data.meta.set}</p>
-      <p><strong>Set:</strong> ${data.meta.set}</p>
-      <p><strong>Duration:</strong> ${data.meta.durationMinutes} minutes</p>
-      <p><strong>Total practice items:</strong> ${totalQuestions}</p>
-
-      <p>
-        Click the button below when you are ready. The timer will start only after
-        you press the start button.
-      </p>
-
-      <button type="button" onclick="startSelectedSection()">
-        Start ${formatSectionTitle(sectionName)}
-      </button>
-    </div>
-  `;
-}
-
-function startSelectedSection() {
-  if (!currentSectionName || !currentLoadedData) {
-    alert("No section is loaded.");
-    return;
-  }
-
-  stopSpeech();
-  stopTimer();
-
-  isSubmitted = false;
-  isTestRunning = true;
-  currentPlayingAudioId = null;
-
-  setSectionButtonsDisabled(true);
-
-  const data = cloneData(currentLoadedData);
-
-  if (currentSectionName === "listening") {
-    renderListening(data);
-    startTimer(data.meta.durationMinutes, "listening");
-  }
-
-  if (currentSectionName === "structure") {
-    renderStructure(data);
-    startTimer(data.meta.durationMinutes, "structure");
-  }
-
-  if (currentSectionName === "reading") {
-    renderReading(data);
-    startTimer(data.meta.durationMinutes, "reading");
-  }
-}
-
-function forceStopTest() {
-  if (!isTestRunning || isSubmitted) {
-    alert("No active test is running.");
-    return;
-  }
-
-  const confirmStop = confirm("Are you sure you want to stop this test? Your current answers will not be submitted.");
-
-  if (!confirmStop) {
-    return;
-  }
-
-  isManualStop = true;
-  stopSpeech();
-  stopTimer();
-
-  setTimeout(() => {
-    isManualStop = false;
-  }, 500);
-
-  if (isFullTestMode) {
-    resetFullTestState();
-    isSubmitted = false;
-    isTestRunning = false;
-    currentSectionName = null;
-    currentLoadedData = null;
-    setSectionButtonsDisabled(false);
-
-    document.getElementById("practice-area").innerHTML = `
-      <h2>Practice Area</h2>
-      <p>Full test was stopped. Please choose a section or start the full test again.</p>
-    `;
-
-    return;
-  }
-
-  const showAnswerKey = confirm("Do you want to view the answer key and explanations?");
-
-  if (showAnswerKey) {
-    revealAnswerKeyOnly();
-    markStoppedWithAnswerKey();
-  } else {
-    resetCurrentSectionToStartScreen();
-  }
-}
-
-function resetCurrentSectionToStartScreen() {
-  if (!currentSectionName || !currentLoadedData) {
-    return;
-  }
-
-  stopSpeech();
-  stopTimer();
-
-  isSubmitted = false;
-  isTestRunning = false;
-  currentPlayingAudioId = null;
-
-  setSectionButtonsDisabled(false);
-
-  renderSectionStartScreen(currentSectionName, currentLoadedData);
-}
-
-function markStoppedWithAnswerKey() {
-  isSubmitted = true;
-  isTestRunning = false;
-
-  stopTimer();
-  stopSpeech();
-  setSectionButtonsDisabled(false);
-
-  if (currentSectionName === "listening") {
-    disableCurrentForm("listening-form");
-  }
-
-  if (currentSectionName === "structure") {
-    disableCurrentForm("structure-form");
-  }
-
-  if (currentSectionName === "reading") {
-    disableCurrentForm("reading-form");
-  }
-
-  const scoreBox = document.getElementById("score-box");
-
-  if (scoreBox) {
-    scoreBox.innerHTML = `
-      <h3>Test Stopped</h3>
-      <p>This section was stopped manually. No score was recorded.</p>
-      <p>The answer key and explanations are shown below each question.</p>
-      ${renderRestartControls()}
-    `;
-  }
-}
-
-function revealAnswerKeyOnly() {
-  if (currentSectionName === "listening") {
-    revealListeningAnswerKey();
-  }
-
-  if (currentSectionName === "structure") {
-    revealStructureAnswerKey();
-  }
-
-  if (currentSectionName === "reading") {
-    revealReadingAnswerKey();
-  }
-}
-
-function revealListeningAnswerKey() {
-  const data = window.currentListeningData;
-
-  data.items.forEach((item) => {
-    item.questions.forEach((q) => {
-      markCorrectChoice(q);
-      const explanation = document.getElementById(`explanation-${q.id}`);
-
-      if (explanation) {
-        explanation.innerHTML = `
-          <span class="correct">Answer Key:</span>
-          ${String.fromCharCode(65 + q.answer)}. ${q.choices[q.answer]}
-          <br>
-          ${q.explanation}
-        `;
-      }
-    });
-  });
-}
-
-function revealStructureAnswerKey() {
-  const data = window.currentStructureData;
-
-  data.items.forEach((q) => {
-    markCorrectChoice(q);
-    const explanation = document.getElementById(`explanation-${q.id}`);
-
-    if (explanation) {
-      explanation.innerHTML = `
-        <span class="correct">Answer Key:</span>
-        ${String.fromCharCode(65 + q.answer)}. ${q.choices[q.answer]}
-        <br>
-        ${q.explanation}
-      `;
-    }
-  });
-}
-
-function revealReadingAnswerKey() {
-  const data = window.currentReadingData;
-
-  data.passages.forEach((passage) => {
-    passage.questions.forEach((q) => {
-      markCorrectChoice(q);
-      const explanation = document.getElementById(`explanation-${q.id}`);
-
-      if (explanation) {
-        explanation.innerHTML = `
-          <span class="correct">Answer Key:</span>
-          ${String.fromCharCode(65 + q.answer)}. ${q.choices[q.answer]}
-          <br>
-          ${q.explanation}
-        `;
-      }
-    });
-  });
-}
-
-function markCorrectChoice(question) {
-  const inputs = document.querySelectorAll(`input[name="${question.id}"]`);
-
-  inputs.forEach((input) => {
-    const label = input.closest("label");
-
-    if (!label) {
-      return;
-    }
-
-    label.style.background = "";
-    label.style.border = "";
-    label.style.borderRadius = "";
-    label.style.padding = "";
-
-    if (Number(input.value) === question.answer) {
-      input.checked = true;
-      label.style.background = "#ecfdf5";
-      label.style.border = "1px solid #10b981";
-      label.style.borderRadius = "8px";
-      label.style.padding = "8px";
-    }
-  });
-}
-
-function setSectionButtonsDisabled(disabled) {
-  const sectionButtons = document.querySelectorAll(".section-buttons button");
-
-  sectionButtons.forEach((button) => {
-    button.disabled = disabled;
-  });
-}
-
-function getTotalQuestions(data, sectionName) {
-  if (sectionName === "listening") {
-    let total = 0;
-
-    data.items.forEach((item) => {
-      total += item.questions.length;
-    });
-
-    return total;
-  }
-
-  if (sectionName === "structure") {
-    return data.items.length;
-  }
-
-  if (sectionName === "reading") {
-    let total = 0;
-
-    data.passages.forEach((passage) => {
-      total += passage.questions.length;
-    });
-
-    return total;
-  }
-
-  return 0;
-}
-
-function restartSameQuestions() {
-  if (!currentSectionName || !currentOriginalData) {
-    alert("No section is loaded.");
-    return;
-  }
-
-  stopSpeech();
-  stopTimer();
-
-  isSubmitted = false;
-  isTestRunning = true;
-  currentPlayingAudioId = null;
-
-  setSectionButtonsDisabled(true);
-
-  const data = cloneData(currentOriginalData);
-  currentLoadedData = cloneData(data);
-
-  if (currentSectionName === "listening") {
-    renderListening(data);
-    startTimer(data.meta.durationMinutes, "listening");
-  }
-
-  if (currentSectionName === "structure") {
-    renderStructure(data);
-    startTimer(data.meta.durationMinutes, "structure");
-  }
-
-  if (currentSectionName === "reading") {
-    renderReading(data);
-    startTimer(data.meta.durationMinutes, "reading");
-  }
-}
-
-function retryWithShuffledQuestions() {
-  if (!currentSectionName || !currentOriginalData) {
-    alert("No section is loaded.");
-    return;
-  }
-
-  stopSpeech();
-  stopTimer();
-
-  isSubmitted = false;
-  isTestRunning = true;
-  currentPlayingAudioId = null;
-
-  setSectionButtonsDisabled(true);
-
-  const shuffledData = createShuffledData(currentOriginalData, currentSectionName);
-  currentLoadedData = cloneData(shuffledData);
-
-  if (currentSectionName === "listening") {
-    renderListening(shuffledData);
-    startTimer(shuffledData.meta.durationMinutes, "listening");
-  }
-
-  if (currentSectionName === "structure") {
-    renderStructure(shuffledData);
-    startTimer(shuffledData.meta.durationMinutes, "structure");
-  }
-
-  if (currentSectionName === "reading") {
-    renderReading(shuffledData);
-    startTimer(shuffledData.meta.durationMinutes, "reading");
-  }
-}
-
-function createShuffledData(data, sectionName) {
-  const clonedData = cloneData(data);
-
-  if (sectionName === "listening") {
-    clonedData.items = shuffleArray(clonedData.items);
-
-    clonedData.items.forEach((item) => {
-      item.questions = shuffleArray(item.questions).map((question) => {
-        return shuffleQuestionChoices(question);
-      });
-    });
-  }
-
-  if (sectionName === "structure") {
-    clonedData.items = shuffleArray(clonedData.items).map((question) => {
-      return shuffleQuestionChoices(question);
-    });
-  }
-
-  if (sectionName === "reading") {
-    clonedData.passages = shuffleArray(clonedData.passages);
-
-    clonedData.passages.forEach((passage) => {
-      passage.questions = shuffleArray(passage.questions).map((question) => {
-        return shuffleQuestionChoices(question);
-      });
-    });
-  }
-
-  return clonedData;
-}
-
-function shuffleQuestionChoices(question) {
-  const clonedQuestion = cloneData(question);
-
-  const choicePairs = clonedQuestion.choices.map((choice, index) => {
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function fmtTime(s) { return pad2(Math.floor(Math.max(0, s) / 60)) + ":" + pad2(Math.max(0, s) % 60); }
+
+  function shuffleChoices(q) {
+    var pairs = q.choices.map(function (c, i) { return { c: c, orig: i }; });
+    pairs = shuffle(pairs);
     return {
-      choice: choice,
-      originalIndex: index
+      id: q.id, question: q.question, explanation: q.explanation, type: q.type || null,
+      choices: pairs.map(function (p) { return p.c; }),
+      answer: pairs.findIndex(function (p) { return p.orig === q.answer; })
     };
-  });
-
-  const shuffledPairs = shuffleArray(choicePairs);
-
-  clonedQuestion.choices = shuffledPairs.map((pair) => pair.choice);
-
-  clonedQuestion.answer = shuffledPairs.findIndex((pair) => {
-    return pair.originalIndex === question.answer;
-  });
-
-  return clonedQuestion;
-}
-
-function shuffleArray(array) {
-  const newArray = [...array];
-
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const randomIndex = Math.floor(Math.random() * (i + 1));
-    const temporaryValue = newArray[i];
-
-    newArray[i] = newArray[randomIndex];
-    newArray[randomIndex] = temporaryValue;
   }
 
-  return newArray;
-}
-
-function cloneData(data) {
-  return JSON.parse(JSON.stringify(data));
-}
-
-function renderTimerBox(sectionName, durationMinutes) {
-  return `
-    <div class="timer-box" id="timer-box">
-      <div>
-        <strong>Timer</strong>
-        <p id="timer-label">Section: ${formatSectionTitle(sectionName)} · ${durationMinutes} minutes</p>
-      </div>
-      <div id="timer-display" class="timer-display">--:--</div>
-    </div>
-  `;
-}
-
-function renderRestartControls() {
-  if (isFullTestMode) {
-    return "";
+  /* ══════════ DATA ══════════ */
+  function loadManifest() {
+    if (manifest) return Promise.resolve(manifest);
+    return fetch("data/manifest.json").then(function (r) { return r.json(); }).then(function (m) { manifest = m; return m; });
   }
+  function activeSets() { return manifest ? manifest.sets.filter(function (s) { return s.status === "active"; }) : []; }
+  function getSet(setId) { return activeSets().filter(function (s) { return s.id === setId; })[0]; }
+  function fetchJSON(p) { return fetch(p).then(function (r) { return r.json(); }); }
 
-  return `
-    <div class="restart-box">
-      <h3>Practice Again</h3>
-      <p>Choose how you want to repeat this section.</p>
-
-      <div class="restart-buttons">
-        <button type="button" class="btn-restart" onclick="restartSameQuestions()">
-          Restart Same Questions
-        </button>
-
-        <button type="button" class="btn-shuffle" onclick="retryWithShuffledQuestions()">
-          Retry with Shuffled Questions
-        </button>
-      </div>
-    </div>
-  `;
-}
-
-function renderFullTestContinueControls() {
-  if (!isFullTestMode) {
-    return "";
-  }
-
-  const isLastSection = fullTestSectionIndex >= fullTestSections.length - 1;
-
-  if (isLastSection) {
-    return `
-      <div class="restart-box">
-        <h3>Full Test Progress</h3>
-        <p>You have completed the last section.</p>
-        <button type="button" onclick="showFullTestFinalResult()">
-          View Final Result
-        </button>
-      </div>
-    `;
-  }
-
-  const nextSection = fullTestSections[fullTestSectionIndex + 1];
-
-  return `
-    <div class="restart-box">
-      <h3>Full Test Progress</h3>
-      <p>This section is complete.</p>
-      <button type="button" onclick="continueFullTest()">
-        Continue to ${formatSectionTitle(nextSection)}
-      </button>
-    </div>
-  `;
-}
-
-function continueFullTest() {
-  fullTestSectionIndex++;
-
-  if (fullTestSectionIndex >= fullTestSections.length) {
-    showFullTestFinalResult();
-    return;
-  }
-
-  const nextSection = fullTestSections[fullTestSectionIndex];
-  renderFullTestSectionStart(nextSection);
-}
-
-function showFullTestFinalResult() {
-  stopSpeech();
-  stopTimer();
-
-  isSubmitted = true;
-  isTestRunning = false;
-
-  setSectionButtonsDisabled(false);
-
-  const listening = fullTestResults.listening || { score: 0, total: 0 };
-  const structure = fullTestResults.structure || { score: 0, total: 0 };
-  const reading = fullTestResults.reading || { score: 0, total: 0 };
-
-  const totalScore = listening.score + structure.score + reading.score;
-  const totalQuestions = listening.total + structure.total + reading.total;
-  const accuracy = totalQuestions === 0 ? 0 : Math.round((totalScore / totalQuestions) * 100);
-
-// Save result data to sessionStorage and redirect to result page
-  try {
-    const resultData = {
-      listening: { score: listening.score, total: listening.total },
-      structure: { score: structure.score, total: structure.total },
-      reading: { score: reading.score, total: reading.total },
-      date: new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }),
-      setName: currentSelectedSet ? currentSelectedSet.title : 'Full Test'
+  function sectionTotals(set, section) {
+    // rough totals for pills on landing; we don't fetch all, we fetch on demand
+    var map = {
+      "set-1": { listening: 10, structure: 10, reading: 10 },
+      "set-2": { listening: 20, structure: 20, reading: 20 },
+      "set-3": { listening: 30, structure: 30, reading: 30 },
+      "set-4": { listening: 20, structure: 25, reading: 20 },
+      "set-5": { listening: 20, structure: 15, reading: 15 },
+      "set-6": { listening: 50, structure: 40, reading: 50 }
     };
-    localStorage.setItem('toeflResult', JSON.stringify(resultData));
-  } catch (e) {
-    console.warn('localStorage not available', e);
-  }
-  resetFullTestState();
-  window.location.href = 'result.html';
-}
-
-function calculateEstimatedITPScore(listening, structure, reading) {
-  const listeningScale = estimateSectionScale(listening.score, listening.total, 31, 68);
-  const structureScale = estimateSectionScale(structure.score, structure.total, 31, 68);
-  const readingScale = estimateSectionScale(reading.score, reading.total, 31, 67);
-
-  const totalScore = Math.round(((listeningScale + structureScale + readingScale) * 10) / 3);
-  const level = getEstimatedITPLevel(totalScore);
-
-  return {
-    listeningScale,
-    structureScale,
-    readingScale,
-    totalScore,
-    level
-  };
-};
-
-// Scoring functions (calculateEstimatedITPScore, estimateSectionScale, getEstimatedITPLevel)
-// are provided globally by js/scoring.js (loaded before this script in index.html)
-
-function renderActionButtons(sectionName) {
-  return `
-    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px;">
-      <button id="submit-${sectionName}" type="button" onclick="check${capitalizeFirstLetter(sectionName)}Answers(false)">
-        Submit Answers
-      </button>
-
-      <button type="button" class="btn-stop" onclick="forceStopTest()">
-        Stop Test
-      </button>
-    </div>
-  `;
-}
-
-function capitalizeFirstLetter(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-
-function startTimer(durationMinutes, sectionName) {
-  stopTimer();
-
-  remainingSeconds = durationMinutes * 60;
-  updateTimerDisplay();
-
-  timerInterval = setInterval(() => {
-    remainingSeconds--;
-    updateTimerDisplay();
-
-    if (remainingSeconds <= 0) {
-      stopTimer();
-      handleTimeUp(sectionName);
-    }
-  }, 1000);
-}
-
-function stopTimer() {
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
-}
-
-function updateTimerDisplay() {
-  const timerDisplay = document.getElementById("timer-display");
-  const timerBox = document.getElementById("timer-box");
-
-  if (!timerDisplay || !timerBox) {
-    return;
+    var m = map[set.id];
+    return m ? m[section] : null;
   }
 
-  const minutes = Math.floor(remainingSeconds / 60);
-  const seconds = remainingSeconds % 60;
-
-  timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-
-  timerBox.classList.remove("timer-warning", "timer-danger");
-
-  if (remainingSeconds <= 60) {
-    timerBox.classList.add("timer-danger");
-  } else if (remainingSeconds <= 300) {
-    timerBox.classList.add("timer-warning");
-  }
-}
-
-function handleTimeUp(sectionName) {
-  if (isSubmitted) {
-    return;
-  }
-
-  alert("Time is up. Your answers will be submitted automatically.");
-
-  if (sectionName === "listening") {
-    checkListeningAnswers(true);
-  }
-
-  if (sectionName === "structure") {
-    checkStructureAnswers(true);
-  }
-
-  if (sectionName === "reading") {
-    checkReadingAnswers(true);
-  }
-}
-
-function disableCurrentForm(formId) {
-  const form = document.getElementById(formId);
-
-  if (!form) {
-    return;
-  }
-
-  const inputs = form.querySelectorAll("input");
-  const buttons = form.querySelectorAll("button");
-
-  inputs.forEach((input) => {
-    input.disabled = true;
-  });
-
-  buttons.forEach((button) => {
-    button.disabled = true;
-  });
-}
-
-function markSubmitted(formId) {
-  isSubmitted = true;
-  isTestRunning = false;
-
-  stopTimer();
-  disableCurrentForm(formId);
-  stopSpeech();
-
-  if (isFullTestMode) {
-    setSectionButtonsDisabled(true);
-  } else {
-    setSectionButtonsDisabled(false);
-  }
-}
-
-function validateAllAnswered(questionIds) {
-  for (let i = 0; i < questionIds.length; i++) {
-    const questionId = questionIds[i];
-    const selected = document.querySelector(`input[name="${questionId}"]:checked`);
-
-    if (!selected) {
-      const firstUnansweredInput = document.querySelector(`input[name="${questionId}"]`);
-
-      if (firstUnansweredInput) {
-        const questionCard = firstUnansweredInput.closest(".question-card");
-
-        if (questionCard) {
-          questionCard.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
+  /* ══════════ FLATTEN ══════════ */
+  // Normalize section data to a flat question list:
+  // [{ id, question, choices, answer, explanation, audio, passage, partLabel, audioTitle }]
+  function flatten(section, data) {
+    var out = [];
+    if (section === "listening") {
+      data.items.forEach(function (item, idx) {
+        item.questions.forEach(function (q, qi) {
+          out.push({
+            id: q.id, question: q.question, choices: q.choices, answer: q.answer,
+            explanation: q.explanation, type: q.type || null,
+            audio: item.ttsText, audioTitle: "Audio " + (idx + 1) + " — " + item.title,
+            audioType: item.type,
+            partLabel: "Audio " + (idx + 1) + " · Q" + (qi + 1)
           });
+        });
+      });
+    } else if (section === "structure") {
+      data.items.forEach(function (q, i) {
+        out.push({
+          id: q.id, question: q.question, choices: q.choices, answer: q.answer,
+          explanation: q.explanation, type: q.type || null,
+          partLabel: (q.type === "error-identification" ? "Error Identification" : "Sentence Completion") + " · Q" + (i + 1)
+        });
+      });
+    } else if (section === "reading") {
+      data.passages.forEach(function (p, pi) {
+        p.questions.forEach(function (q, qi) {
+          out.push({
+            id: q.id, question: q.question, choices: q.choices, answer: q.answer,
+            explanation: q.explanation, type: q.type || null,
+            passage: p.passage, passageTitle: "Passage " + (pi + 1) + (p.title ? " — " + p.title : ""),
+            partLabel: "Passage " + (pi + 1) + " · Q" + (qi + 1)
+          });
+        });
+      });
+    }
+    return out;
+  }
 
-          questionCard.style.borderColor = "#dc2626";
-          questionCard.style.boxShadow = "0 0 0 3px rgba(220, 38, 38, 0.15)";
+  /* ══════════ THEME ══════════ */
+  function initTheme() {
+    var saved = ToeflStore.get("theme", "dark");
+    setTheme(saved);
+    var btn = $("theme-toggle-btn");
+    if (btn) btn.addEventListener("click", function () {
+      var cur = document.documentElement.getAttribute("data-theme");
+      setTheme(cur === "dark" ? "light" : "dark");
+    });
+  }
+  function setTheme(t) {
+    document.documentElement.setAttribute("data-theme", t);
+    ToeflStore.set("theme", t);
+    var moon = $("ic-moon"), sun = $("ic-sun");
+    if (moon && sun) {
+      moon.style.display = t === "dark" ? "" : "none";
+      sun.style.display = t === "dark" ? "none" : "";
+    }
+  }
 
-          setTimeout(() => {
-            questionCard.style.borderColor = "";
-            questionCard.style.boxShadow = "";
-          }, 2000);
+  /* ══════════ LANDING ══════════ */
+  var heroAnimated = false;
+  function animateHeroCard() {
+    if (heroAnimated) return;
+    heroAnimated = true;
+    var target = { score: 558, l: 62, s: 55, r: 58, lvl: "B2 · Upper-Intermediate" };
+    var num = $("hc-score-num"), ring = $("hc-ring-fill");
+    var start = performance.now();
+    var dur = 1400;
+    function tick(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      if (num) num.textContent = Math.round(e * target.score);
+      if (ring) ring.style.strokeDashoffset = 314.16 * (1 - e * ((target.score - 310) / (677 - 310)));
+      if (p < 1) requestAnimationFrame(tick);
+      else setTimeout(function () {
+        if ($("hc-bar-l")) $("hc-bar-l").style.width = (target.l / 68 * 100) + "%";
+        if ($("hc-bar-s")) $("hc-bar-s").style.width = (target.s / 68 * 100) + "%";
+        if ($("hc-bar-r")) $("hc-bar-r").style.width = (target.r / 67 * 100) + "%";
+        if ($("hc-num-l")) $("hc-num-l").textContent = target.l;
+        if ($("hc-num-s")) $("hc-num-s").textContent = target.s;
+        if ($("hc-num-r")) $("hc-num-r").textContent = target.r;
+      }, 100);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function countUp(elm, target, dur) {
+    var start = performance.now();
+    function tick(now) {
+      var p = Math.min((now - start) / (dur || 1200), 1);
+      var e = 1 - Math.pow(1 - p, 3);
+      elm.textContent = Math.round(e * target) + (elm.dataset.suffix || "");
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function initReveal() {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add("in");
+          if (en.target.classList.contains("hero-card")) animateHeroCard();
+          en.target.querySelectorAll("[data-count]").forEach(function (n) {
+            if (!n.dataset.done) { n.dataset.done = "1"; countUp(n, Number(n.dataset.count)); }
+          });
+          io.unobserve(en.target);
         }
-      }
-
-      alert("Please answer all questions before submitting. If time runs out, the section will be submitted automatically.");
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function formatSectionTitle(sectionName) {
-  if (sectionName === "listening") {
-    return "Listening Comprehension";
-  }
-
-  if (sectionName === "structure") {
-    return "Structure & Written Expression";
-  }
-
-  if (sectionName === "reading") {
-    return "Reading Comprehension";
-  }
-
-  return sectionName;
-}
-
-function renderListening(data) {
-  const practiceArea = document.getElementById("practice-area");
-
-  let totalQuestions = 0;
-  data.items.forEach((item) => {
-    totalQuestions += item.questions.length;
-  });
-
-  let html = `
-    <h2>Listening Comprehension</h2>
-    ${renderTimerBox("listening", data.meta.durationMinutes)}
-    <p><strong>Selected set:</strong> ${currentSelectedSet ? currentSelectedSet.title : data.meta.set}</p>
-    <p><strong>Set:</strong> ${data.meta.set}</p>
-    <p><strong>Duration:</strong> ${data.meta.durationMinutes} minutes</p>
-    <p><strong>Practice items:</strong> ${totalQuestions}</p>
-
-    <form id="listening-form">
-  `;
-
-  data.items.forEach((item, itemIndex) => {
-    html += `
-      <div class="audio-box">
-        <h3>Audio ${itemIndex + 1}: ${item.title}</h3>
-        <p><strong>Type:</strong> ${formatListeningType(item.type)}</p>
-        <p>Click play to listen to this audio, then answer the questions below.</p>
-
-        <div class="audio-controls">
-          <button id="btn-play-${item.id}" class="btn-play" type="button" onclick="speakListeningAudio('${item.id}')">
-            ▶ Play Audio ${itemIndex + 1}
-          </button>
-
-          <button id="btn-pause-${item.id}" class="btn-pause" type="button" onclick="pauseSpeech()" disabled>
-            ⏸ Pause
-          </button>
-
-          <button id="btn-resume-${item.id}" class="btn-resume" type="button" onclick="resumeSpeech()" disabled>
-            ▶ Resume
-          </button>
-
-          <button id="btn-stop-${item.id}" class="btn-stop" type="button" onclick="stopSpeech()" disabled>
-            ⏹ Stop
-          </button>
-        </div>
-
-        <div id="audio-status-${item.id}" class="audio-status">Status: Ready</div>
-      </div>
-    `;
-
-    item.questions.forEach((q, questionIndex) => {
-      html += `
-        <div class="question-card">
-          <p class="question-meta">
-            <strong>Audio ${itemIndex + 1} · Question ${questionIndex + 1}</strong>
-          </p>
-
-          <p><strong>${q.question}</strong></p>
-      `;
-
-      q.choices.forEach((choice, cIndex) => {
-        html += `
-          <label class="choice">
-            <input type="radio" name="${q.id}" value="${cIndex}">
-            ${String.fromCharCode(65 + cIndex)}. ${choice}
-          </label>
-        `;
       });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(function (n) { io.observe(n); });
+  }
 
-      html += `
-          <p id="explanation-${q.id}" class="explanation"></p>
-        </div>
-      `;
-    });
-  });
+  function renderSetsGrid() {
+    var grid = $("sets-grid");
+    if (!grid) return;
+    var regular = activeSets().filter(function (s) { return s.type !== "mixed"; });
+    var mixed = activeSets().filter(function (s) { return s.type === "mixed"; })[0];
 
-  html += `
-      ${renderActionButtons("listening")}
-    </form>
-
-    <div id="score-box" class="score-box"></div>
-  `;
-
-  practiceArea.innerHTML = html;
-
-  window.currentListeningData = data;
-  currentAudioState = "ready";
-  currentPlayingAudioId = null;
-  isManualStop = false;
-  updateAudioButtons();
-}
-
-function renderStructure(data) {
-  const practiceArea = document.getElementById("practice-area");
-
-  let html = `
-    <h2>Structure & Written Expression</h2>
-    ${renderTimerBox("structure", data.meta.durationMinutes)}
-    <p><strong>Selected set:</strong> ${currentSelectedSet ? currentSelectedSet.title : data.meta.set}</p>
-    <p><strong>Set:</strong> ${data.meta.set}</p>
-    <p><strong>Duration:</strong> ${data.meta.durationMinutes} minutes</p>
-    <p><strong>Practice items:</strong> ${data.items.length}</p>
-
-    <form id="structure-form">
-  `;
-
-  data.items.forEach((q, index) => {
-    html += `
-      <div class="question-card">
-        <p class="question-meta">
-          <strong>Question ${index + 1}</strong> · ${formatQuestionType(q.type)} · ${q.topic}
-        </p>
-        <p><strong>${q.question}</strong></p>
-    `;
-
-    q.choices.forEach((choice, cIndex) => {
-      html += `
-        <label class="choice">
-          <input type="radio" name="${q.id}" value="${cIndex}">
-          ${String.fromCharCode(65 + cIndex)}. ${choice}
-        </label>
-      `;
-    });
-
-    html += `
-        <p id="explanation-${q.id}" class="explanation"></p>
-      </div>
-    `;
-  });
-
-  html += `
-      ${renderActionButtons("structure")}
-    </form>
-
-    <div id="score-box" class="score-box"></div>
-  `;
-
-  practiceArea.innerHTML = html;
-  window.currentStructureData = data;
-}
-
-function renderReading(data) {
-  const practiceArea = document.getElementById("practice-area");
-
-  let totalQuestions = 0;
-  data.passages.forEach((passage) => {
-    totalQuestions += passage.questions.length;
-  });
-
-  let html = `
-    <h2>Reading Comprehension</h2>
-    ${renderTimerBox("reading", data.meta.durationMinutes)}
-    <p><strong>Selected set:</strong> ${currentSelectedSet ? currentSelectedSet.title : data.meta.set}</p>
-    <p><strong>Set:</strong> ${data.meta.set}</p>
-    <p><strong>Duration:</strong> ${data.meta.durationMinutes} minutes</p>
-    <p><strong>Practice items:</strong> ${totalQuestions}</p>
-
-    <form id="reading-form">
-  `;
-
-  data.passages.forEach((passage, passageIndex) => {
-    html += `
-      <div class="passage-card">
-        <h3>Passage ${passageIndex + 1}: ${passage.title}</h3>
-        <p class="passage-text">${passage.passage}</p>
-      </div>
-    `;
-
-    passage.questions.forEach((q, questionIndex) => {
-      html += `
-        <div class="question-card">
-          <p class="question-meta">
-            <strong>Question ${questionIndex + 1}</strong> · ${formatReadingType(q.type)}
-          </p>
-          <p><strong>${q.question}</strong></p>
-      `;
-
-      q.choices.forEach((choice, cIndex) => {
-        html += `
-          <label class="choice">
-            <input type="radio" name="${q.id}" value="${cIndex}">
-            ${String.fromCharCode(65 + cIndex)}. ${choice}
-          </label>
-        `;
+    grid.innerHTML = "";
+    regular.forEach(function (s, i) {
+      var parts = (s.description || "").match(/(\d+)\s+(Listening|Structure|Reading)/gi) || [];
+      var pills = ["L", "S", "R"].map(function (k, ki) {
+        var sec = ki === 0 ? "listening" : ki === 1 ? "structure" : "reading";
+        var n = sectionTotals(s, sec);
+        return '<span class="set-pill">' + (n ? n + " " : "") + { L: "Listening", S: "Structure", R: "Reading" }[k] + "</span>";
+      }).join("");
+      var card = el("div", "set-card reveal in");
+      card.innerHTML =
+        '<span class="set-no">' + (i + 1) + "</span>" +
+        "<h4>" + esc(s.title) + "</h4>" +
+        "<p>" + esc(s.description || "").replace(/with .*$/i, "") + "</p>" +
+        '<div class="set-pills">' + pills + "</div>" +
+        '<div class="set-actions">' +
+        '<button class="btn btn-soft btn-sm" data-sec="listening">Listening</button>' +
+        '<button class="btn btn-soft btn-sm" data-sec="structure">Structure</button>' +
+        '<button class="btn btn-soft btn-sm" data-sec="reading">Reading</button>' +
+        '<button class="btn btn-primary btn-sm" data-sec="fulltest">Full Test</button>' +
+        "</div>";
+      card.querySelectorAll("[data-sec]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          if (btn.dataset.sec === "fulltest") startFullTestWith(s.id);
+          else startSectionWith(btn.dataset.sec, s.id);
+        });
       });
-
-      html += `
-          <p id="explanation-${q.id}" class="explanation"></p>
-        </div>
-      `;
+      grid.appendChild(card);
     });
-  });
 
-  html += `
-      ${renderActionButtons("reading")}
-    </form>
-
-    <div id="score-box" class="score-box"></div>
-  `;
-
-  practiceArea.innerHTML = html;
-  window.currentReadingData = data;
-}
-
-function formatQuestionType(type) {
-  if (type === "sentence-completion") {
-    return "Sentence Completion";
+    if (mixed) {
+      var mc = el("div", "set-card reveal in");
+      mc.style.borderColor = "rgba(246,185,59,0.4)";
+      mc.innerHTML =
+        '<span class="set-no" style="color:rgba(246,185,59,0.3)">∞</span>' +
+        "<h4>" + esc(mixed.title) + "</h4>" +
+        "<p>" + esc(mixed.description || "") + "</p>" +
+        '<div class="set-pills"><span class="set-pill">50 L</span><span class="set-pill">40 S</span><span class="set-pill">50 R</span><span class="set-pill" style="border-color:rgba(246,185,59,0.4);color:var(--accent)">Randomized</span></div>' +
+        '<div class="set-actions"><button class="btn btn-accent">Start Mixed Full Test</button></div>';
+      mc.querySelector("button").addEventListener("click", function () { startFullTestWith(mixed.id); });
+      grid.appendChild(mc);
+    }
   }
 
-  if (type === "error-identification") {
-    return "Error Identification";
+  /* ══════════ HISTORY ══════════ */
+  function renderHistory() {
+    var wrap = $("history-wrap"), list = $("history-list");
+    if (!wrap || !list || !window.ToeflStore) return;
+    var history = ToeflStore.get("history.v1", []);
+    if (!Array.isArray(history) || history.length === 0) { wrap.classList.remove("has-data"); return; }
+    wrap.classList.add("has-data");
+    var items = history.slice(-6).reverse();
+    list.innerHTML = items.map(function (h, i) {
+      var itp = calculateITPScore(h.listening || {}, h.structure || {}, h.reading || {});
+      var delta = i + 1 < items.length
+        ? itp.totalScore - calculateITPScore(items[i + 1].listening || {}, items[i + 1].structure || {}, items[i + 1].reading || {}).totalScore
+        : null;
+      var deltaTag = delta === null ? "" :
+        delta > 0 ? '<span class="history-delta-tag up">▲ +' + delta + "</span>" :
+        delta < 0 ? '<span class="history-delta-tag down">▼ ' + delta + "</span>" :
+        '<span class="history-delta-tag same">± 0</span>';
+      return '<div class="history-item">' +
+        '<div class="history-score-big">' + itp.totalScore + "</div>" +
+        '<div class="history-info"><b>' + esc(h.setName || "Full Test") + "</b><span>" + esc(h.date || "") + "</span></div>" +
+        deltaTag +
+        "</div>";
+    }).join("");
   }
 
-  return type;
-}
-
-function formatReadingType(type) {
-  if (type === "main-idea") {
-    return "Main Idea";
+  function clearHistory() {
+    if (!confirm("Hapus semua riwayat skor?")) return;
+    ToeflStore.del("history.v1");
+    renderHistory();
   }
 
-  if (type === "detail") {
-    return "Detail";
+  /* ══════════ TEST SHELL ══════════ */
+  function enterTestShell() { document.body.classList.add("in-test"); $("palette-fab").style.display = ""; }
+  function exitTestShell() {
+    stopTimer(); stopAudio();
+    document.body.classList.remove("in-test");
+    closePaletteSheet();
+    document.querySelector(".landing-root").style.display = "";
+    window.scrollTo({ top: 0 });
   }
 
-  if (type === "inference") {
-    return "Inference";
+  function shellSetSection(name) {
+    $("tb-crumb").innerHTML = "Section<b id='tb-section'>" + SECTION_META[name].title + "</b>";
+  }
+  function shellUpdateProgress() {
+    var total = STATE.flat.length, answered = Object.keys(STATE.answers).length;
+    $("tb-progress-fill").style.width = (total ? (answered / total * 100) : 0) + "%";
+    $("tb-progressbar").setAttribute("aria-valuenow", total ? Math.round(answered / total * 100) : 0);
+    $("tb-progress-lbl").textContent = answered + " / " + total + " answered";
+    $("tb-qpos").textContent = "Q " + (STATE.pos + 1) + " / " + total;
+    $("palette-count").textContent = answered + "/" + total;
+    var btn = $("palette-submit-btn");
+    btn.textContent = "Submit · " + (total - answered) + " left";
+    btn.className = "btn palette-submit " + (answered >= total ? "btn-accent" : "btn-primary");
   }
 
-  if (type === "vocabulary") {
-    return "Vocabulary";
-  }
-
-  if (type === "purpose") {
-    return "Author's Purpose";
-  }
-
-  if (type === "reference") {
-    return "Reference";
-  }
-
-  return type;
-}
-
-function formatListeningType(type) {
-  if (type === "conversation") {
-    return "Conversation";
-  }
-
-  if (type === "talk") {
-    return "Short Talk";
-  }
-
-  if (type === "lecture") {
-    return "Academic Lecture";
-  }
-
-  return type;
-}
-
-function speakListeningAudio(audioId) {
-  const data = window.currentListeningData;
-
-  if (!data) {
-    alert("Listening data is not loaded.");
-    return;
-  }
-
-  const item = data.items.find((audioItem) => {
-    return audioItem.id === audioId;
-  });
-
-  if (!item) {
-    alert("Audio item was not found.");
-    return;
-  }
-
-  if (!("speechSynthesis" in window)) {
-    alert("Your browser does not support Text-to-Speech.");
-    return;
-  }
-
-  isManualStop = true;
-  speechSynthesis.cancel();
-
-  setTimeout(() => {
-    isManualStop = false;
-
-    currentPlayingAudioId = audioId;
-
-    currentUtterance = new SpeechSynthesisUtterance(item.ttsText);
-    currentUtterance.lang = "en-US";
-    currentUtterance.rate = 0.82;
-    currentUtterance.pitch = 0.95;
-    currentUtterance.volume = 1;
-
-    currentUtterance.onstart = function () {
-      currentAudioState = "playing";
-      updateAudioButtons();
-    };
-
-    currentUtterance.onend = function () {
-      if (isManualStop) {
-        return;
+  /* ══════════ TIMER ══════════ */
+  function startTimer(minutes) {
+    TIMER.remaining = minutes * 60;
+    paintTimer();
+    ToeflTimerUI.resetWarnings();
+    TIMER.id = setInterval(function () {
+      TIMER.remaining--;
+      paintTimer();
+      ToeflTimerUI.checkWarnings(TIMER.remaining);
+      if (TIMER.remaining <= 0) {
+        stopTimer();
+        showToast("Waktu habis! Jawaban tersubmit otomatis.", "danger");
+        submitSection(true);
       }
-
-      currentAudioState = "finished";
-      updateAudioButtons();
-    };
-
-    currentUtterance.onerror = function (event) {
-      if (isManualStop || event.error === "interrupted" || event.error === "canceled") {
-        return;
-      }
-
-      console.error("Text-to-Speech error:", event);
-      currentAudioState = "stopped";
-      updateAudioButtons();
-      alert("Text-to-Speech error. Please try again.");
-    };
-
-    currentAudioState = "playing";
-    updateAudioButtons();
-
-    speechSynthesis.speak(currentUtterance);
-  }, 150);
-}
-
-function pauseSpeech() {
-  if (speechSynthesis.speaking && !speechSynthesis.paused) {
-    speechSynthesis.pause();
-    currentAudioState = "paused";
-    updateAudioButtons();
+    }, 1000);
   }
-}
-
-function resumeSpeech() {
-  if (speechSynthesis.paused) {
-    speechSynthesis.resume();
-    currentAudioState = "playing";
-    updateAudioButtons();
-  }
-}
-
-function stopSpeech() {
-  if ("speechSynthesis" in window) {
-    isManualStop = true;
-    speechSynthesis.cancel();
+  function stopTimer() { if (TIMER.id) clearInterval(TIMER.id); TIMER.id = null; }
+  function paintTimer() {
+    var t = $("tb-timer"), txt = $("tb-timer-text");
+    if (!txt) return;
+    txt.textContent = fmtTime(TIMER.remaining);
+    t.classList.remove("warn", "danger");
+    if (TIMER.remaining <= 60) t.classList.add("danger");
+    else if (TIMER.remaining <= 300) t.classList.add("warn");
   }
 
-  currentUtterance = null;
-  currentAudioState = "stopped";
-  updateAudioButtons();
+  /* ══════════ RENDER QUESTION ══════════ */
+  function renderQuestion() {
+    var q = STATE.flat[STATE.pos];
+    var stage = $("qstage");
+    var dir = renderQuestion._lastDir || "fwd";
+    renderQuestion._lastDir = "fwd";
 
-  setTimeout(() => {
-    isManualStop = false;
-  }, 300);
-}
+    $("stage-qnum").textContent = "Question " + (STATE.pos + 1) + " of " + STATE.flat.length;
+    $("stage-part").textContent = q.partLabel || "";
 
-function updateAudioButtons() {
-  const data = window.currentListeningData;
+    var html = '<div class="qcard' + (dir === "back" ? " back" : "") + '">';
 
-  if (!data || !data.items) {
-    return;
-  }
-
-  data.items.forEach((item) => {
-    const btnPlay = document.getElementById(`btn-play-${item.id}`);
-    const btnPause = document.getElementById(`btn-pause-${item.id}`);
-    const btnResume = document.getElementById(`btn-resume-${item.id}`);
-    const btnStop = document.getElementById(`btn-stop-${item.id}`);
-    const audioStatus = document.getElementById(`audio-status-${item.id}`);
-
-    if (!btnPlay || !btnPause || !btnResume || !btnStop || !audioStatus) {
-      return;
+    // Audio player (listening)
+    if (q.audio) {
+      html += '<div class="audio-player">' +
+        '<div class="audio-head">' +
+          '<div class="audio-title"><span class="a-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></span>' + esc(q.audioTitle) + "</div>" +
+          '<span class="audio-type">' + esc((q.audioType || "talk").replace(/-/g, " ")) + "</span>" +
+        "</div>" +
+        '<div class="audio-canvas-wrap"><canvas id="audio-canvas"></canvas><div class="audio-progress-line" id="audio-progress"></div></div>' +
+        '<div class="audio-controls-row">' +
+          '<button class="audio-play-btn" id="audio-play-btn" aria-label="Play audio"><svg id="audio-icon-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg><svg id="audio-icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg></button>' +
+          '<button class="audio-mini-btn" onclick="App.audioReplay()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.1"/></svg> Replay</button>' +
+          '<div class="audio-status" id="audio-status"><span class="live-dot"></span><span id="audio-status-text">Siap diputar</span></div>' +
+        "</div>" +
+      "</div>";
     }
 
-    btnPlay.classList.remove("active");
-    btnPause.classList.remove("active");
-    btnResume.classList.remove("active");
-    btnStop.classList.remove("active");
-
-    btnPlay.disabled = false;
-    btnPause.disabled = true;
-    btnResume.disabled = true;
-    btnStop.disabled = true;
-
-    audioStatus.textContent = "Status: Ready";
-
-    if (currentPlayingAudioId !== item.id) {
-      if (currentAudioState === "playing" || currentAudioState === "paused") {
-        btnPlay.disabled = true;
-        audioStatus.textContent = "Status: Another audio is playing";
-      }
-
-      return;
+    // Passage (reading)
+    if (q.passage) {
+      html += '<div class="passage-box"><h4>' + esc(q.passageTitle) + '</h4><div class="ptext">' + esc(q.passage) + "</div></div>";
     }
 
-    if (currentAudioState === "ready") {
-      btnPlay.disabled = false;
-      btnPause.disabled = true;
-      btnResume.disabled = true;
-      btnStop.disabled = true;
-      audioStatus.textContent = "Status: Ready";
-    }
+    // Question
+    html += '<p class="q-text">' + esc(q.question) + "</p>";
 
-    if (currentAudioState === "playing") {
-      btnPlay.disabled = true;
-      btnPause.disabled = false;
-      btnResume.disabled = true;
-      btnStop.disabled = false;
-
-      btnPlay.classList.add("active");
-      audioStatus.textContent = "Status: Playing...";
-    }
-
-    if (currentAudioState === "paused") {
-      btnPlay.disabled = true;
-      btnPause.disabled = true;
-      btnResume.disabled = false;
-      btnStop.disabled = false;
-
-      btnPause.classList.add("active");
-      audioStatus.textContent = "Status: Paused";
-    }
-
-    if (currentAudioState === "stopped") {
-      btnPlay.disabled = false;
-      btnPause.disabled = true;
-      btnResume.disabled = true;
-      btnStop.disabled = true;
-
-      btnStop.classList.add("active");
-      audioStatus.textContent = "Status: Stopped";
-    }
-
-    if (currentAudioState === "finished") {
-      btnPlay.disabled = false;
-      btnPause.disabled = true;
-      btnResume.disabled = true;
-      btnStop.disabled = true;
-
-      audioStatus.textContent = "Status: Finished";
-    }
-  });
-}
-
-function saveFullTestSectionResult(sectionName, score, total) {
-  if (!isFullTestMode) {
-    return;
-  }
-
-  fullTestResults[sectionName] = {
-    score: score,
-    total: total
-  };
-}
-
-function checkListeningAnswers(isAutoSubmit = false) {
-  if (isSubmitted) {
-    return;
-  }
-
-  const data = window.currentListeningData;
-  let score = 0;
-  let totalQuestions = 0;
-  const questionIds = [];
-
-  data.items.forEach((item) => {
-    item.questions.forEach((q) => {
-      questionIds.push(q.id);
+    // Choices
+    html += '<div class="choices">';
+    q.choices.forEach(function (c, i) {
+      var selected = STATE.answers[q.id] === i;
+      html += '<label class="choice' + (selected ? " selected" : "") + '" data-cl="1" data-idx="' + i + '">' +
+        '<input type="radio" name="' + q.id + '" value="' + i + '"' + (selected ? " checked" : "") + ">" +
+        '<span class="key">' + "ABCD"[i] + "</span>" +
+        '<span class="choice-body">' + esc(c) + "</span>" +
+        '<span class="check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>' +
+      "</label>";
     });
-  });
+    html += "</div>";
 
-  if (!isAutoSubmit) {
-    const allAnswered = validateAllAnswered(questionIds);
+    html += '<div class="explain" id="explain-box"></div>';
 
-    if (!allAnswered) {
-      return;
-    }
-  }
+    // Stage controls
+    var isLast = STATE.pos === STATE.flat.length - 1;
+    html += '<div class="stage-controls">' +
+      '<div class="sc-group">' +
+        '<button class="btn btn-soft" onclick="App.prev()" ' + (STATE.pos === 0 ? "disabled" : "") + '><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Prev</button>' +
+        '<button class="btn btn-soft btn-flag-toggle' + (STATE.flagged[q.id] ? " on" : "") + '" onclick="App.toggleFlag()" id="stage-flag-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> ' + (STATE.flagged[q.id] ? "Flagged" : "Flag") + "</button>" +
+      "</div>" +
+      '<div class="sc-group">' +
+        (isLast
+          ? '<button class="btn btn-accent" onclick="App.requestSubmit()">Review & Submit <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>'
+          : '<button class="btn btn-primary" onclick="App.next()">Next <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>') +
+      "</div>" +
+    "</div></div>";
 
-  data.items.forEach((item) => {
-    item.questions.forEach((q) => {
-      totalQuestions++;
+    stage.innerHTML = html;
 
-      const selected = document.querySelector(`input[name="${q.id}"]:checked`);
-      const explanation = document.getElementById(`explanation-${q.id}`);
-
-      if (!selected) {
-        explanation.innerHTML = `<span class="wrong">Not answered.</span> ${q.explanation}`;
-        return;
-      }
-
-      const selectedValue = Number(selected.value);
-
-      if (selectedValue === q.answer) {
-        score++;
-        explanation.innerHTML = `<span class="correct">Correct.</span> ${q.explanation}`;
-      } else {
-        explanation.innerHTML = `
-          <span class="wrong">Wrong.</span>
-          Correct answer: ${String.fromCharCode(65 + q.answer)}.
-          ${q.explanation}
-        `;
-      }
+    // Bind choices
+    stage.querySelectorAll("[data-cl]").forEach(function (label) {
+      label.addEventListener("click", function () { selectChoice(q, Number(label.dataset.idx)); });
     });
-  });
 
-  saveFullTestSectionResult("listening", score, totalQuestions);
+    // If reviewed already (post-submit), paint verdict
+    if (STATE.reviewed) paintReviewed(q);
 
-  const scoreBox = document.getElementById("score-box");
-  scoreBox.innerHTML = `
-    <h3>Your Listening Score</h3>
-    <p>${score} / ${totalQuestions}</p>
-    <p>${isAutoSubmit ? "Submitted automatically because time was up." : "Submitted manually."}</p>
-    ${renderRestartControls()}
-    ${renderFullTestContinueControls()}
-  `;
-
-  markSubmitted("listening-form");
-}
-
-function checkStructureAnswers(isAutoSubmit = false) {
-  if (isSubmitted) {
-    return;
+    renderPalette();
+    shellUpdateProgress();
+    drawIdleWave();
   }
 
-  const data = window.currentStructureData;
-  let score = 0;
-  const questionIds = data.items.map((q) => q.id);
-
-  if (!isAutoSubmit) {
-    const allAnswered = validateAllAnswered(questionIds);
-
-    if (!allAnswered) {
-      return;
+  function selectChoice(q, idx) {
+    if (STATE.reviewed) return;
+    if (STATE.answers[q.id] === idx) return;
+    STATE.answers[q.id] = idx;
+    document.querySelectorAll("[data-cl]").forEach(function (l) {
+      l.classList.toggle("selected", Number(l.dataset.idx) === idx);
+      var inp = l.querySelector("input"); if (inp) inp.checked = Number(l.dataset.idx) === idx;
+    });
+    saveDraft();
+    renderPalette();
+    shellUpdateProgress();
+    // auto-advance like real CBT? keep manual — just pulse next button
+    var nx = document.querySelector(".stage-controls .btn-primary");
+    if (nx && !renderQuestion._pulseOnce) {
+      nx.style.transform = "translateY(-2px)";
+      setTimeout(function () { nx.style.transform = ""; }, 350);
     }
   }
 
-  data.items.forEach((q) => {
-    const selected = document.querySelector(`input[name="${q.id}"]:checked`);
-    const explanation = document.getElementById(`explanation-${q.id}`);
-
-    if (!selected) {
-      explanation.innerHTML = `<span class="wrong">Not answered.</span> ${q.explanation}`;
-      return;
-    }
-
-    const selectedValue = Number(selected.value);
-
-    if (selectedValue === q.answer) {
-      score++;
-      explanation.innerHTML = `<span class="correct">Correct.</span> ${q.explanation}`;
+  function paintReviewed(q, onlyWrong) {
+    var sel = STATE.answers[q.id];
+    var box = $("explain-box");
+    document.querySelectorAll("[data-cl]").forEach(function (l) {
+      var i = Number(l.dataset.idx);
+      if (i === q.answer) l.classList.add("is-correct");
+      if (i === sel && sel !== q.answer) l.classList.add("is-wrong");
+      if (i !== q.answer && i !== sel) l.classList.add("dim");
+      l.classList.add("locked");
+    });
+    if (!box) return;
+    if (sel === q.answer) {
+      if (onlyWrong) { box.classList.remove("show"); return; }
+      box.className = "explain show good";
+      box.innerHTML = '<div class="ex-verdict"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Correct</div>' + esc(q.explanation || "");
+    } else if (sel === undefined) {
+      box.className = "explain show bad";
+      box.innerHTML = '<div class="ex-verdict"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Unanswered</div>' +
+        '<p class="ex-answer">Jawaban benar: <b>' + "ABCD"[q.answer] + ". " + esc(q.choices[q.answer]) + "</b></p>" + esc(q.explanation || "");
     } else {
-      explanation.innerHTML = `
-        <span class="wrong">Wrong.</span>
-        Correct answer: ${String.fromCharCode(65 + q.answer)}.
-        ${q.explanation}
-      `;
+      box.className = "explain show bad";
+      box.innerHTML = '<div class="ex-verdict"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Incorrect</div>' +
+        '<p class="ex-answer">Jawaban benar: <b>' + "ABCD"[q.answer] + ". " + esc(q.choices[q.answer]) + "</b></p>" + esc(q.explanation || "");
     }
-  });
-
-  saveFullTestSectionResult("structure", score, data.items.length);
-
-  const scoreBox = document.getElementById("score-box");
-  scoreBox.innerHTML = `
-    <h3>Your Structure Score</h3>
-    <p>${score} / ${data.items.length}</p>
-    <p>${isAutoSubmit ? "Submitted automatically because time was up." : "Submitted manually."}</p>
-    ${renderRestartControls()}
-    ${renderFullTestContinueControls()}
-  `;
-
-  markSubmitted("structure-form");
-}
-
-function checkReadingAnswers(isAutoSubmit = false) {
-  if (isSubmitted) {
-    return;
   }
 
-  const data = window.currentReadingData;
-  let score = 0;
-  let totalQuestions = 0;
-  const questionIds = [];
+  /* ══════════ NAVIGATION ══════════ */
+  function goTo(pos, dir) {
+    if (pos < 0 || pos >= STATE.flat.length) return;
+    renderQuestion._lastDir = dir || (pos > STATE.pos ? "fwd" : "back");
+    STATE.pos = pos;
+    var trackAudio = STATE.section === "listening";
+    if (trackAudio) stopAudio();
+    renderQuestion();
+    if (!document.body.classList.contains("in-test")) return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function next() { goTo(STATE.pos + 1, "fwd"); }
+  function prev() { goTo(STATE.pos - 1, "back"); }
 
-  data.passages.forEach((passage) => {
-    passage.questions.forEach((q) => {
-      questionIds.push(q.id);
-    });
+  function toggleFlag() {
+    var q = STATE.flat[STATE.pos];
+    if (STATE.flagged[q.id]) delete STATE.flagged[q.id];
+    else STATE.flagged[q.id] = true;
+    var btn = $("stage-flag-btn");
+    if (btn) {
+      btn.classList.toggle("on", !!STATE.flagged[q.id]);
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> ' + (STATE.flagged[q.id] ? "Flagged" : "Flag");
+    }
+    renderPalette();
+    saveDraft();
+  }
+
+  function renderPalette() {
+    var grid = $("palette-grid");
+    if (!grid) return;
+    var html = STATE.flat.map(function (q, i) {
+      var cls = "pal-btn";
+      if (STATE.answers[q.id] !== undefined) cls += " answered";
+      if (STATE.flagged[q.id]) cls += " flagged";
+      if (i === STATE.pos) cls += " current";
+      return '<button class="' + cls + '" onclick="App.goTo(' + i + ')" title="Q' + (i + 1) + '">' + (i + 1) + "</button>";
+    }).join("");
+    grid.innerHTML = html;
+  }
+
+  /* ══════════ PALETTE SHEET (mobile) ══════════ */
+  function openPaletteSheet() {
+    $("test-palette").classList.add("open");
+    $("palette-sheet-overlay").classList.add("open");
+  }
+  function closePaletteSheet() {
+    var p = $("test-palette"), o = $("palette-sheet-overlay");
+    if (p) p.classList.remove("open");
+    if (o) o.classList.remove("open");
+  }
+  function togglePaletteSheet() {
+    var p = $("test-palette");
+    if (p.classList.contains("open")) closePaletteSheet();
+    else openPaletteSheet();
+  }
+
+  /* ══════════ MODALS ══════════ */
+  function openModal(html) {
+    $("modal-box").innerHTML = html;
+    $("modal-overlay").classList.add("open");
+  }
+  function closeModal() { $("modal-overlay").classList.remove("open"); }
+  $("modal-overlay") && $("modal-overlay").addEventListener("click", function (e) {
+    if (e.target === this) closeModal();
   });
 
-  if (!isAutoSubmit) {
-    const allAnswered = validateAllAnswered(questionIds);
+  function requestSubmit() {
+    var total = STATE.flat.length, answered = Object.keys(STATE.answers).length;
+    var flagged = Object.keys(STATE.flagged).length;
+    var flaggedList = Object.keys(STATE.flagged).map(function (qid) {
+      return STATE.flat.findIndex(function (f) { return f.id === qid; }) + 1;
+    }).sort(function (a, b) { return a - b; });
+    var unList = [];
+    STATE.flat.forEach(function (q, i) {
+      if (STATE.answers[q.id] === undefined) unList.push(i + 1);
+    });
+    openModal(
+      "<h3>Review sebelum Submit</h3>" +
+      "<p><b>" + answered + "</b> dari <b>" + total + "</b> soal terjawab.</p>" +
+      (flagged ? '<p class="warn-p">⚑ Flagged: <b>Q ' + flaggedList.slice(0, 12).join(", ") + (flaggedList.length > 12 ? "…" : "") + "</b></p>" : "") +
+      (unList.length
+        ? '<p class="bad-p">Kosong: <b>Q ' + unList.slice(0, 12).join(", ") + (unList.length > 12 ? "… (" + unList.length + ")" : "") + "</b></p>"
+        : '<p class="ok-p">✓ Semua soal terjawab. Mantap!</p>') +
+      '<div class="modal-actions">' +
+        (unList.length ? '<button class="btn btn-soft" onclick="App.goFirstEmpty()">Isi soal kosong</button>' : "") +
+        '<button class="btn btn-ghost" onclick="App.closeModal()">Lanjut kerja</button>' +
+        '<button class="btn btn-accent" onclick="App.confirmSubmit()">Submit sekarang</button>' +
+      "</div>"
+    );
+  }
 
-    if (!allAnswered) {
+  function goFirstEmpty() {
+    var idx = STATE.flat.findIndex(function (q) { return STATE.answers[q.id] === undefined; });
+    closeModal();
+    if (idx >= 0) goTo(idx);
+  }
+
+  function confirmSubmit() {
+    closeModal();
+    submitSection(false);
+  }
+
+  function requestExit() {
+    openModal(
+      "<h3>Keluar dari test?</h3>" +
+      "<p>Progress section ini tidak akan tersimpan sebagai skor.</p>" +
+      '<div class="modal-actions">' +
+      '<button class="btn btn-ghost" onclick="App.closeModal()">Lanjut kerja</button>' +
+      '<button class="btn btn-danger" onclick="App.forceExit()">Keluar</button>' +
+      "</div>"
+    );
+  }
+
+  function forceExit() {
+    closeModal();
+    exitTestShell();
+  }
+
+  /* ══════════ SUBMIT + REVIEW + NEXT ══════════ */
+  function submitSection(timedOut) {
+    stopTimer(); stopAudio();
+    var score = 0, total = STATE.flat.length;
+    STATE.flat.forEach(function (q) { if (STATE.answers[q.id] === q.answer) score++; });
+
+    STATE.results = STATE.results || {};
+    STATE.results[STATE.section] = { score: score, total: total };
+    STATE.reviewed = true;
+    ToeflStore.del("draft");
+
+    if (STATE.mode === "fulltest") {
+      STATE.full.results[STATE.section] = STATE.results[STATE.section];
+      showSectionTransition(timedOut, score, total);
+    } else {
+      showSectionResult(timedOut, score, total);
+    }
+  }
+
+  function showSectionTransition(timedOut, score, total) {
+    var idx = STATE.full.index;
+    var isLast = idx >= STATE.full.sections.length - 1;
+    var nextSec = STATE.full.sections[idx + 1];
+    var pct = total ? Math.round(score / total * 100) : 0;
+
+    openModal(
+      "<h3>" + (timedOut ? "Waktu habis ⏱" : "Section selesai ✓") + "</h3>" +
+      "<p><b>" + SECTION_META[STATE.section].short + ":</b> " + score + " / " + total + " benar (" + pct + "%)</p>" +
+      (isLast
+        ? '<p class="ok-p">Semua section selesai. Siap lihat score report?</p>'
+        : "<p>Lanjut ke <b>" + SECTION_META[nextSec].title + "</b>? Timer berikutnya mulai setelah kamu menekan tombol.</p>") +
+      '<div class="modal-actions">' +
+        '<button class="btn btn-soft" onclick="App.reviewCurrentSection()">Review jawaban dulu</button>' +
+        (isLast
+          ? '<button class="btn btn-accent" onclick="App.finishFullTest()">Lihat Hasil Akhir</button>'
+          : '<button class="btn btn-accent" onclick="App.continueFullTest()">Lanjut ' + SECTION_META[nextSec].short + ' →</button>') +
+      "</div>"
+    );
+  }
+
+  function showSectionResult(timedOut, score, total) {
+    var pct = total ? Math.round(score / total * 100) : 0;
+    var scaled = calculateITPScore(
+      STATE.section === "listening" ? { score: score, total: total } : { score: 0, total: 50 },
+      STATE.section === "structure" ? { score: score, total: total } : { score: 0, total: 40 },
+      STATE.section === "reading" ? { score: score, total: total } : { score: 0, total: 50 }
+    );
+    // save result (single section history, setName tags section)
+    try {
+      var resultData = {
+        listening: STATE.section === "listening" ? { score: score, total: total } : { score: 0, total: 0 },
+        structure: STATE.section === "structure" ? { score: score, total: total } : { score: 0, total: 0 },
+        reading: STATE.section === "reading" ? { score: score, total: total } : { score: 0, total: 0 },
+        date: new Date().toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" }),
+        setName: (STATE.set ? STATE.set.title : "Practice") + " · " + SECTION_META[STATE.section].short,
+        savedAt: Date.now()
+      };
+      localStorage.setItem("toeflResult", JSON.stringify(resultData));
+      ToeflStore.pushCapped("history.v1", resultData, 20);
+    } catch (e) { /* storage unavailable */ }
+
+    openModal(
+      "<h3>" + (timedOut ? "Waktu habis ⏱" : "Section selesai ✓") + "</h3>" +
+      '<div class="review-score-row">' +
+        '<div class="review-stat"><b>' + score + "/" + total + "</b><span>Benar</span></div>" +
+        '<div class="review-stat"><b>' + pct + "%</b><span>Akurasi</span></div>" +
+        '<div class="review-stat"><b>' + (STATE.section === "listening" ? scaled.listeningScale : STATE.section === "structure" ? scaled.structureScale : scaled.readingScale) + "</b><span>Estimasi scaled score</span></div>" +
+      "</div>" +
+      '<div class="modal-actions">' +
+        '<button class="btn btn-ghost" onclick="App.closeAndExit()">Kembali ke Beranda</button>' +
+        '<button class="btn btn-soft" onclick="App.retake()">Ulangi (acak)</button>' +
+        '<button class="btn btn-accent" onclick="App.reviewCurrentSection()">Review jawaban</button>' +
+      "</div>"
+    );
+  }
+
+  function closeAndExit() { closeModal(); exitTestShell(); renderHistory(); }
+
+  function reviewCurrentSection() {
+    closeModal();
+    STATE.pos = 0;
+    renderQuestion._lastDir = "fwd";
+    renderQuestion();
+  }
+
+  function retake() {
+    closeModal();
+    startSectionRun(STATE.section, STATE._dataRaw, STATE.set, STATE.mode === "fulltest");
+  }
+
+  /* ══════════ FULL TEST FLOW ══════════ */
+  function continueFullTest() {
+    closeModal();
+    STATE.full.index++;
+    var nextSec = STATE.full.sections[STATE.full.index];
+    var data = STATE._fullData[nextSec];
+    startSectionRun(nextSec, data, STATE.set, true);
+  }
+
+  function finishFullTest() {
+    closeModal();
+    var r = STATE.full.results;
+    var L = r.listening || { score: 0, total: 0 },
+        S = r.structure || { score: 0, total: 0 },
+        R = r.reading || { score: 0, total: 0 };
+    try {
+      var resultData = {
+        listening: L, structure: S, reading: R,
+        date: new Date().toLocaleDateString("id-ID", { year: "numeric", month: "long", day: "numeric" }),
+        setName: STATE.set ? STATE.set.title : "Full Test",
+        savedAt: Date.now()
+      };
+      localStorage.setItem("toeflResult", JSON.stringify(resultData));
+      ToeflStore.pushCapped("history.v1", resultData, 20);
+      ToeflStore.del("draft");
+    } catch (e) { /* storage unavailable */ }
+    location.href = "result.html";
+  }
+
+  /* ══════════ START FLOWS ══════════ */
+  function resetState() {
+    STATE.answers = {}; STATE.flagged = {}; STATE.pos = 0; STATE.reviewed = false;
+    stopAudio(); stopTimer();
+  }
+
+  function confirmAndStart(section, setId, fulltest) {
+    // If a test looks active locally (same session), just go through — drafts are same-tab only.
+    if (fulltest) startFullTestWith(setId);
+    else startSectionWith(section, setId);
+  }
+
+  function startSectionWith(sectionName, setId) {
+    var set = getSet(setId);
+    if (!set) return;
+    if (set.type === "mixed") { showToast("Set 0 khusus Full Test", "warn"); return; }
+    if (!set.files || !set.files[sectionName]) { showToast("Set ini tidak punya file " + sectionName, "danger"); return; }
+
+    fetchJSON(set.files[sectionName]).then(function (data) {
+      STATE.mode = "section";
+      STATE.set = set;
+      showSectionIntro(sectionName, data, set, false, function () {
+        startSectionRun(sectionName, data, set, false);
+      });
+    }).catch(function () { showToast("Gagal memuat soal", "danger"); });
+  }
+
+  function startFullTestWith(setId) {
+    var set = getSet(setId);
+    if (!set) return;
+    showToast("Memuat full test…", "info");
+    if (set.type === "mixed") {
+      // gather all regular sets
+      var sources = manifest.sets.filter(function (s) { return s.status === "active" && s.type !== "mixed" && s.files; });
+      var files = { listening: [], structure: [], reading: [] };
+      sources.forEach(function (s) {
+        files.listening.push(s.files.listening);
+        files.structure.push(s.files.structure);
+        files.reading.push(s.files.reading);
+      });
+      Promise.all(
+        files.listening.concat(files.structure, files.reading).map(fetchJSON)
+      ).then(function (allData) {
+        var n = sources.length;
+        var L = allData.slice(0, n), S = allData.slice(n, 2 * n), R = allData.slice(2 * n, 3 * n);
+        var tgtQ = set.targetQuestions || { listening: 50, structure: 40, reading: 50 };
+        var dur = set.durationMinutes || { listening: 35, structure: 25, reading: 55 };
+        var fullData = {
+          listening: buildMixedListening(L, tgtQ.listening, dur.listening),
+          structure: buildMixedStructure(S, tgtQ.structure, dur.structure),
+          reading: buildMixedReading(R, tgtQ.reading, dur.reading)
+        };
+        STATE.mode = "fulltest";
+        STATE.set = set;
+        STATE._fullData = fullData;
+        STATE.full = { index: 0, results: {}, sections: ["listening", "structure", "reading"] };
+        showFulltestIntro(set, fullData);
+      }).catch(function (e) { console.error(e); showToast("Gagal memuat mixed test", "danger"); });
+    } else {
+      Promise.all([
+        fetchJSON(set.files.listening),
+        fetchJSON(set.files.structure),
+        fetchJSON(set.files.reading)
+      ]).then(function (arr) {
+        var fullData = { listening: arr[0], structure: arr[1], reading: arr[2] };
+        STATE.mode = "fulltest";
+        STATE.set = set;
+        STATE._fullData = fullData;
+        STATE.full = { index: 0, results: {}, sections: ["listening", "structure", "reading"] };
+        showFulltestIntro(set, fullData);
+      }).catch(function () { showToast("Gagal memuat full test", "danger"); });
+    }
+  }
+
+  function buildMixedListening(datas, targetQ, dur) {
+    var items = [];
+    datas.forEach(function (d) {
+      d.items.forEach(function (item) {
+        var it = JSON.parse(JSON.stringify(item));
+        it.questions = it.questions.map(shuffleChoices);
+        items.push(it);
+      });
+    });
+    items = shuffle(items).slice(0, Math.max(3, Math.ceil(targetQ / 4)));
+    var total = items.reduce(function (t, i) { return t + i.questions.length; }, 0);
+    return { meta: { durationMinutes: dur, totalQuestions: total, set: "set-0" }, items: items };
+  }
+  function buildMixedStructure(datas, targetQ, dur) {
+    var qs = [];
+    datas.forEach(function (d) {
+      d.items.forEach(function (q) { qs.push(shuffleChoices(JSON.parse(JSON.stringify(q)))); });
+    });
+    qs = shuffle(qs).slice(0, targetQ);
+    return { meta: { durationMinutes: dur, totalQuestions: qs.length, set: "set-0" }, items: qs };
+  }
+  function buildMixedReading(datas, targetQ, dur) {
+    var ps = [];
+    datas.forEach(function (d) {
+      d.passages.forEach(function (p) {
+        var pp = JSON.parse(JSON.stringify(p));
+        pp.questions = pp.questions.map(shuffleChoices);
+        ps.push(pp);
+      });
+    });
+    ps = shuffle(ps);
+    var selected = [], total = 0;
+    for (var i = 0; i < ps.length && total < targetQ; i++) { selected.push(ps[i]); total += ps[i].questions.length; }
+    return { meta: { durationMinutes: dur, totalQuestions: total, set: "set-0" }, passages: selected };
+  }
+
+  function showFulltestIntro(set, fullData) {
+    var totals = {
+      listening: countQ("listening", fullData.listening),
+      structure: countQ("structure", fullData.structure),
+      reading: countQ("reading", fullData.reading)
+    };
+    openModal(
+      "<h3>Full TOEFL ITP-like Test</h3>" +
+      "<p><b>" + esc(set.title) + "</b></p>" +
+      '<div class="review-score-row">' +
+        '<div class="review-stat"><b>' + totals.listening + "</b><span>Listening · " + fullData.listening.meta.durationMinutes + "m</span></div>" +
+        '<div class="review-stat"><b>' + totals.structure + "</b><span>Structure · " + fullData.structure.meta.durationMinutes + "m</span></div>" +
+        '<div class="review-stat"><b>' + totals.reading + "</b><span>Reading · " + fullData.reading.meta.durationMinutes + "m</span></div>" +
+      "</div>" +
+      "<p>Alur: Listening → Structure → Reading → Score Report. Antara section bisa istirahat sebentar.</p>" +
+      '<div class="modal-actions">' +
+        '<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button>' +
+        '<button class="btn btn-accent" onclick="App.beginFullTest()">Mulai Listening</button>' +
+      "</div>"
+    );
+  }
+
+  function beginFullTest() {
+    closeModal();
+    STATE.results = {};
+    STATE.full.index = 0;
+    startSectionRun("listening", STATE._fullData.listening, STATE.set, true);
+  }
+
+  function countQ(sec, d) {
+    if (sec === "listening") return d.items.reduce(function (t, i) { return t + i.questions.length; }, 0);
+    if (sec === "structure") return d.items.length;
+    return d.passages.reduce(function (t, p) { return t + p.questions.length; }, 0);
+  }
+
+  function showSectionIntro(sectionName, data, set, isFull, onStart) {
+    var total = countQ(sectionName, data);
+    openModal(
+      "<h3>" + SECTION_META[sectionName].title + "</h3>" +
+      '<div class="review-score-row">' +
+        '<div class="review-stat"><b>' + total + "</b><span>Soal</span></div>" +
+        '<div class="review-stat"><b>' + data.meta.durationMinutes + " mnt</b><span>Waktu</span></div>" +
+        '<div class="review-stat"><b>' + esc(set.title) + "</b><span>Set</span></div>" +
+      "</div>" +
+      "<p>Timer jalan setelah kamu mulai. Bisa flag soal yang ragu, jawab dengan klik atau keyboard A–D.</p>" +
+      (sectionName === "listening" ? '<p class="warn-p">🎧 Pakai headphone untuk hasil terbaik.</p>' : "") +
+      '<div class="modal-actions">' +
+        '<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button>' +
+        '<button class="btn btn-accent" id="section-start-btn">Mulai Sekarang</button>' +
+      "</div>"
+    );
+    var btn = $("section-start-btn");
+    if (btn) btn.addEventListener("click", function () { closeModal(); onStart(); });
+  }
+
+  function startSectionRun(sectionName, data, set, isFull) {
+    resetState();
+    STATE.mode = isFull ? "fulltest" : "section";
+    STATE.section = sectionName;
+    STATE.set = set;
+    STATE._dataRaw = data;
+    STATE.data = data;
+    STATE.flat = flatten(sectionName, cloneShuffled(sectionName, data));
+    // Keep reference to raw for retake
+    STATE._shuffledRef = STATE.flat;
+
+    enterTestShell();
+    shellSetSection(sectionName);
+    renderPalette();
+    renderQuestion();
+    startTimer(data.meta.durationMinutes);
+  }
+
+  function cloneShuffled(section, data) {
+    var d = JSON.parse(JSON.stringify(data));
+    if (section === "listening") {
+      d.items = shuffle(d.items);
+      d.items.forEach(function (it) { it.questions = shuffle(it.questions).map(shuffleChoices); });
+    } else if (section === "structure") {
+      d.items = shuffle(d.items).map(shuffleChoices);
+    } else {
+      d.passages = shuffle(d.passages);
+      d.passages.forEach(function (p) { p.questions = shuffle(p.questions).map(shuffleChoices); });
+    }
+    return d;
+  }
+
+  /* ══════════ AUDIO (TTS) ══════════ */
+  function drawIdleWave() {
+    var cv = $("audio-canvas");
+    if (!cv) return;
+    var ctx = cv.getContext("2d");
+    var w = cv.width = cv.offsetWidth * devicePixelRatio;
+    var h = cv.height = cv.offsetHeight * devicePixelRatio;
+    ctx.clearRect(0, 0, w, h);
+    var bars = 56, gap = w / bars;
+    for (var i = 0; i < bars; i++) {
+      var bh = (0.2 + Math.abs(Math.sin(i * 0.55)) * 0.35) * h;
+      ctx.fillStyle = "rgba(79,140,255,0.55)";
+      ctx.beginPath();
+      roundRect(ctx, i * gap + gap * 0.22, (h - bh) / 2, gap * 0.56, bh, 3 * devicePixelRatio);
+      ctx.fill();
+    }
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+  }
+
+  function animateWave() {
+    if (AUDIO.state !== "speaking") return;
+    var cv = $("audio-canvas");
+    if (!cv) return;
+    var ctx = cv.getContext("2d");
+    var w = cv.width, h = cv.height;
+    var t = performance.now() / 1000;
+    ctx.clearRect(0, 0, w, h);
+    var bars = 56, gap = w / bars;
+    for (var i = 0; i < bars; i++) {
+      var amp = 0.35 + 0.65 * Math.abs(Math.sin(i * 0.7 + t * 6) * Math.sin(t * 3 + i * 0.13));
+      var bh = amp * h * 0.9;
+      ctx.fillStyle = "rgba(45,212,191," + (0.45 + amp * 0.4) + ")";
+      ctx.beginPath();
+      roundRect(ctx, i * gap + gap * 0.22, (h - bh) / 2, gap * 0.56, bh, 3 * devicePixelRatio);
+      ctx.fill();
+    }
+    // progress
+    if (AUDIO.estDur > 0) {
+      var p = Math.min(1, (performance.now() - AUDIO.startedAt) / AUDIO.estDur);
+      var line = $("audio-progress");
+      if (line) line.style.width = (p * 100) + "%";
+    }
+    AUDIO.raf = requestAnimationFrame(animateWave);
+  }
+
+  function setAudioStatus(text, playing) {
+    var st = $("audio-status"), tx = $("audio-status-text");
+    if (tx) tx.textContent = text;
+    if (st) st.classList.toggle("playing", !!playing);
+    var pp = $("audio-icon-play"), pi = $("audio-icon-pause");
+    if (pp && pi) {
+      pp.style.display = playing ? "none" : "";
+      pi.style.display = playing ? "" : "none";
+    }
+  }
+
+  function currentAudioText() {
+    var q = STATE.flat[STATE.pos];
+    return q && q.audio ? q : null;
+  }
+
+  function audioToggle() {
+    var q = currentAudioText();
+    if (!q) return;
+    if (AUDIO.state === "speaking") { audioPause(); return; }
+    if (AUDIO.state === "paused") { audioResume(); return; }
+    audioPlay();
+  }
+  function audioPlay() {
+    var q = currentAudioText();
+    if (!q || !window.ToeflTTS || !ToeflTTS.isSupported()) {
+      setAudioStatus("TTS tidak didukung browser ini", false);
       return;
     }
+    ToeflTTS.cancel();
+    var text = q.audio;
+    var utter = new SpeechSynthesisUtterance(text);
+    ToeflTTS.applyVoice(utter);
+    utter.onstart = function () {
+      AUDIO.state = "speaking";
+      AUDIO.startedAt = performance.now();
+      AUDIO.estDur = Math.max(4000, (text.length / 15) * 1000 / ToeflTTS.NATURAL_RATE);
+      setAudioStatus("Memutar…", true);
+      animateWave();
+    };
+    utter.onend = function () {
+      AUDIO.state = "idle";
+      setAudioStatus("Selesai — bisa replay", false);
+      if (AUDIO.raf) cancelAnimationFrame(AUDIO.raf);
+      drawIdleWave();
+      var line = $("audio-progress"); if (line) line.style.width = "100%";
+    };
+    utter.onerror = function () {
+      AUDIO.state = "idle";
+      setAudioStatus("Audio error", false);
+      if (AUDIO.raf) cancelAnimationFrame(AUDIO.raf);
+      drawIdleWave();
+    };
+    AUDIO.playingId = q.id;
+    speechSynthesis.speak(utter);
+  }
+  function audioPause() {
+    if (AUDIO.state !== "speaking") return;
+    speechSynthesis.pause();
+    AUDIO.state = "paused";
+    setAudioStatus("Paused", false);
+    if (AUDIO.raf) cancelAnimationFrame(AUDIO.raf);
+  }
+  function audioResume() {
+    if (AUDIO.state !== "paused") return;
+    speechSynthesis.resume();
+    AUDIO.state = "speaking";
+    setAudioStatus("Memutar…", true);
+    animateWave();
+  }
+  function audioReplay() {
+    var q = currentAudioText();
+    if (!q) return;
+    stopAudio();
+    var line = $("audio-progress"); if (line) line.style.width = "0%";
+    audioPlay();
+  }
+  function stopAudio() {
+    AUDIO.state = "idle";
+    if (AUDIO.raf) cancelAnimationFrame(AUDIO.raf);
+    AUDIO.raf = null;
+    if (window.ToeflTTS) ToeflTTS.cancel();
   }
 
-  data.passages.forEach((passage) => {
-    passage.questions.forEach((q) => {
-      totalQuestions++;
-
-      const selected = document.querySelector(`input[name="${q.id}"]:checked`);
-      const explanation = document.getElementById(`explanation-${q.id}`);
-
-      if (!selected) {
-        explanation.innerHTML = `<span class="wrong">Not answered.</span> ${q.explanation}`;
-        return;
+  /* ══════════ DRAFT ══════════ */
+  function saveDraft() {
+    try {
+      if (STATE.mode === "section") {
+        ToeflStore.set("draft", {
+          section: STATE.section, setId: STATE.set ? STATE.set.id : null,
+          answers: STATE.answers, flagged: STATE.flagged, pos: STATE.pos
+        });
       }
+    } catch (e) { /* ignore */ }
+  }
 
-      const selectedValue = Number(selected.value);
+  /* ══════════ PICKERS (landing) ══════════ */
+  function openSectionPicker(sectionName) {
+    var setId = (manifest.sets.find(function (s) { return s.id === manifest.defaultSetId; }) || manifest.sets[1] || manifest.sets[0]).id;
+    // prefer first regular set
+    var first = manifest.sets.find(function (s) { return s.status === "active" && s.type !== "mixed"; });
+    if (first) setId = first.id;
+    openModal(
+      "<h3>" + SECTION_META[sectionName].title + "</h3>" +
+      "<p>Pilih practice set:</p>" +
+      '<div style="display:grid;gap:10px;margin-top:12px">' +
+      manifest.sets.filter(function (s) { return s.status === "active" && s.type !== "mixed"; }).map(function (s) {
+        return '<button class="btn btn-soft" style="justify-content:space-between" onclick="App.closeModal();App.startSectionWith(\'' + sectionName + "','" + s.id + "')\">" +
+          esc(s.title) + " <span style='color:var(--text-faint);font-weight:600;font-size:12px'>" + (sectionTotals(s, sectionName) || "?") + " soal</span></button>";
+      }).join("") +
+      "</div>"
+    );
+  }
 
-      if (selectedValue === q.answer) {
-        score++;
-        explanation.innerHTML = `<span class="correct">Correct.</span> ${q.explanation}`;
-      } else {
-        explanation.innerHTML = `
-          <span class="wrong">Wrong.</span>
-          Correct answer: ${String.fromCharCode(65 + q.answer)}.
-          ${q.explanation}
-        `;
-      }
+  function openFullTestPicker() {
+    openModal(
+      "<h3>Full TOEFL ITP-like Test</h3>" +
+      "<p>Pilih set untuk full test (Listening → Structure → Reading):</p>" +
+      '<div style="display:grid;gap:10px;margin-top:12px">' +
+      manifest.sets.filter(function (s) { return s.status === "active"; }).map(function (s) {
+        return '<button class="btn ' + (s.type === "mixed" ? "btn-accent" : "btn-soft") + '" style="justify-content:space-between" onclick="App.closeModal();App.startFullTestWith(\'' + s.id + "')\">" +
+          esc(s.title) + (s.type === "mixed" ? " <span style='font-size:12px'>★ Rekomendasi</span>" : "") + "</button>";
+      }).join("") +
+      "</div>"
+    );
+  }
+
+  /* ══════════ KEYBOARD ══════════ */
+  function onKey(e) {
+    if (!document.body.classList.contains("in-test")) return;
+    if ($("modal-overlay").classList.contains("open")) {
+      if (e.key === "Escape") closeModal();
+      return;
+    }
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+    var q = STATE.flat[STATE.pos];
+    var k = e.key.toLowerCase();
+    if (k >= "a" && k <= "d") {
+      var idx = k.charCodeAt(0) - 97;
+      if (q && idx < q.choices.length) selectChoice(q, idx);
+    } else if (e.key === "ArrowRight") next();
+    else if (e.key === "ArrowLeft") prev();
+    else if (k === "f") toggleFlag();
+    else if (k === "p" && STATE.section === "listening") audioToggle();
+  }
+
+  /* ══════════ PUBLIC API ══════════ */
+  window.App = {
+    closeModal: closeModal,
+    requestSubmit: requestSubmit,
+    confirmSubmit: confirmSubmit,
+    requestExit: requestExit,
+    forceExit: forceExit,
+    next: next,
+    prev: prev,
+    goTo: function (i) { goTo(i > STATE.pos ? (renderQuestion._lastDir = "fwd", i) : (renderQuestion._lastDir = "back", i)); closePaletteSheet(); },
+    goFirstEmpty: goFirstEmpty,
+    toggleFlag: toggleFlag,
+    reviewCurrentSection: reviewCurrentSection,
+    retake: retake,
+    closeAndExit: closeAndExit,
+    continueFullTest: continueFullTest,
+    finishFullTest: finishFullTest,
+    beginFullTest: beginFullTest,
+    startSectionWith: startSectionWith,
+    startFullTestWith: startFullTestWith,
+    audioToggle: audioToggle,
+    audioReplay: function () { audioReplay(); },
+    togglePaletteSheet: togglePaletteSheet,
+    closePaletteSheet: closePaletteSheet,
+    openSectionPicker: function (sec) {
+      loadManifest().then(function () { openSectionPicker(sec); });
+    },
+    openFullTestPicker: function () {
+      loadManifest().then(openFullTestPicker);
+    },
+    clearHistory: clearHistory
+  };
+
+  /* ══════════ INIT ══════════ */
+  document.addEventListener("DOMContentLoaded", function () {
+    initTheme();
+    initReveal();
+    renderHistory();
+    loadManifest().then(renderSetsGrid).catch(function () {
+      var g = $("sets-grid");
+      if (g) g.innerHTML = "<p style='color:var(--bad)'>Gagal memuat manifest soal.</p>";
     });
+    document.addEventListener("keydown", onKey);
+    // audio canvas init on first render (rebound each render)
+    new ResizeObserver(function () { if ($("audio-canvas") && AUDIO.state !== "speaking") drawIdleWave(); })
+      .observe($("qstage"));
+    // audio big play button binding done via delegation (button re-renders each question)
+    document.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest("#audio-play-btn")) audioToggle();
+    });
+    // renderPalette + set FAB display
+    if (window.innerWidth < 980) $("palette-fab").style.display = "";
   });
-
-  saveFullTestSectionResult("reading", score, totalQuestions);
-
-  const scoreBox = document.getElementById("score-box");
-  scoreBox.innerHTML = `
-    <h3>Your Reading Score</h3>
-    <p>${score} / ${totalQuestions}</p>
-    <p>${isAutoSubmit ? "Submitted automatically because time was up." : "Submitted manually."}</p>
-    ${renderRestartControls()}
-    ${renderFullTestContinueControls()}
-  `;
-
-  markSubmitted("reading-form");
-}
+})();

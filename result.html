@@ -1,143 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TOEFL Test Result</title>
-  <link rel="stylesheet" href="css/result.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <title>Score Report — TOEFL Simulator</title>
+  <meta name="theme-color" content="#081226" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/redesign.css?v=3" />
+  <style>
+    /* result-page specific */
+    .result-body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 28px 16px 60px; }
+    .action-bar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 26px; }
+    .score-card {
+      width: 100%; max-width: 720px;
+      background: linear-gradient(165deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--border-soft); border-radius: 28px;
+      padding: clamp(24px, 5vw, 48px);
+      box-shadow: var(--shadow-pop);
+      position: relative; overflow: hidden;
+    }
+    .score-card::before {
+      content: ""; position: absolute; width: 340px; height: 340px; border-radius: 50%;
+      top: -160px; right: -120px; background: rgba(246, 185, 59, 0.09); pointer-events: none;
+    }
+    .card-badge { font-size: 11.5px; letter-spacing: 2.4px; text-transform: uppercase; color: var(--accent); font-weight: 800; margin-bottom: 12px; }
+    .card-title { font-family: var(--font-display); font-size: clamp(26px, 4.4vw, 38px); font-weight: 800; letter-spacing: -0.8px; }
+    .card-subtitle { color: var(--text-dim); font-size: 14.5px; margin-top: 6px; }
+
+    .score-hero { display: grid; grid-template-columns: 220px 1fr; gap: 30px; align-items: center; margin: 34px 0; }
+    .score-ring { position: relative; width: 220px; height: 220px; margin: 0 auto; }
+    .score-ring svg { transform: rotate(-90deg); }
+    .ring-bg { fill: none; stroke: var(--surface-3); stroke-width: 16; }
+    .ring-fill { fill: none; stroke-linecap: round; stroke-width: 16; transition: stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1); }
+    .ring-inner { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+    .ring-inner .score-number { font-family: var(--font-display); font-size: 52px; font-weight: 800; line-height: 1; background: linear-gradient(120deg,#ffd76a,#ff8a3d); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .ring-inner .score-max { font-family: var(--font-mono); color: var(--text-faint); font-size: 14px; margin-top: 5px; }
+    .ring-inner .score-label { font-size: 11.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-faint); margin-top: 8px; font-weight: 700; }
+    .level-badge { display: inline-block; font-family: var(--font-display); font-size: 26px; font-weight: 800; color: #062018; padding: 10px 22px; border-radius: 14px; margin-bottom: 12px; }
+    .level-desc { color: var(--text-dim); font-size: 15px; line-height: 1.6; }
+    .level-desc b { color: var(--text); }
+
+    .section-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 8px 0 22px; }
+    .section-card {
+      background: var(--surface-2); border: 1px solid var(--border-soft); border-radius: 18px;
+      padding: 18px 18px 20px; text-align: center;
+      transition: transform 0.25s var(--ease-out);
+    }
+    .section-card:hover { transform: translateY(-3px); }
+    .section-name { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; font-weight: 800; color: var(--text-faint); }
+    .section-scaled { font-family: var(--font-display); font-size: 34px; font-weight: 800; margin: 8px 0 2px; }
+    .section-sub { font-size: 11px; color: var(--text-faint); margin-bottom: 8px; }
+    .section-raw { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); margin-bottom: 12px; }
+    .section-bar-wrap { height: 7px; border-radius: 999px; background: var(--surface-3); overflow: hidden; }
+    .section-bar { height: 100%; width: 0; border-radius: 999px; transition: width 1.1s ease; }
+    .listening-accent { color: var(--teal); }
+    .structure-accent { color: var(--violet); }
+    .reading-accent { color: var(--accent); }
+
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 22px; }
+    .stat-box { background: var(--surface-2); border: 1px solid var(--border-soft); border-radius: 16px; padding: 16px; text-align: center; }
+    .stat-value { font-family: var(--font-display); font-size: 24px; font-weight: 800; color: var(--text); }
+    .stat-label { font-size: 12px; color: var(--text-faint); margin-top: 4px; }
+
+    .prev-comparison { text-align: center; font-size: 14px; color: var(--text-dim); margin-bottom: 22px; }
+    .delta-up { color: var(--ok); font-weight: 800; }
+    .delta-down { color: var(--bad); font-weight: 800; }
+
+    .cefr-scale { margin-top: 10px; }
+    .cefr-title { font-size: 12px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--text-faint); font-weight: 800; margin-bottom: 10px; text-align: center; }
+    .cefr-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-bottom: 10px; }
+    .cefr-segment { text-align: center; font-family: var(--font-display); font-weight: 800; font-size: 15px; padding: 12px 4px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border-soft); color: var(--text-faint); transition: all 0.4s; }
+    .cefr-segment span { font-size: 11px; font-weight: 600; }
+    .cefr-segment.active { transform: scale(1.04); }
+    .cefr-segment.a1 { --seg: #6b7280; } .cefr-segment.a2 { --seg: #ef4444; }
+    .cefr-segment.b1 { --seg: #f59e0b; } .cefr-segment.b2 { --seg: #3b82f6; }
+    .cefr-segment.c1 { --seg: #10b981; }
+    .cefr-segment.active { background: var(--seg); color: #fff; border-color: var(--seg); box-shadow: 0 6px 20px color-mix(in srgb, var(--seg) 45%, transparent); }
+
+    .card-footer { margin-top: 26px; padding-top: 20px; border-top: 1px dashed var(--border-soft); text-align: center; font-size: 12.5px; color: var(--text-faint); line-height: 1.8; }
+    .footer-brand { font-weight: 700; color: var(--text-dim); }
+
+    @media (max-width: 640px) {
+      .score-hero { grid-template-columns: 1fr; text-align: center; }
+      .section-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
 <body>
+  <div class="bg-fx"></div>
 
-  <!-- ACTION BUTTONS (outside card, not captured in image) -->
-  <div class="action-bar" id="action-bar">
-    <button class="btn btn-save" id="btn-save-image">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Save as Image
-    </button>
-    <button class="btn btn-retake" id="btn-try-again">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.1"/></svg>
-      Retake Test
-    </button>
-    <button class="btn btn-home" id="btn-home">
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Back to Home
-    </button>
-  </div>
+  <div class="result-body">
+    <div class="action-bar">
+      <button class="btn btn-accent" id="btn-save-image">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Save as Image
+      </button>
+      <button class="btn btn-primary" id="btn-try-again">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.1"/></svg>
+        Retake Test
+      </button>
+      <button class="btn btn-ghost" id="btn-home">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Beranda
+      </button>
+    </div>
 
-  <!-- SCORE CARD (this gets captured as image) -->
-  <div class="card-wrapper">
     <div class="score-card" id="result-card">
+      <div class="card-badge">TOEFL ITP-like Simulation</div>
+      <h1 class="card-title">Score Report</h1>
+      <p class="card-subtitle" id="result-date">Loading…</p>
 
-      <!-- Header -->
-      <div class="card-header">
-        <div class="card-badge">TOEFL ITP-like Simulation</div>
-        <h1 class="card-title">Test Result Report</h1>
-        <p class="card-subtitle" id="result-date">Loading...</p>
-      </div>
-
-      <!-- Total Score Hero -->
       <div class="score-hero">
-        <div class="score-ring" id="score-ring">
-          <svg class="ring-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle class="ring-bg" cx="100" cy="100" r="80"/>
-            <circle class="ring-fill" id="score-ring-progress" cx="100" cy="100" r="80"
-              stroke-dasharray="502.65"
-              stroke-dashoffset="502.65"
-            />
+        <div class="score-ring">
+          <svg width="220" height="220" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="rGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd76a"/><stop offset="1" stop-color="#ff8a3d"/></linearGradient></defs>
+            <circle class="ring-bg" cx="100" cy="100" r="80"></circle>
+            <circle class="ring-fill" id="score-ring-progress" cx="100" cy="100" r="80" stroke="url(#rGrad)" stroke-dasharray="502.65" stroke-dashoffset="502.65"></circle>
           </svg>
           <div class="ring-inner">
-            <span class="score-number" id="score-number">---</span>
-            <span class="score-max">/677</span>
+            <span class="score-number" id="score-number">–</span>
+            <span class="score-max">/ 677</span>
             <span class="score-label">Estimated ITP</span>
           </div>
         </div>
         <div class="score-level-wrap">
-          <div class="level-badge" id="cefr-level">Loading...</div>
-          <p class="level-desc" id="cefr-label">Calculating your level...</p>
+          <div class="level-badge" id="cefr-level">–</div>
+          <p class="level-desc" id="cefr-label">Menghitung level kamu…</p>
         </div>
       </div>
 
-      <!-- Section Breakdown -->
-      <div class="section-breakdown">
-        <h2 class="breakdown-title">Section Scores</h2>
-        <div class="section-grid">
-
-          <div class="section-card listening">
-            <div class="section-icon">&#127909;</div>
-            <div class="section-name">Listening</div>
-            <div class="section-scaled" id="s-listening-scaled">--</div>
-            <div class="section-sub">Scaled Score</div>
-            <div class="section-raw" id="s-listening-raw">-- / --</div>
-            <div class="section-bar-wrap">
-              <div class="section-bar" id="bar-listening"></div>
-            </div>
-          </div>
-
-          <div class="section-card structure">
-            <div class="section-icon">&#9999;</div>
-            <div class="section-name">Structure</div>
-            <div class="section-scaled" id="s-structure-scaled">--</div>
-            <div class="section-sub">Scaled Score</div>
-            <div class="section-raw" id="s-structure-raw">-- / --</div>
-            <div class="section-bar-wrap">
-              <div class="section-bar" id="bar-structure"></div>
-            </div>
-          </div>
-
-          <div class="section-card reading">
-            <div class="section-icon">&#128218;</div>
-            <div class="section-name">Reading</div>
-            <div class="section-scaled" id="s-reading-scaled">--</div>
-            <div class="section-sub">Scaled Score</div>
-            <div class="section-raw" id="s-reading-raw">-- / --</div>
-            <div class="section-bar-wrap">
-              <div class="section-bar" id="bar-reading"></div>
-            </div>
-          </div>
-
+      <div class="section-grid">
+        <div class="section-card">
+          <div class="section-name listening-accent">Listening</div>
+          <div class="section-scaled listening-accent" id="s-listening-scaled">–</div>
+          <div class="section-sub">Scaled Score</div>
+          <div class="section-raw" id="s-listening-raw">– / –</div>
+          <div class="section-bar-wrap"><div class="section-bar" id="bar-listening" style="background:var(--teal)"></div></div>
+        </div>
+        <div class="section-card">
+          <div class="section-name structure-accent">Structure</div>
+          <div class="section-scaled structure-accent" id="s-structure-scaled">–</div>
+          <div class="section-sub">Scaled Score</div>
+          <div class="section-raw" id="s-structure-raw">– / –</div>
+          <div class="section-bar-wrap"><div class="section-bar" id="bar-structure" style="background:var(--violet)"></div></div>
+        </div>
+        <div class="section-card">
+          <div class="section-name reading-accent">Reading</div>
+          <div class="section-scaled reading-accent" id="s-reading-scaled">–</div>
+          <div class="section-sub">Scaled Score</div>
+          <div class="section-raw" id="s-reading-raw">– / –</div>
+          <div class="section-bar-wrap"><div class="section-bar" id="bar-reading" style="background:var(--accent)"></div></div>
         </div>
       </div>
 
-      <!-- Stats Row -->
       <div class="stats-row">
-        <div class="stat-box">
-          <div class="stat-value" id="stat-correct">--</div>
-          <div class="stat-label">Total Correct</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value" id="accuracy-value">--%</div>
-          <div class="stat-label">Accuracy</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value" id="result-set">--</div>
-          <div class="stat-label">Practice Set</div>
-        </div>
+        <div class="stat-box"><div class="stat-value" id="stat-correct">–</div><div class="stat-label">Total Correct</div></div>
+        <div class="stat-box"><div class="stat-value"><span id="accuracy-value">–</span>%</div><div class="stat-label">Accuracy</div></div>
+        <div class="stat-box"><div class="stat-value" id="result-set" style="font-size:15px">–</div><div class="stat-label">Practice Set</div></div>
       </div>
 
-      <!-- CEFR Scale Reference -->
+      <p id="prev-comparison" class="prev-comparison" style="display:none"></p>
+
       <div class="cefr-scale">
         <div class="cefr-title">CEFR Proficiency Scale</div>
         <div class="cefr-bar">
-          <div class="cefr-segment a2">A2<br><span>310</span></div>
-          <div class="cefr-segment b1">B1<br><span>433</span></div>
-          <div class="cefr-segment b2">B2<br><span>543</span></div>
-          <div class="cefr-segment c1">C1<br><span>620</span></div>
-        </div>
-        <div class="cefr-indicator-wrap">
-          <div class="cefr-indicator" id="cefr-indicator"></div>
+          <div class="cefr-segment a2" data-level="A2">A2<br><span>310+</span></div>
+          <div class="cefr-segment b1" data-level="B1">B1<br><span>460+</span></div>
+          <div class="cefr-segment b2" data-level="B2">B2<br><span>543+</span></div>
+          <div class="cefr-segment c1" data-level="C1">C1<br><span>627+</span></div>
         </div>
       </div>
 
-      <!-- Footer -->
       <div class="card-footer">
-        <p>This is an unofficial practice estimate. Not affiliated with ETS.</p>
-        <p class="footer-brand">TOEFL Simulation Test &mdash; Practice Only</p>
+        <p>Estimasi latihan tidak resmi. Tidak berafiliasi dengan ETS.</p>
+        <p class="footer-brand">TOEFL Simulator · untuk latihan menghadapi tes berbayar</p>
       </div>
-
     </div>
   </div>
 
-  <script src="js/scoring.js"></script>   <script src="js/result.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="js/scoring.js?v=3"></script>
+  <script src="js/result.js?v=3"></script>
 </body>
 </html>

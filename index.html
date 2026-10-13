@@ -1,275 +1,305 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Simulasi Tes TOEFL Online GRATIS</title>
-
-  <link rel="stylesheet" href="css/style.css" />
+  <title>TOEFL Simulator — Free ITP Practice Test</title>
+  <meta name="description" content="Free TOEFL ITP-like simulator: Listening, Structure & Written Expression, Reading. Real test flow, timer, question palette, score report you can save." />
+  <meta name="theme-color" content="#081226" />
+  <meta property="og:title" content="TOEFL Simulator — Free Online Practice Test" />
+  <meta property="og:description" content="Simulasi mirip tes TOEFL asli: satu soal per layar, timer per section, palet jawaban, flag, review, dan estimasi skor ITP." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toefl.atsukoaditia.my.id/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23081226'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23f6b93b' font-family='Arial' font-weight='bold'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/redesign.css?v=3" />
 </head>
 <body>
+  <div class="bg-fx" aria-hidden="true"></div>
 
-  <header class="app-header">
-  <div class="header-inner">
-    <div class="header-badge">Academic English Preparation</div>
-      
-    <h1 class="app-title">
-      SIMULASI TES TOEFL<span>-</span>GRATIS
-    </h1>
+  <!-- ═══════════ TOPNAV ═══════════ -->
+  <nav class="topnav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">T</span>
+      <span class="brand-text"><b>TOEFL Simulator</b><span>Free ITP Practice</span></span>
+    </a>
+    <div class="topnav-links">
+      <a class="nav-link" href="#modes">Modes</a>
+      <a class="nav-link" href="#sets">Sets</a>
+      <a class="nav-link" href="#how">How it works</a>
+      <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle light/dark theme">
+        <svg id="ic-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg id="ic-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
+  </nav>
 
-    <p class="app-subtitle">
-      Unofficial academic English practice test — sharpen your skills, section by section.
-    </p>
+  <!-- ═══════════ LANDING ═══════════ -->
+  <div class="landing-root">
 
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div class="reveal">
+          <span class="hero-eyebrow"><span class="dot"></span> 100% Gratis · Tanpa Daftar</span>
+          <h1>Latihan TOEFL yang <span class="grad">terasa seperti tes aslinya.</span></h1>
+          <p class="lead">Satu soal per layar. Timer per section. Palet jawaban & flag. Review setiap soal dengan pembahasan. Estimasi skor ITP (310–677) plus level CEFR — semuanya di browser, PC maupun HP.</p>
+          <div class="hero-cta-row">
+            <button class="btn btn-accent btn-lg" onclick="App.openFullTestPicker()">
+              Mulai Full Test
+              <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+            <button class="btn btn-ghost btn-lg" onclick="document.getElementById('modes').scrollIntoView({behavior:'smooth'})">
+              Latihan per Section
+            </button>
+          </div>
+          <div class="kbd-hint">Keyboard: <kbd>A</kbd>–<kbd>D</kbd> jawab · <kbd>←</kbd><kbd>→</kbd> pindah soal · <kbd>F</kbd> flag</div>
+        </div>
 
-
-  </header>
-
-  <main class="container">
-
-    <section class="intro-card">
-      <div class="intro-left">
-        <h2>Choose Practice Mode</h2>
-        <p>
-          Practice TOEFL ITP-like Listening, Structure, and Reading questions.
-          Choose a single section for focused practice or launch a full test simulation.
-        </p>
-      </div>
-
-      <div class="section-buttons">
-        <button id="btn-nav-listening" onclick="handleMainNavClick('listening')">
-          🎧 Listening
-        </button>
-
-        <button id="btn-nav-structure" onclick="handleMainNavClick('structure')">
-          ✍️ Structure
-        </button>
-
-        <button id="btn-nav-reading" onclick="handleMainNavClick('reading')">
-          📖 Reading
-        </button>
-
-        <button id="btn-nav-fulltest" class="btn-full-test" onclick="handleMainNavClick('fulltest')">
-          🚀 Start Full Test
-        </button>
+        <div class="hero-card reveal reveal-d1" aria-hidden="true">
+          <div class="hc-badge">Score Report Preview</div>
+          <div class="hc-score">
+            <div class="hc-ring">
+              <svg width="118" height="118" viewBox="0 0 118 118">
+                <defs><linearGradient id="hcGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd76a"/><stop offset="1" stop-color="#ff8a3d"/></linearGradient></defs>
+                <circle class="track" cx="59" cy="59" r="50" fill="none" stroke-width="10"/>
+                <circle class="fill" id="hc-ring-fill" cx="59" cy="59" r="50" fill="none" stroke-width="10" stroke-dasharray="314.16" stroke-dashoffset="314.16"/>
+              </svg>
+              <div class="num"><b id="hc-score-num">0</b><span>/ 677 ITP</span></div>
+            </div>
+            <div class="hc-meta">
+              <b id="hc-level">B2 · Upper-Intermediate</b>
+              Siap untuk tes asli? Bandingkan prediksi skormu dengan target universitas.
+            </div>
+          </div>
+          <div class="hc-rows">
+            <div class="hc-row l"><span>Listening</span><div class="hc-bar"><i id="hc-bar-l"></i></div><b id="hc-num-l">–</b></div>
+            <div class="hc-row s"><span>Structure</span><div class="hc-bar"><i id="hc-bar-s"></i></div><b id="hc-num-s">–</b></div>
+            <div class="hc-row r"><span>Reading</span><div class="hc-bar"><i id="hc-bar-r"></i></div><b id="hc-num-r">–</b></div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <div class="home-three-column">
-
-      <section class="test-info color-block-sets">
-        <h2>Available Practice Sets</h2>
-
-        <div class="vertical-info-list">
-
-          <div class="info-box">
-            <h3>Set 1</h3>
-            <p><strong>Beginner Quick Practice</strong></p>
-
-            <div class="stat-row">
-              <span class="stat-pill">10 Listening</span>
-              <span class="stat-pill">10 Structure</span>
-              <span class="stat-pill">10 Reading</span>
-            </div>
-          </div>
-
-          <div class="info-box">
-            <h3>Set 2</h3>
-            <p><strong>Medium Practice</strong></p>
-
-            <div class="stat-row">
-              <span class="stat-pill">20 Listening</span>
-              <span class="stat-pill">20 Structure</span>
-              <span class="stat-pill">20 Reading</span>
-            </div>
-          </div>
-
-          <div class="info-box">
-            <h3>Set 3</h3>
-            <p><strong>Advanced Long Practice</strong></p>
-
-            <div class="stat-row">
-              <span class="stat-pill">30 Listening</span>
-              <span class="stat-pill">30 Structure</span>
-              <span class="stat-pill">30 Reading</span>
-            </div>
-          </div>
-
-          <div class="info-box">
-            <h3>Set 4</h3>
-            <p><strong>Advanced Academic Practice</strong></p>
-
-            <div class="stat-row">
-              <span class="stat-pill">20 Listening</span>
-              <span class="stat-pill">25 Structure</span>
-              <span class="stat-pill">20 Reading</span>
-            </div>
-          </div>
-          
-        <div class="info-box">
-          <h3>Set 5</h3>
-          <p><strong>Comprehensive Academic Practice</strong></p>
-
-          <div class="stat-row">
-            <span class="stat-pill">20 Listening</span>
-            <span class="stat-pill">15 Structure</span>
-            <span class="stat-pill">15 Reading</span>
-          </div>
-        </div>
-          
-        <div class="info-box">
-          <h3>Set 6</h3>
-          <p><strong>Full TOEFL ITP Test</strong></p>
-
-          <div class="stat-row">
-            <span class="stat-pill">50 Listening</span>
-            <span class="stat-pill">40 Structure</span>
-            <span class="stat-pill">50 Reading</span>
-          </div>
-        </div>
-
-        </div>
-      </section>
-
-      <div class="home-center-column">
-
-        <section class="test-info color-block-reference">
-          <h2>TOEFL ITP-like Format Reference</h2>
-
-          <div class="vertical-info-list">
-
-            <div class="info-box">
-              <h3>🎧 Listening</h3>
-              <p>50 questions · 35 minutes</p>
-              <p>
-                Short conversations, longer conversations, and short academic talks.
-              </p>
-            </div>
-
-            <div class="info-box">
-              <h3>✍️ Structure</h3>
-              <p>40 questions · 25 minutes</p>
-              <p>
-                Sentence completion and error identification.
-              </p>
-            </div>
-
-            <div class="info-box">
-              <h3>📖 Reading</h3>
-              <p>50 questions · 55 minutes</p>
-              <p>
-                Academic passages with main idea, detail, inference, vocabulary, and reference questions.
-              </p>
-            </div>
-
-          </div>
-        </section>
-
-        <section id="practice-area" class="practice-area color-block-practice">
-          <h2>Practice Area</h2>
-
-          <p>
-            Choose <strong>Listening</strong>, <strong>Structure</strong>,
-            <strong>Reading</strong>, or <strong>Start Full Test</strong> above.
-          </p>
-
-          <p class="practice-note">
-            For section practice, select Set 1, 2, or 3.
-            For full simulation, choose Set 0 Mixed or a regular set.
-          </p>
-        </section>
-
+    <!-- Stats -->
+    <section class="section" style="padding-top:20px">
+      <div class="wrap stat-strip reveal">
+        <div class="stat-card"><div class="stat-num" data-count="140">0</div><div class="stat-label">Soal per Full Test</div></div>
+        <div class="stat-card"><div class="stat-num" data-count="6">0</div><div class="stat-label">Practice Sets</div></div>
+        <div class="stat-card"><div class="stat-num" data-count="3">0</div><div class="stat-label">Sections · L / S / R</div></div>
+        <div class="stat-card"><div class="stat-num"><span style="font-size:22px">GRATIS</span><span class="unit"> selamanya</span></div><div class="stat-label">Tanpa login, tanpa iklan ganggu</div></div>
       </div>
+    </section>
 
-      <section class="test-info color-block-fulltest">
-        <h2>Full Test Mode</h2>
-
-        <div class="vertical-info-list">
-
-          <div class="info-box">
-            <h3>Set 0 — Mixed Full Test</h3>
-            <p>
-              Random full TOEFL ITP-like simulation from all active practice sets.
-            </p>
-
-            <div class="stat-row">
-              <span class="stat-pill">50 L</span>
-              <span class="stat-pill">40 S</span>
-              <span class="stat-pill">50 R</span>
-            </div>
-          </div>
-
-          <div class="info-box">
-            <h3>Regular Full Test</h3>
-            <p>
-              Start a full test using Set 1, Set 2, or Set 3 only.
-            </p>
-
-            <p class="flow-text">
-              <strong>Flow:</strong> Listening → Structure → Reading → Final Result
-            </p>
-          </div>
-
-          <div class="info-box">
-            <h3>Estimated Score</h3>
-            <p>
-              Final results show total correct, accuracy, section scores,
-              and an estimated TOEFL ITP-like score.
-            </p>
-
-            <p class="muted-note">
-              For practice purposes only.
-            </p>
-          </div>
-
+    <!-- Modes -->
+    <section class="section" id="modes">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-eyebrow">Pilih Mode Latihan</div>
+          <h2 class="section-title">Fokus satu section, atau langsung full test</h2>
+          <p class="section-desc">Alur dibuat semirip mungkin dengan tes TOEFL ITP: timer jalan per section, jawaban bisa di-flag, dan ada review sebelum submit.</p>
         </div>
-      </section>
+        <div class="mode-grid">
+          <button class="mode-card listening reveal" onclick="App.openSectionPicker('listening')">
+            <div class="mode-top">
+              <span class="mode-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></span>
+              <span class="mode-time">Reading ~35 mnt</span>
+            </div>
+            <h3>Listening</h3>
+            <p>Short conversations, longer talks, dan academic lectures — audio dibacakan narasi natural.</p>
+            <span class="mode-go">Latihan Listening <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </button>
 
+          <button class="mode-card structure reveal reveal-d1" onclick="App.openSectionPicker('structure')">
+            <div class="mode-top">
+              <span class="mode-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+              <span class="mode-time">~25 mnt</span>
+            </div>
+            <h3>Structure</h3>
+            <p>Sentence completion dan error identification — dua tipe soal grammar khas TOEFL ITP.</p>
+            <span class="mode-go">Latihan Structure <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </button>
+
+          <button class="mode-card reading reveal reveal-d2" onclick="App.openSectionPicker('reading')">
+            <div class="mode-top">
+              <span class="mode-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+              <span class="mode-time">~55 mnt</span>
+            </div>
+            <h3>Reading</h3>
+            <p>Passage akademik dengan main idea, detail, inference, vocabulary, dan reference questions.</p>
+            <span class="mode-go">Latihan Reading <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </button>
+
+          <button class="mode-card full reveal reveal-d3" onclick="App.openFullTestPicker()">
+            <div class="mode-full-left">
+              <div class="mode-top" style="margin-bottom:14px">
+                <span class="mode-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+                <span class="mode-time">± 1 jam 55 mnt</span>
+              </div>
+              <h3>Full Test — simulasi ujian asli</h3>
+              <p>Tiga section berurutan tanpa jeda dikte, timer independen, dan score report lengkap yang bisa disimpan sebagai gambar.</p>
+            </div>
+            <div class="mode-full-right">
+              <div class="mode-flow">
+                <span class="chip">Listening</span><span class="sep">→</span>
+                <span class="chip">Structure</span><span class="sep">→</span>
+                <span class="chip">Reading</span><span class="sep">→</span>
+                <span class="chip" style="border-color: var(--accent); color: var(--accent)">Score</span>
+              </div>
+              <span class="mode-go">Mulai Full Test <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sets -->
+    <section class="section" id="sets" style="padding-top:20px">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-eyebrow">Bank Soal</div>
+          <h2 class="section-title">Practice sets — dari pemanasan sampai full 140 soal</h2>
+          <p class="section-desc">Set 6 = ukuran persis TOEFL ITP. Set 0 mengacak soal dari semua set untuk full test yang selalu baru.</p>
+        </div>
+        <div class="sets-grid" id="sets-grid">
+          <div class="skel" style="height:200px"></div>
+          <div class="skel" style="height:200px"></div>
+          <div class="skel" style="height:200px"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real-test features -->
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-eyebrow">Mirip Test Asli</div>
+          <h2 class="section-title">Fitur ujian yang biasanya cuma ada di test berbayar</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card reveal" style="--fi:rgba(45,212,191,0.13);--fc:var(--teal)">
+            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            <h4>Timer per Section + Auto-submit</h4>
+            <p>Waktu habis = jawaban langsung tersubmit otomatis. Ada peringatan 5 menit & 1 menit terakhir, seperti tes asli.</p>
+          </div>
+          <div class="feature-card reveal reveal-d1" style="--fi:var(--primary-soft);--fc:var(--primary)">
+            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span>
+            <h4>Satu Soal per Layar</h4>
+            <p>Fokus penuh per soal, navigasi next / prev, dan palet nomor soal — persis pengalaman computer-based test.</p>
+          </div>
+          <div class="feature-card reveal reveal-d2" style="--fi:rgba(255,176,32,0.16);--fc:var(--warn)">
+            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span>
+            <h4>Flag & Review Sebelum Submit</h4>
+            <p>Ragu? Flag dulu. Sebelum submit, ringkasan menampilkan soal kosong & flagged supaya bisa dicek lagi.</p>
+          </div>
+          <div class="feature-card reveal" style="--fi:rgba(61,220,151,0.14);--fc:var(--ok)">
+            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></span>
+            <h4>Audio Listening Natural</h4>
+            <p>Narasi TTS berpace natural dengan visualisasi player — play, pause, dan replay terkontrol seperti di ruang ujian.</p>
+          </div>
+          <div class="feature-card reveal reveal-d1" style="--fi:rgba(167,139,250,0.14);--fc:var(--violet)">
+            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+            <h4>Score Report + Level CEFR</h4>
+            <p>Estimasi skor 310–677 dengan tabel konversi per section, level CEFR A1–C1, dan kartu hasil yang bisa disimpan.</p>
+          </div>
+          <div class="feature-card reveal reveal-d2" style="--fi:rgba(246,185,59,0.14);--fc:var(--accent)">
+            <span class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+            <h4>Review Jawaban per Soal</h4>
+            <p>Salah di mana? Setelah submit, semua soal bisa di-review dengan jawaban benar dan pembahasannya.</p>
+          </div>
+        </div>
+
+        <div class="steps-grid reveal" style="margin-top:22px">
+          <div class="step-card"><span class="step-num">1</span><h4>Pilih mode & set</h4><p>Section tunggal untuk fokus, atau full test untuk simulasi lengkap.</p></div>
+          <div class="step-card"><span class="step-num">2</span><h4>Kerjakan dengan timer</h4><p>Satu soal per layar. Flag yang ragu-ragu, lanjutkan yang pasti.</p></div>
+          <div class="step-card"><span class="step-num">3</span><h4>Review & submit</h4><p>Cek ringkasan: soal kosong & flagged sebelum benar-benar submit.</p></div>
+          <div class="step-card"><span class="step-num">4</span><h4>Lihat skor & progress</h4><p>Score report tersimpan di history — pantau progres tiap attempt.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="section history-wrap" id="history-wrap">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="section-eyebrow">Progress Kamu</div>
+          <h2 class="section-title">Riwayat skor</h2>
+        </div>
+        <div class="history-list" id="history-list"></div>
+        <button class="btn btn-ghost btn-sm history-clear" onclick="App.clearHistory()">Hapus semua riwayat</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══════════ TEST SHELL ═══════════ -->
+  <div class="test-shell" id="test-shell" aria-live="polite">
+    <div class="test-topbar">
+      <div class="tb-crumb" id="tb-crumb">Section<b id="tb-section">—</b></div>
+      <div class="tb-progress">
+        <div class="lbl"><span id="tb-progress-lbl">0 / 0 answered</span><span id="tb-qpos">Q – / –</span></div>
+        <div class="track" role="progressbar" aria-label="Questions answered" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="tb-progressbar"><div class="fill" id="tb-progress-fill"></div></div>
+      </div>
+      <div class="tb-timer" id="tb-timer">
+        <svg class="t-ic" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="tb-timer-text">--:--</span>
+      </div>
+      <button class="btn btn-danger btn-sm" id="tb-stop-btn" onclick="App.requestExit()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Keluar
+      </button>
     </div>
 
-  </main>
+    <div class="test-body">
+      <div class="test-stage">
+        <div class="stage-meta">
+          <span class="qnum-chip" id="stage-qnum">Question 1</span>
+          <span class="part-chip" id="stage-part">—</span>
+        </div>
+        <div class="qstage" id="qstage">
+          <div class="skel" style="height:260px"></div>
+        </div>
+        <p class="kbd-hint"><kbd>A</kbd>–<kbd>D</kbd> jawab · <kbd>←</kbd> prev · <kbd>→</kbd> next · <kbd>F</kbd> flag</p>
+      </div>
 
-  <footer class="app-footer">
-    <p>
-      This project is not affiliated with, endorsed by, or sponsored by ETS.
-      Scores are estimates for practice only.
-    </p>
+      <aside class="test-palette" id="test-palette" aria-label="Question navigator">
+        <div class="palette-title">Navigator <span id="palette-count" style="color:var(--text)">0/0</span></div>
+        <div class="palette-grid" id="palette-grid"></div>
+        <div class="palette-legend">
+          <span class="lgd"><span class="sw sw-answered"></span> Answered</span>
+          <span class="lgd"><span class="sw sw-flag"></span> Flagged</span>
+          <span class="lgd"><span class="sw sw-todo"></span> Empty</span>
+        </div>
+        <button class="btn btn-accent palette-submit" id="palette-submit-btn" onclick="App.requestSubmit()"></button>
+      </aside>
+    </div>
+  </div>
 
-    
+  <button class="palette-fab" id="palette-fab" onclick="App.togglePaletteSheet()" aria-label="Open question navigator" style="display:none">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+  </button>
+  <div class="palette-sheet-overlay" id="palette-sheet-overlay" onclick="App.closePaletteSheet()"></div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" role="dialog" aria-modal="true" id="modal-box"></div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap foot-grid">
+      <div>
+        <div class="foot-brand"><span class="brand-mark" style="width:30px;height:30px;font-size:15px;border-radius:9px">T</span><b>TOEFL Simulator</b></div>
+        <p>Simulasi latihan mandiri. Tidak berafiliasi dengan, didukung, atau disponsori oleh ETS. Skor bersifat estimasi untuk keperluan latihan.</p>
+      </div>
+      <p style="text-align:right">Dibuat untuk bantu banyak orang siap<br>hadapi tes TOEFL asli yang berbayar. 🎓</p>
+    </div>
   </footer>
 
-  <script>
-    function scrollToPracticeArea() {
-      const practiceArea = document.getElementById("practice-area");
-
-      if (!practiceArea) {
-        return;
-      }
-
-      setTimeout(function () {
-        practiceArea.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }, 150);
-    }
-
-    function handleMainNavClick(mode) {
-      if (mode === "fulltest") {
-        loadFullTestIntro();
-      } else {
-        loadSection(mode);
-      }
-
-      scrollToPracticeArea();
-    }
-  </script>
-
-  <script src="js/tts.js"></script>
-  <script src="js/timer.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/scoring.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/tts.js?v=3"></script>
+  <script src="js/timer.js?v=3"></script>
+  <script src="js/storage.js?v=3"></script>
+  <script src="js/scoring.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
 </body>
 </html>
