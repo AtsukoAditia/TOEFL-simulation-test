@@ -18,6 +18,8 @@
     answers: {},           // qid -> choiceIndex
     flagged: {},           // qid -> true
     timings: {},           // qid -> detik dihabiskan (approx)
+    revealedQ: {},         // qid -> true (instant feedback sudah tampil, practice mode)
+    practiceMode: false,   // true = latihan instant feedback; false = mock test strict
     pos: 0,                // current flat index
     reviewed: false,       // explanations shown (post submit or wrong-only)
     full: { index: 0, results: {}, sections: ["listening", "structure", "reading"] }
@@ -458,8 +460,11 @@
       label.addEventListener("click", function () { selectChoice(q, Number(label.dataset.idx)); });
     });
 
-    // If reviewed already (post-submit), paint verdict
+    // Render state feedback:
+    // - post-submit → full review verdict
+    // - practice mode & soal ini sudah dijawab → instant verdict terlihat lagi
     if (STATE.reviewed) paintReviewed(q);
+    else if (STATE.practiceMode && STATE.revealedQ[q.id]) revealInstant(q);
 
     renderPalette();
     shellUpdateProgress();
@@ -479,6 +484,7 @@
       l.classList.toggle("selected", Number(l.dataset.idx) === idx);
       var inp = l.querySelector("input"); if (inp) inp.checked = Number(l.dataset.idx) === idx;
     });
+    if (STATE.practiceMode && !STATE.reviewed) revealInstant(q);
     saveDraft();
     renderPalette();
     shellUpdateProgress();
@@ -527,6 +533,29 @@
     var sorted = arr.slice().sort(function (a, b) { return b - a; });
     var highVar = sorted.length > 3 && (sorted[0] / Math.max(1, sorted[sorted.length - 1])) > 4;
     return { avgSecPerQ: avg, slowestSec: sorted.slice(0, 3), count: arr.length, highVariance: highVar };
+  }
+
+  /* ══════════ INSTANT FEEDBACK (practice mode) ══════════ */
+  function revealInstant(q) {
+    var sel = STATE.answers[q.id];
+    var box = $("explain-box");
+    if (!box) return;
+    document.querySelectorAll("[data-cl]").forEach(function (l) {
+      var i = Number(l.dataset.idx);
+      if (i === q.answer) l.classList.add("is-correct");
+      if (i === sel && sel !== q.answer) l.classList.add("is-wrong");
+      if (i !== q.answer && i !== sel) l.classList.add("dim");
+      l.classList.add("locked");
+    });
+    STATE.revealedQ[q.id] = true;
+    if (sel === q.answer) {
+      box.className = "explain show good";
+      box.innerHTML = '<div class="ex-verdict"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Correct!</div>' + esc(q.explanation || "");
+    } else {
+      box.className = "explain show bad";
+      box.innerHTML = '<div class="ex-verdict"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Incorrect.</div>' +
+        '<p class="ex-answer">Jawaban benar: <b>' + "ABCD"[q.answer] + ". " + esc(q.choices[q.answer]) + "</b></p>" + esc(q.explanation || "");
+    }
   }
 
   /* ══════════ NAVIGATION ══════════ */
@@ -961,13 +990,37 @@
       "</div>" +
       "<p>Timer jalan setelah kamu mulai. Bisa flag soal yang ragu, jawab dengan klik atau keyboard A–D.</p>" +
       (sectionName === "listening" ? '<p class="warn-p">🎧 Pakai headphone untuk hasil terbaik.</p>' : "") +
+      '<div class="mode-pick">' +
+        '<label class="mode-pick-card">' +
+          '<input type="radio" name="mode-pick" value="mock" checked>' +
+          '<div class="mpc-body"><b>Mock Test</b><span>Seperti tes asli — tanpa pembahasan sampai submit.</span></div>' +
+        '</label>' +
+        '<label class="mode-pick-card">' +
+          '<input type="radio" name="mode-pick" value="practice">' +
+          '<div class="mpc-body"><b>Latihan</b><span>Feedback langsung tiap jawab — untuk belajar materi.</span></div>' +
+        '</label>' +
+      '</div>' +
       '<div class="modal-actions">' +
         '<button class="btn btn-ghost" onclick="App.closeModal()">Batal</button>' +
-        '<button class="btn btn-accent" id="section-start-btn">Mulai Sekarang</button>' +
+        '<button class="btn btn-accent" id="section-start-btn">Mulai</button>' +
       "</div>"
     );
+    document.querySelectorAll('input[name="mode-pick"]').forEach(function (r) {
+      r.addEventListener("change", function () {
+        document.querySelectorAll(".mode-pick-card").forEach(function (c) { c.classList.remove("on"); });
+        var p = r.closest(".mode-pick-card");
+        if (p && r.checked) p.classList.add("on");
+      });
+    });
+    var first = document.querySelector('input[name="mode-pick"]:checked');
+    if (first) first.closest(".mode-pick-card").classList.add("on");
     var btn = $("section-start-btn");
-    if (btn) btn.addEventListener("click", function () { closeModal(); onStart(); });
+    if (btn) btn.addEventListener("click", function () {
+      var picked = document.querySelector('input[name="mode-pick"]:checked');
+      STATE.practiceMode = !!(picked && picked.value === "practice");
+      closeModal();
+      onStart();
+    });
   }
 
   function startSectionRun(sectionName, data, set, isFull) {
