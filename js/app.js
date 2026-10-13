@@ -254,15 +254,64 @@
   function renderHistory() {
     var wrap = $("history-wrap"), list = $("history-list");
     if (!wrap || !list || !window.ToeflStore) return;
-    var history = ToeflStore.get("history.v1", []);
-    if (!Array.isArray(history) || history.length === 0) { wrap.classList.remove("has-data"); return; }
+
+    // Start from local history, then merge cloud if logged in
+    var local = ToeflStore.get("history.v1", []);
+    if (!Array.isArray(local)) local = [];
+
+    if (window.ToeflAuth && ToeflAuth.ready) {
+      ToeflAuth.getUser().then(function (user) {
+        if (!user) { paintHistoryList(wrap, list, local); return; }
+        ToeflAuth.fetchHistory(12).then(function (cloud) {
+          // Convert cloud rows to local shape, newest first
+          var cloudRows = cloud.map(function (r) {
+            return {
+              cloud: true,
+              setName: r.set_name + (r.mode === "section" && r.section ? " · " + r.section : ""),
+              date: new Date(r.created_at).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }),
+              listening: r.listening || { score: 0, total: 0 },
+              structure: r.structure || { score: 0, total: 0 },
+              reading: r.reading || { score: 0, total: 0 },
+              total_score: r.total_score,
+              cefr: r.cefr,
+              savedAt: new Date(r.created_at).getTime()
+            };
+          });
+          // Merge: cloud rows (with explicit score) first, then local-only rows
+          var merged = dedupeHistory(cloudRows.concat(local));
+          paintHistoryList(wrap, list, merged);
+        });
+      });
+      return;
+    }
+    paintHistoryList(wrap, list, local);
+  }
+
+  function dedupeHistory(rows) {
+    var seen = {}, out = [];
+    rows.forEach(function (r) {
+      // Key: setName + score combo + same-minute timestamp window
+      var total = (r.listening ? r.listening.score : 0) + (r.structure ? r.structure.score : 0) + (r.reading ? r.reading.score : 0);
+      var bucket = Math.floor((r.savedAt || 0) / 60000);
+      var key = (r.setName || "") + "|" + total + "|" + bucket;
+      if (seen[key]) return;
+      seen[key] = 1;
+      out.push(r);
+    });
+    // Sort newest first
+    out.sort(function (a, b) { return (b.savedAt || 0) - (a.savedAt || 0); });
+    return out.slice(0, 6);
+  }
+
+  function paintHistoryList(wrap, list, history) {
+    if (!history.length) { wrap.classList.remove("has-data"); return; }
     wrap.classList.add("has-data");
-    var items = history.slice(-6).reverse();
+    var items = history;
     list.innerHTML = items.map(function (h, i) {
-      var itp = calculateITPScore(h.listening || {}, h.structure || {}, h.reading || {});
-      var delta = i + 1 < items.length
-        ? itp.totalScore - calculateITPScore(items[i + 1].listening || {}, items[i + 1].structure || {}, items[i + 1].reading || {}).totalScore
-        : null;
+      var itp = h.total_score ? { totalScore: h.total_score } : calculateITPScore(h.listening || {}, h.structure || {}, h.reading || {});
+      var next = items[i + 1];
+      var nextTotal = next ? (next.total_score != null ? next.total_score : calculateITPScore(next.listening || {}, next.structure || {}, next.reading || {}).totalScore) : null;
+      var delta = nextTotal != null ? itp.totalScore - nextTotal : null;
       var deltaTag = delta === null ? "" :
         delta > 0 ? '<span class="history-delta-tag up">▲ +' + delta + "</span>" :
         delta < 0 ? '<span class="history-delta-tag down">▼ ' + delta + "</span>" :
@@ -635,6 +684,7 @@
       localStorage.setItem("toeflResult", JSON.stringify(resultData));
       ToeflStore.pushCapped("history.v1", resultData, 20);
     } catch (e) { /* storage unavailable */ }
+    syncResultToCloud("section", resultData.setName, STATE.section, resultData.listening, resultData.structure, resultData.reading);
 
     openModal(
       "<h3>" + (timedOut ? "Waktu habis ⏱" : "Section selesai ✓") + "</h3>" +
@@ -691,7 +741,9 @@
       ToeflStore.pushCapped("history.v1", resultData, 20);
       ToeflStore.del("draft");
     } catch (e) { /* storage unavailable */ }
-    location.href = "result.html";
+    syncResultToCloud("fulltest", resultData.setName, null, L, S, R).finally(function () {
+      location.href = "result.html";
+    });
   }
 
   /* ══════════ START FLOWS ══════════ */
@@ -1027,6 +1079,13 @@
     if (AUDIO.raf) cancelAnimationFrame(AUDIO.raf);
     AUDIO.raf = null;
     if (window.ToeflTTS) ToeflTTS.cancel();
+  }
+
+  /* ══════════ CLOUD SYNC ══════════ */
+  function syncResultToCloud(mode, setName, section, L, S, R) {
+    if (!window.ToeflAuth || !ToeflAuth.ready) return Promise.resolve();
+    var dur = 0;
+    return ToeflAuth.saveResult(mode, setName, section, L, S, R);
   }
 
   /* ══════════ DRAFT ══════════ */

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1b3a"/>
+      <stop offset="0.6" stop-color="#132a56"/>
+      <stop offset="1" stop-color="#0f2247"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.7" stop-color="#eaf0ff"/>
+      <stop offset="1" stop-color="#d6e6ff"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffd76a"/>
+      <stop offset="1" stop-color="#ff8a3d"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4f8cff"/>
+      <stop offset="1" stop-color="#2dd4bf"/>
+    </linearGradient>
+    <style>
+      text { font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+      .display { font-family: 'Sora', 'Inter', 'Segoe UI', system-ui, sans-serif; letter-spacing: -0.02em; }
+      .mono { font-family: 'JetBrains Mono', monospace; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Geometric grid -->
+  <g stroke="#ffffff" stroke-opacity="0.03">
+    <line x1="0" y1="0" x2="0" y2="630"/>
+    <line x1="100" y1="0" x2="100" y2="630"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="500" y1="0" x2="500" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="700" y1="0" x2="700" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+    <line x1="1100" y1="0" x2="1100" y2="630"/>
+    <line x1="1200" y1="0" x2="1200" y2="630"/>
+    <line x1="0" y1="0" x2="1200" y2="0"/>
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="515" x2="1200" y2="515"/>
+    <line x1="0" y1="630" x2="1200" y2="630"/>
+  </g>
+
+  <!-- Decorative gradient orbs -->
+  <circle cx="1050" cy="80" r="260" fill="#4f8cff" opacity="0.08"/>
+  <circle cx="120" cy="580" r="220" fill="#f6b93b" opacity="0.06"/>
+  <circle cx="700" cy="700" r="180" fill="#2dd4bf" opacity="0.03"/>
+
+  <!-- Main content -->
+  <g transform="translate(100,120)">
+
+    <!-- Logo mark -->
+    <g transform="translate(0,0)">
+      <rect width="72" height="72" rx="18" fill="#f6b93b"/>
+      <text x="36" y="48" font-size="42" font-weight="800" fill="#081226" text-anchor="middle">T</text>
+    </g>
+
+    <!-- Title -->
+    <text x="0" y="120" font-size="84" font-weight="800" class="display" fill="url(#title)">
+      Latihan TOEFL ITP
+    </text>
+    <text x="0" y="215" font-size="84" font-weight="800" class="display" fill="url(#title)">
+      Gratis &amp; Lengkap
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="275" font-size="26" font-weight="400" fill="#9fb0dd" opacity="0.9">
+      Simulasi semirip tes asli — timer per section, flag &amp; review soal,
+    </text>
+    <text x="0" y="307" font-size="26" font-weight="400" fill="#9fb0dd" opacity="0.9">
+      pembahasan tiap jawaban, estimasi skor 310–677 + level CEFR.
+    </text>
+
+    <!-- Feature chips -->
+    <g transform="translate(0,380)" font-size="17" font-weight="600" fill="#eaf0ff">
+      <rect width="240" height="52" rx="26" fill="#132a56" stroke="#26427d"/>
+      <text x="120" y="32" text-anchor="middle">140 Soal per Test</text>
+
+      <g transform="translate(260,0)">
+        <rect width="260" height="52" rx="26" fill="#132a56" stroke="#26427d"/>
+        <text x="130" y="32" text-anchor="middle">Listening + TTS Audio</text>
+      </g>
+
+      <g transform="translate(540,0)">
+        <rect width="240" height="52" rx="26" fill="#132a56" stroke="#26427d"/>
+        <text x="120" y="32" text-anchor="middle">Skor ITP + CEFR</text>
+      </g>
+
+      <g transform="translate(800,0)">
+        <rect width="200" height="52" rx="26" fill="#132a56" stroke="#26427d"/>
+        <text x="100" y="32" text-anchor="middle">100% Gratis</text>
+      </g>
+    </g>
+
+    <!-- Score preview bar -->
+    <g transform="translate(0,480)">
+      <text x="0" y="18" font-size="14" fill="#6c80b4" font-weight="600">Preview Score Report</text>
+      <rect x="0" y="30" width="720" height="10" rx="5" fill="#1a356b"/>
+      <rect x="0" y="30" width="510" height="10" rx="5" fill="url(#barGrad)"/>
+      <text x="720" y="45" font-size="20" font-weight="800" fill="#ffd76a" text-anchor="end">558 <tspan fill="#6c80b4" font-weight="600">/677</tspan></text>
+    </g>
+
+  </g>
+
+  <!-- CTA corner -->
+  <g transform="translate(100,515)">
+    <rect width="200" height="58" rx="16" fill="url(#accent)"/>
+    <text x="100" y="36" font-size="18" font-weight="800" fill="#2a1a00" text-anchor="middle">toeflyuk.my.id</text>
+  </g>
+
+</svg>
