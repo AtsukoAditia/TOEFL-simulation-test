@@ -777,9 +777,11 @@
         items.push(it);
       });
     });
-    items = shuffle(items).slice(0, Math.max(3, Math.ceil(targetQ / 4)));
-    var total = items.reduce(function (t, i) { return t + i.questions.length; }, 0);
-    return { meta: { durationMinutes: dur, totalQuestions: total, set: "set-0" }, items: items };
+    items = shuffle(items);
+    // accumulate whole audio blocks until question target is hit (keeps audio-question groups intact)
+    var selected = [], total = 0;
+    for (var i = 0; i < items.length && total < targetQ; i++) { selected.push(items[i]); total += items[i].questions.length; }
+    return { meta: { durationMinutes: dur, totalQuestions: total, set: "set-0" }, items: selected };
   }
   function buildMixedStructure(datas, targetQ, dur) {
     var qs = [];
