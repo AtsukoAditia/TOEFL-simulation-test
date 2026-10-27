@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/redesign.css?v=18" />
+  <link rel="stylesheet" href="css/redesign.css?v=20" />
   <style>
     .lb-wrap { max-width: 680px; margin: 0 auto; padding: 96px 20px 140px; }
     .lb-hero { text-align: center; margin-bottom: 34px; }
@@ -48,7 +48,8 @@
     .podium { display: grid; grid-template-columns: 1fr 1.15fr 1fr; gap: 10px; align-items: end; margin-bottom: 28px; }
     .pod { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 18px; padding: 18px 10px 14px; text-align: center; position: relative; }
     .pod.first { padding: 26px 10px 18px; border-color: var(--accent); box-shadow: 0 0 30px rgba(246,185,59,0.12); }
-    .pod .medal { font-size: 26px; display: block; margin-bottom: 8px; }
+    .pod .medal { width:34px;height:34px;border-radius:50%;display:grid;place-items:center;margin:0 auto 8px;font-weight:800;font-family:var(--font-display);font-size:15px;background:var(--surface-3);border:1px solid var(--border);color:var(--text-dim); }
+    .pod.first .medal { background:linear-gradient(135deg,var(--accent),#ff8a3d);color:var(--accent-ink);border-color:transparent; }
     .pod .ava, .pod .ava-i { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; display: block; }
     .pod .ava-i { background: linear-gradient(135deg, var(--accent), #ff8a3d); color: var(--accent-ink); font-weight: 800; font-size: 21px; display: grid; place-items: center; }
     .pod .nm { font-weight: 700; font-size: 13.5px; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -85,7 +86,7 @@
   <div id="topbar-mount"></div>
   <main class="lb-wrap">
     <div class="lb-hero">
-      <h1>🏆 Leaderboard</h1>
+      <h1>Leaderboard</h1>
       <p>Skor Full Test ITP terbaik dari komunitas TOEFL Yuk</p>
       <div class="lb-period"><span class="dot"></span>Semua skor Full Test ITP · diperbarui real-time</div>
     </div>
@@ -104,10 +105,10 @@
   <div id="bottomnav-mount"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
-  <script src="js/supabase-config.js?v=18"></script>
-  <script src="js/timer.js?v=18"></script>
-  <script src="js/auth.js?v=18"></script>
-  <script src="js/bottomnav.js?v=18"></script>
+  <script src="js/supabase-config.js?v=20"></script>
+  <script src="js/timer.js?v=20"></script>
+  <script src="js/auth.js?v=20"></script>
+  <script src="js/bottomnav.js?v=20"></script>
   <script>
     (function () {
       var content = document.getElementById("lb-content");
@@ -131,14 +132,14 @@
         if (!rows.length) {
           content.innerHTML =
             '<div class="lb-empty">' +
-              '<div style="font-size:44px;margin-bottom:14px">🎯</div>' +
+              '<div style="font-size:44px;margin-bottom:14px" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#f6b93b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>' +
               '<h3 style="margin-bottom:8px">Belum ada yang masuk papan</h3>' +
               '<p>Jadilah yang pertama — selesaikan satu Full Test!</p>' +
             '</div>';
           return;
         }
         var top3 = rows.slice(0, 3), rest = rows.slice(3);
-        var medals = ["🥇", "🥈", "🥉"];
+        var medals = ["1","2","3"];
         var order = [1, 0, 2]; // 2nd, 1st, 3rd visual order
 
         var podiumHtml = '<div class="podium">' + order.map(function (i) {
