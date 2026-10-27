@@ -133,7 +133,7 @@
 
   /* ══════════ THEME ══════════ */
   function initTheme() {
-    var saved = ToeflStore.get("theme", "dark");
+    var saved = ToeflStore.get("theme", "light");
     setTheme(saved);
     var btn = $("theme-toggle-btn");
     if (btn) btn.addEventListener("click", function () {
@@ -149,6 +149,31 @@
       moon.style.display = t === "dark" ? "" : "none";
       sun.style.display = t === "dark" ? "none" : "";
     }
+  }
+
+
+  /* ══════════ PANDUAN INTERAKTIF ══════════ */
+  var GUIDE_STEPS = [
+    { title: "Pilih latihan", body: "Pencet <b>Listening</b>, <b>Structure</b>, <b>Reading</b>, atau <b>Full Test</b> di bawah. Pemula: mulai dari paket pendek. Sudah siap: langsung Full Test 140 soal.", cta: '<button class="btn btn-primary btn-sm" onclick="document.getElementById(\'mulai\').scrollIntoView({behavior:\'smooth\'})">Pilih soal di bawah</button>' },
+    { title: "Kerjakan soal", body: "Satu soal per layar. <b>Timer jalan otomatis</b> tiap bagian. Ragu? Pencet <b>flag</b>. Keyboard: <b>A–D</b> jawab, <b>panah</b> pindah, <b>F</b> flag.", cta: "" },
+    { title: "Lihat skor", body: "Submit untuk lihat <b>skor 310–677</b>, level <b>CEFR</b>, dan <b>pembahasan tiap soal</b>. Skor tersimpan otomatis — pantau progres tiap latihan.", cta: "" }
+  ];
+  function initGuide() {
+    var grid = $("guide-grid"), panel = $("guide-panel");
+    if (!grid || !panel) return;
+    function paint(i) {
+      grid.querySelectorAll(".guide-card").forEach(function (c) {
+        var on = Number(c.dataset.guide) === i;
+        c.classList.toggle("on", on);
+        c.setAttribute("aria-expanded", on ? "true" : "false");
+      });
+      var s = GUIDE_STEPS[i];
+      panel.innerHTML = "<b>Langkah " + (i + 1) + ": " + s.title + "</b><br>" + s.body + (s.cta ? '<div class="gp-cta">' + s.cta + "</div>" : "");
+    }
+    grid.querySelectorAll(".guide-card").forEach(function (c) {
+      c.addEventListener("click", function () { paint(Number(c.dataset.guide)); });
+    });
+    paint(0);
   }
 
   /* ══════════ LANDING ══════════ */
@@ -1371,6 +1396,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     initTheme();
     initReveal();
+    initGuide();
     renderHistory();
     loadManifest().then(renderSetsGrid).catch(function () {
       var g = $("sets-grid");
