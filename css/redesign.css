@@ -397,7 +397,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 
 /* ═══════════════ TEST SHELL ═══════════════ */
 .test-shell { display: none; min-height: 100vh; flex-direction: column; }
-body.in-test .topnav, body.in-test .landing-root, body.in-test .site-footer { display: none; }
+body.in-test .topnav, body.in-test .landing-root, body.in-test .site-footer, body.in-test .bottom-nav, body.in-test #bottomnav-mount, body.in-test #pwa-install-banner { display: none !important; }
+body.in-test { padding-bottom: 0 !important; }
 body.in-test .test-shell { display: flex; }
 
 .test-topbar {
