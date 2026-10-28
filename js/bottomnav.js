@@ -11,6 +11,8 @@
   var LINKS = [
     { href: "/",            label: "Beranda",  id: "index",
       icon: '<path d="M3 9.5 12 3l9 6.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>' },
+    { href: "/panduan",      label: "Artikel",  id: "panduan",
+      icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>' },
     { href: "/leaderboard", label: "Peringkat", id: "leaderboard",
       icon: '<path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a1 1 0 0 0-1 1c0 2.5 2 4 4 4M17 6h3a1 1 0 0 1 1 1c0 2.5-2 4-4 4"/>' },
     { href: "/account",     label: "Akun",     id: "account",
