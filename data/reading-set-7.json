@@ -1,0 +1,698 @@
+{
+  "meta": {
+    "testName": "TOEFL ITP-like Practice",
+    "section": "reading",
+    "set": "set-7",
+    "version": "1.0.0",
+    "description": "Complete TOEFL ITP Reading Comprehension test with 5 academic passages covering various subjects",
+    "durationMinutes": 55,
+    "totalQuestions": 50
+  },
+  "passages": [
+    {
+      "id": "R7-PASSAGE-001",
+      "title": "Hydrothermal Vents and Deep-Sea Life",
+      "passage": "Far beneath the ocean surface, along mid-ocean ridges where tectonic plates diverge, hydrothermal vents release superheated water rich in dissolved minerals. These vents form when seawater seeps into cracks in the ocean floor, is heated by underlying magma, and erupts back upward at temperatures exceeding 350 degrees Celsius. As the hot fluid meets near-freezing seawater, dissolved minerals precipitate, building towering chimney-like structures known as black smokers.\n\nRemarkably, these lightless environments support dense biological communities. Since sunlight cannot penetrate to such depths, vent ecosystems depend not on photosynthesis but on chemosynthesis. Specialized bacteria oxidize hydrogen sulfide from vent fluids to produce organic matter, forming the base of a unique food web. Giant tube worms, blind shrimp, and white crabs cluster around vents, many harboring symbiotic bacteria within their tissues.\n\nHydrothermal vent communities challenge long-held assumptions about the requirements for life. Their existence demonstrates that ecosystems can thrive without solar energy, relying instead on chemical energy from Earth's interior. Scientists study these organisms for insights into the origins of life, since early Earth conditions may have resembled vent environments. Furthermore, enzymes from vent microbes have found applications in biotechnology, including DNA amplification techniques that function at high temperatures.\n\nDespite their remoteness, vent ecosystems face emerging threats from deep-sea mining. Companies seek to extract copper, gold, and rare metals from vent deposits. Researchers caution that mining could destroy habitats that recover extremely slowly, urging international regulation before commercial exploitation expands.",
+      "questions": [
+        {
+          "id": "R7-001",
+          "type": "main-idea",
+          "question": "What is the main topic of the passage?",
+          "choices": [
+            "Biotechnology industry profits",
+            "Hydrothermal vents and the life they support",
+            "Methods of deep-sea mining",
+            "Tectonic plate movement theories"
+          ],
+          "answer": 1,
+          "explanation": "The passage describes vent formation, chemosynthesis-based ecosystems, and their scientific value."
+        },
+        {
+          "id": "R7-002",
+          "type": "detail",
+          "question": "According to the passage, black smokers form when",
+          "choices": [
+            "dissolved minerals precipitate as hot fluid meets cold seawater",
+            "volcanoes erupt above sea level",
+            "tectonic plates collide violently",
+            "seawater evaporates at the surface"
+          ],
+          "answer": 0,
+          "explanation": "Mineral precipitation from hot vent fluid meeting cold seawater builds chimney structures."
+        },
+        {
+          "id": "R7-003",
+          "type": "vocabulary",
+          "question": "The word \"precipitate\" in paragraph 1 is closest in meaning to",
+          "choices": [
+            "settle out as solid particles",
+            "dissolve gradually",
+            "flow sideways",
+            "evaporate upward"
+          ],
+          "answer": 0,
+          "explanation": "Precipitate here means minerals separating from solution to form solids."
+        },
+        {
+          "id": "R7-004",
+          "type": "detail",
+          "question": "Why cannot photosynthesis occur at hydrothermal vents?",
+          "choices": [
+            "Minerals block plant growth",
+            "Temperatures are too low",
+            "Water is too salty",
+            "No sunlight reaches such depths"
+          ],
+          "answer": 3,
+          "explanation": "Sunlight cannot penetrate to vent depths, so ecosystems rely on chemosynthesis."
+        },
+        {
+          "id": "R7-005",
+          "type": "reference",
+          "question": "The word \"Their\" in paragraph 3 (\"Their existence demonstrates\") refers to",
+          "choices": [
+            "hydrothermal vent communities",
+            "tectonic plates",
+            "biotechnology companies",
+            "dissolved minerals"
+          ],
+          "answer": 0,
+          "explanation": "Their refers to the vent communities that thrive without solar energy."
+        },
+        {
+          "id": "R7-006",
+          "type": "detail",
+          "question": "What role do specialized bacteria play in vent ecosystems?",
+          "choices": [
+            "They cool the vent water",
+            "They generate sunlight",
+            "They consume tube worms",
+            "They produce organic matter through chemosynthesis"
+          ],
+          "answer": 3,
+          "explanation": "Bacteria oxidize hydrogen sulfide to produce organic matter at the food web base."
+        },
+        {
+          "id": "R7-007",
+          "type": "vocabulary",
+          "question": "The word \"harboring\" in paragraph 2 is closest in meaning to",
+          "choices": [
+            "hosting",
+            "poisoning",
+            "avoiding",
+            "attacking"
+          ],
+          "answer": 0,
+          "explanation": "Harboring means hosting or sheltering symbiotic bacteria within tissues."
+        },
+        {
+          "id": "R7-008",
+          "type": "inference",
+          "question": "What can be inferred about early Earth from vent ecosystems?",
+          "choices": [
+            "Early Earth was frozen solid",
+            "Life may have originated without sunlight",
+            "Photosynthesis came from vents",
+            "All life requires oxygen"
+          ],
+          "answer": 1,
+          "explanation": "Vent life suggests ecosystems can arise from chemical energy, hinting at life's origins."
+        },
+        {
+          "id": "R7-009",
+          "type": "detail",
+          "question": "According to the passage, enzymes from vent microbes are used in",
+          "choices": [
+            "solar panel manufacturing",
+            "food preservation",
+            "DNA amplification at high temperatures",
+            "desalination plants"
+          ],
+          "answer": 2,
+          "explanation": "Vent microbe enzymes enable DNA amplification techniques functioning at high temperatures."
+        },
+        {
+          "id": "R7-010",
+          "type": "tone",
+          "question": "The author's attitude toward deep-sea mining is",
+          "choices": [
+            "cautiously concerned",
+            "openly mocking",
+            "completely indifferent",
+            "enthusiastically supportive"
+          ],
+          "answer": 0,
+          "explanation": "The author notes slow recovery and urges regulation, showing cautious concern."
+        }
+      ]
+    },
+    {
+      "id": "R7-PASSAGE-002",
+      "title": "The Silk Road and Cultural Exchange",
+      "passage": "The Silk Road was not a single road but a vast network of trade routes connecting China with Central Asia, India, the Middle East, and Europe. Flourishing from roughly 130 BCE to the 15th century, it enabled the exchange of silk, spices, horses, glassware, and precious metals across thousands of miles of deserts, mountains, and steppes.\n\nBeyond merchandise, the routes carried ideas, technologies, and religions. Papermaking technology traveled westward from China, eventually revolutionizing record-keeping and literacy in the Islamic world and Europe. Buddhism spread from India into Central and East Asia along merchant paths, while Nestorian Christianity and Islam likewise moved eastward. Artistic motifs blended: Greco-Buddhist sculptures in Gandhara combined Hellenistic techniques with Indian spiritual imagery, a fusion made possible by cross-cultural contact.\n\nMerchants rarely traveled the entire distance; instead, goods passed through chains of intermediaries at oasis towns such as Samarkand, Kashgar, and Dunhuang. These cosmopolitan hubs hosted translators, money changers, and caravanserais that sheltered travelers and animals. The Sogdians, an Iranian-speaking people of Central Asia, became particularly renowned as Silk Road traders, establishing merchant colonies from China to the Black Sea.\n\nThe Silk Road declined as maritime trade routes proved faster and cheaper in the 15th and 16th centuries. Yet its legacy endures in cuisines, languages, and technologies shared across Eurasia. Historians now emphasize that the Silk Road was never merely about luxury goods; it was humanity's first sustained experiment in long-distance globalization.",
+      "questions": [
+        {
+          "id": "R7-011",
+          "type": "main-idea",
+          "question": "What is the primary purpose of the passage?",
+          "choices": [
+            "To explain modern highway construction",
+            "To describe Silk Road trade and its cultural significance",
+            "To argue maritime trade is always superior",
+            "To list prices of ancient silk"
+          ],
+          "answer": 1,
+          "explanation": "The passage describes the trade network and its exchange of goods, ideas, and religions."
+        },
+        {
+          "id": "R7-012",
+          "type": "detail",
+          "question": "According to the passage, the Silk Road flourished from",
+          "choices": [
+            "only the 19th century",
+            "roughly 130 BCE to the 15th century",
+            "the Stone Age onward",
+            "500 CE to 1900 CE"
+          ],
+          "answer": 1,
+          "explanation": "The passage dates its flourishing from about 130 BCE to the 15th century."
+        },
+        {
+          "id": "R7-013",
+          "type": "detail",
+          "question": "Which technology traveled westward from China along the routes?",
+          "choices": [
+            "Compasses only",
+            "Printing presses",
+            "Papermaking",
+            "Steam engines"
+          ],
+          "answer": 2,
+          "explanation": "Papermaking moved westward, revolutionizing record-keeping and literacy."
+        },
+        {
+          "id": "R7-014",
+          "type": "vocabulary",
+          "question": "The word \"motifs\" in paragraph 2 is closest in meaning to",
+          "choices": [
+            "decorative designs",
+            "desert storms",
+            "taxes",
+            "military tactics"
+          ],
+          "answer": 0,
+          "explanation": "Motifs refers to decorative designs blending across artistic traditions."
+        },
+        {
+          "id": "R7-015",
+          "type": "inference",
+          "question": "What can be inferred about Gandharan sculpture?",
+          "choices": [
+            "It was made only by Greeks",
+            "It used no religious themes",
+            "It rejected all foreign influence",
+            "It resulted from cultural fusion"
+          ],
+          "answer": 3,
+          "explanation": "Greco-Buddhist sculpture combined Hellenistic and Indian elements through contact."
+        },
+        {
+          "id": "R7-016",
+          "type": "detail",
+          "question": "Why did most merchants not travel the entire Silk Road?",
+          "choices": [
+            "Goods moved through chains of intermediaries",
+            "Travel was legally forbidden",
+            "No maps existed at all",
+            "Camels could not walk far"
+          ],
+          "answer": 0,
+          "explanation": "Goods passed through intermediaries at oasis towns rather than single long journeys."
+        },
+        {
+          "id": "R7-017",
+          "type": "reference",
+          "question": "The word \"These\" in paragraph 3 (\"These cosmopolitan hubs\") refers to",
+          "choices": [
+            "oasis towns such as Samarkand, Kashgar, and Dunhuang",
+            "nomadic armies",
+            "mountain ranges",
+            "European ports"
+          ],
+          "answer": 0,
+          "explanation": "These refers to the oasis towns hosting translators and caravanserais."
+        },
+        {
+          "id": "R7-018",
+          "type": "detail",
+          "question": "The Sogdians were renowned as",
+          "choices": [
+            "Mongol generals",
+            "naval admirals",
+            "Silk Road traders",
+            "silk weavers in Rome"
+          ],
+          "answer": 2,
+          "explanation": "The passage describes Sogdians as renowned Central Asian traders."
+        },
+        {
+          "id": "R7-019",
+          "type": "vocabulary",
+          "question": "The word \"renowned\" in paragraph 3 is closest in meaning to",
+          "choices": [
+            "hostile",
+            "unknown",
+            "wealthy",
+            "famous"
+          ],
+          "answer": 3,
+          "explanation": "Renowned means famous or widely celebrated."
+        },
+        {
+          "id": "R7-020",
+          "type": "purpose",
+          "question": "The author mentions cuisines and languages to show",
+          "choices": [
+            "sea trade destroyed culture",
+            "ancient food was unhealthy",
+            "all languages come from Chinese",
+            "the Silk Road's lasting legacy"
+          ],
+          "answer": 3,
+          "explanation": "Shared cuisines and languages illustrate the enduring legacy of exchange."
+        }
+      ]
+    },
+    {
+      "id": "R7-PASSAGE-003",
+      "title": "Impressionism and the Revolution in Painting",
+      "passage": "Impressionism, which emerged in France in the 1870s, broke radically with the conventions of academic painting. Instead of mythological scenes rendered with polished detail in studios, artists such as Claude Monet, Pierre-Auguste Renoir, and Camille Pissarro painted contemporary life outdoors, capturing fleeting effects of light and atmosphere with visible brushstrokes.\n\nThe movement's name originated mockingly: critic Louis Leroy coined \"Impressionism\" after Monet's 1872 canvas \"Impression, Sunrise,\" intending ridicule. The artists embraced the label. Rejecting the Paris Salon's rigid standards, they organized independent exhibitions beginning in 1874, displaying works the establishment had refused.\n\nTechnically, the Impressionists exploited advances in paint chemistry and optics. Portable paint tubes allowed outdoor work, while theories of color contrast encouraged placing pure, unmixed colors side by side so the viewer's eye would blend them optically. Shadows were painted in blues and purples rather than black, reflecting careful observation of natural light.\n\nThough initially scorned, Impressionism transformed modern art. It legitimized painting everyday subjects, liberated color from descriptive duty, and paved the way for Post-Impressionism, Fauvism, and abstraction. Today its works rank among the most beloved and valuable paintings in the world.\n\nDespite early hostility, dealers such as Paul Durand-Ruel championed the group, organizing exhibitions in London and New York that gradually built an international market. American collectors in particular embraced Impressionist landscapes, endowing museums across the United States with major holdings. Later artists extended the breakthrough: Post-Impressionists like Seurat and Cezanne pushed color theory and structure further, while the Fauves inherited its bold palette.",
+      "questions": [
+        {
+          "id": "R7-021",
+          "type": "main-idea",
+          "question": "What is the main idea of the passage?",
+          "choices": [
+            "Impressionism revolutionized painting techniques and subjects",
+            "Monet invented paint tubes",
+            "Academic painting was superior",
+            "Museums should reject modern art"
+          ],
+          "answer": 0,
+          "explanation": "The passage traces how Impressionism broke conventions and transformed modern art."
+        },
+        {
+          "id": "R7-022",
+          "type": "detail",
+          "question": "According to the passage, the term Impressionism came from",
+          "choices": [
+            "critic Louis Leroy mocking Monet's painting",
+            "a government decree",
+            "a paint manufacturer",
+            "the artists' manifesto"
+          ],
+          "answer": 0,
+          "explanation": "Critic Leroy coined the term from \"Impression, Sunrise\" intending ridicule."
+        },
+        {
+          "id": "R7-023",
+          "type": "detail",
+          "question": "Where did Impressionists prefer to paint?",
+          "choices": [
+            "Underground",
+            "Outdoors",
+            "From photographs only",
+            "In dark studios"
+          ],
+          "answer": 1,
+          "explanation": "They painted outdoors to capture fleeting light and atmosphere."
+        },
+        {
+          "id": "R7-024",
+          "type": "vocabulary",
+          "question": "The word \"fleeting\" in paragraph 1 is closest in meaning to",
+          "choices": [
+            "intense",
+            "permanent",
+            "artificial",
+            "brief"
+          ],
+          "answer": 3,
+          "explanation": "Fleeting means brief or momentary, describing transient light effects."
+        },
+        {
+          "id": "R7-025",
+          "type": "detail",
+          "question": "What did the artists do after Salon rejection?",
+          "choices": [
+            "Moved to America",
+            "Stopped painting entirely",
+            "Organized independent exhibitions",
+            "Burned their works"
+          ],
+          "answer": 2,
+          "explanation": "They organized independent exhibitions beginning in 1874."
+        },
+        {
+          "id": "R7-026",
+          "type": "vocabulary",
+          "question": "The word \"exploited\" in paragraph 3 is closest in meaning to",
+          "choices": [
+            "feared",
+            "abused unfairly",
+            "ignored completely",
+            "used advantageously"
+          ],
+          "answer": 3,
+          "explanation": "Exploited here means made use of advances in paint chemistry."
+        },
+        {
+          "id": "R7-027",
+          "type": "detail",
+          "question": "How did Impressionists paint shadows?",
+          "choices": [
+            "In pure black",
+            "In blues and purples",
+            "Without any shadow",
+            "In bright yellow"
+          ],
+          "answer": 1,
+          "explanation": "They painted shadows in blues and purples based on observation."
+        },
+        {
+          "id": "R7-028",
+          "type": "inference",
+          "question": "Why were portable paint tubes important?",
+          "choices": [
+            "They enabled outdoor painting",
+            "They made paint cheaper only",
+            "They changed art prices",
+            "They replaced brushes"
+          ],
+          "answer": 0,
+          "explanation": "Portable tubes allowed artists to work outdoors directly from nature."
+        },
+        {
+          "id": "R7-029",
+          "type": "reference",
+          "question": "The word \"They\" in paragraph 2 (\"They organized independent exhibitions\") refers to",
+          "choices": [
+            "paint manufacturers",
+            "the Impressionist artists",
+            "art critics",
+            "the Paris Salon judges"
+          ],
+          "answer": 1,
+          "explanation": "They refers to the artists rejected by the establishment."
+        },
+        {
+          "id": "R7-030",
+          "type": "tone",
+          "question": "The author's tone toward Impressionism is",
+          "choices": [
+            "contemptuous",
+            "admiring",
+            "neutral-hostile",
+            "sarcastic"
+          ],
+          "answer": 1,
+          "explanation": "The author presents the movement's triumph positively, calling works beloved."
+        }
+      ]
+    },
+    {
+      "id": "R7-PASSAGE-004",
+      "title": "Quantum Computing and a New Paradigm",
+      "passage": "Classical computers store information as bits, each definitively zero or one. Quantum computers instead use quantum bits, or qubits, which exploit superposition to exist in combinations of zero and one simultaneously. By entangling multiple qubits, a quantum processor can explore many computational paths in parallel, offering exponential speedups for certain problems.\n\nThis advantage is not universal. Quantum computers are expected to excel at specific tasks such as factoring large numbers, simulating molecules, and optimizing complex systems. Shor's algorithm, developed in 1994, demonstrated that a sufficiently large quantum computer could factor numbers far faster than any classical machine, threatening current encryption methods. Similarly, quantum simulation could accelerate drug discovery by modeling molecular interactions that overwhelm conventional supercomputers.\n\nFormidable obstacles remain. Qubits are extremely fragile: heat, vibration, or electromagnetic noise causes decoherence, the collapse of quantum states into ordinary bits. Engineers combat this with cryogenic cooling near absolute zero and quantum error correction, which spreads one logical qubit across many physical ones. Current machines remain noisy and intermediate-scale, with dozens to hundreds of physical qubits but few error-corrected logical qubits.\n\nGovernments and firms invest heavily nonetheless, viewing quantum computing as strategically vital. Researchers stress realistic timelines: fault-tolerant quantum computers may be a decade or more away. Yet even today's imperfect machines serve as testbeds for algorithms, materials science, and the training of a new generation of quantum engineers.",
+      "questions": [
+        {
+          "id": "R7-031",
+          "type": "main-idea",
+          "question": "What is the passage mainly about?",
+          "choices": [
+            "Why encryption is unbreakable",
+            "History of classical computers",
+            "How to buy a quantum computer",
+            "Principles, promise, and challenges of quantum computing"
+          ],
+          "answer": 3,
+          "explanation": "The passage covers qubit principles, applications, obstacles, and outlook."
+        },
+        {
+          "id": "R7-032",
+          "type": "detail",
+          "question": "How do qubits differ from classical bits?",
+          "choices": [
+            "They exist in superpositions of zero and one",
+            "They use no electricity",
+            "They are larger in size",
+            "They store only text"
+          ],
+          "answer": 0,
+          "explanation": "Qubits exploit superposition to hold combinations of zero and one."
+        },
+        {
+          "id": "R7-033",
+          "type": "vocabulary",
+          "question": "The word \"excel\" in paragraph 2 is closest in meaning to",
+          "choices": [
+            "slow down",
+            "perform exceptionally",
+            "fail",
+            "disappear"
+          ],
+          "answer": 1,
+          "explanation": "Excel means to perform exceptionally well at specific tasks."
+        },
+        {
+          "id": "R7-034",
+          "type": "detail",
+          "question": "Shor's algorithm is significant because it",
+          "choices": [
+            "could factor large numbers rapidly",
+            "designs keyboards",
+            "paints digital images",
+            "cools processors"
+          ],
+          "answer": 0,
+          "explanation": "Shor's algorithm factors numbers far faster, threatening current encryption."
+        },
+        {
+          "id": "R7-035",
+          "type": "reference",
+          "question": "The word \"which\" in paragraph 3 (\"which spreads one logical qubit\") refers to",
+          "choices": [
+            "electromagnetic noise",
+            "drug discovery",
+            "quantum error correction",
+            "absolute zero"
+          ],
+          "answer": 2,
+          "explanation": "Which refers to quantum error correction spreading logical qubits."
+        },
+        {
+          "id": "R7-036",
+          "type": "detail",
+          "question": "What causes decoherence?",
+          "choices": [
+            "Heat, vibration, or noise",
+            "Large monitors",
+            "Too much funding",
+            "Excessive software updates"
+          ],
+          "answer": 0,
+          "explanation": "Heat, vibration, or electromagnetic noise collapses quantum states."
+        },
+        {
+          "id": "R7-037",
+          "type": "vocabulary",
+          "question": "The word \"fragile\" in paragraph 3 is closest in meaning to",
+          "choices": [
+            "delicate",
+            "heavy",
+            "cheap",
+            "permanent"
+          ],
+          "answer": 0,
+          "explanation": "Fragile means delicate and easily disturbed."
+        },
+        {
+          "id": "R7-038",
+          "type": "inference",
+          "question": "What can be inferred about current quantum machines?",
+          "choices": [
+            "They replaced all supercomputers",
+            "They remain limited and noisy",
+            "They need no cooling",
+            "They are fully fault-tolerant"
+          ],
+          "answer": 1,
+          "explanation": "Current machines are noisy, intermediate-scale with few logical qubits."
+        },
+        {
+          "id": "R7-039",
+          "type": "detail",
+          "question": "Quantum simulation could help",
+          "choices": [
+            "fashion design",
+            "drug discovery",
+            "road construction",
+            "weather dancing"
+          ],
+          "answer": 1,
+          "explanation": "Quantum simulation could accelerate drug discovery via molecular modeling."
+        },
+        {
+          "id": "R7-040",
+          "type": "purpose",
+          "question": "Why does the author mention government investment?",
+          "choices": [
+            "To show quantum computing is strategically important",
+            "To criticize all research",
+            "To praise classical laptops",
+            "To advertise stocks"
+          ],
+          "answer": 0,
+          "explanation": "Investment illustrates the strategic importance despite distant timelines."
+        }
+      ]
+    },
+    {
+      "id": "R7-PASSAGE-005",
+      "title": "Desertification and the Sahel",
+      "passage": "Desertification, the degradation of productive land into desert-like conditions, threatens the livelihoods of nearly one billion people worldwide. Nowhere is this crisis more visible than in the Sahel, the semi-arid belt stretching across Africa south of the Sahara. Here, erratic rainfall, prolonged droughts, and human pressures converge to strip soils of fertility.\n\nThe causes intertwine natural variability with human activity. Climate change has intensified drought cycles and shifted rainfall patterns, while overgrazing, deforestation for firewood, and continuous cropping without fallow periods deplete soil nutrients and destroy protective vegetation. Once plant cover disappears, wind and water erosion accelerate, and the land's capacity to retain moisture collapses.\n\nConsequences extend beyond agriculture. As harvests fail, rural families migrate toward cities or across borders, fueling urban overcrowding and regional tensions. Malnutrition rises, and conflicts over dwindling water and grazing land intensify. Economists estimate land degradation costs developing countries billions of dollars annually in lost productivity.\n\nResponses combine traditional knowledge with modern science. In Niger, farmers revived an indigenous technique called farmer-managed natural regeneration, protecting sprouting trees amid crops; millions of hectares have been restored. The African Union's Great Green Wall initiative aims to create a mosaic of forests, farms, and pastures across the continent. Experts agree that halting desertification requires secure land rights, investment in drought-resistant crops, and international climate action.",
+      "questions": [
+        {
+          "id": "R7-041",
+          "type": "main-idea",
+          "question": "What is the central topic of the passage?",
+          "choices": [
+            "Desertification in the Sahel: causes, effects, and responses",
+            "History of African cities",
+            "Tourism in the Sahara",
+            "Benefits of drought"
+          ],
+          "answer": 0,
+          "explanation": "The passage covers Sahel desertification causes, consequences, and restoration efforts."
+        },
+        {
+          "id": "R7-042",
+          "type": "detail",
+          "question": "Where is the Sahel located?",
+          "choices": [
+            "West of the Andes",
+            "East of the Amazon",
+            "North of the Arctic Circle",
+            "South of the Sahara"
+          ],
+          "answer": 3,
+          "explanation": "The Sahel is the semi-arid belt south of the Sahara."
+        },
+        {
+          "id": "R7-043",
+          "type": "detail",
+          "question": "Which human activities contribute to desertification?",
+          "choices": [
+            "Space exploration",
+            "Urban recycling",
+            "Overgrazing, deforestation, and continuous cropping",
+            "Fishing and swimming"
+          ],
+          "answer": 2,
+          "explanation": "These activities deplete nutrients and destroy protective vegetation."
+        },
+        {
+          "id": "R7-044",
+          "type": "vocabulary",
+          "question": "The word \"erratic\" in paragraph 1 is closest in meaning to",
+          "choices": [
+            "abundant",
+            "gentle",
+            "predictable",
+            "irregular"
+          ],
+          "answer": 3,
+          "explanation": "Erratic means irregular or unpredictable rainfall."
+        },
+        {
+          "id": "R7-045",
+          "type": "detail",
+          "question": "What happens once plant cover disappears?",
+          "choices": [
+            "Soil fertility increases",
+            "Rainfall doubles",
+            "Deserts turn to forests",
+            "Erosion accelerates and moisture retention collapses"
+          ],
+          "answer": 3,
+          "explanation": "Wind and water erosion accelerate and moisture retention collapses."
+        },
+        {
+          "id": "R7-046",
+          "type": "inference",
+          "question": "The passage implies migration from the Sahel is driven by",
+          "choices": [
+            "love of cities",
+            "failing harvests and resource scarcity",
+            "government lotteries",
+            "tourism"
+          ],
+          "answer": 1,
+          "explanation": "Failed harvests push families toward cities or across borders."
+        },
+        {
+          "id": "R7-047",
+          "type": "vocabulary",
+          "question": "The word \"dwindling\" in paragraph 3 is closest in meaning to",
+          "choices": [
+            "increasing",
+            "shrinking",
+            "frozen",
+            "polluted"
+          ],
+          "answer": 1,
+          "explanation": "Dwindling means shrinking or diminishing resources."
+        },
+        {
+          "id": "R7-048",
+          "type": "reference",
+          "question": "The word \"millions of hectares\" in paragraph 4 refers to land",
+          "choices": [
+            "flooded by dams",
+            "destroyed by war",
+            "sold to developers",
+            "restored through farmer-managed regeneration"
+          ],
+          "answer": 3,
+          "explanation": "It refers to hectares restored via protecting sprouting trees in Niger."
+        },
+        {
+          "id": "R7-049",
+          "type": "detail",
+          "question": "The Great Green Wall initiative aims to",
+          "choices": [
+            "build a concrete wall",
+            "create a mosaic of forests, farms, and pastures",
+            "dam the Nile",
+            "ban all farming"
+          ],
+          "answer": 1,
+          "explanation": "The initiative plans a mosaic of restored landscapes across Africa."
+        },
+        {
+          "id": "R7-050",
+          "type": "tone",
+          "question": "The author's tone is best described as",
+          "choices": [
+            "alarmist and hopeless",
+            "dismissive",
+            "concerned but solution-oriented",
+            "humorous"
+          ],
+          "answer": 2,
+          "explanation": "The author details grave effects yet highlights restoration successes and solutions."
+        }
+      ]
+    }
+  ]
+}

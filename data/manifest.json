@@ -54,19 +54,19 @@
         "structure": "data/structure-set-3.json",
         "reading": "data/reading-set-3.json"
       }
-      },
-      {
-        "id": "set-4",
-        "title": "Practice Set 4",
-        "description": "Advanced TOEFL ITP-like practice set with 20 Listening, 25 Structure, and 20 Reading questions including long academic passages.",
-        "status": "active",
-        "files": {
-          "listening": "data/listening-set-4.json",
-          "structure": "data/structure-set-4.json",
-          "reading": "data/reading-set-4.json"
-        }
     },
-        {
+    {
+      "id": "set-4",
+      "title": "Practice Set 4",
+      "description": "Advanced TOEFL ITP-like practice set with 20 Listening, 25 Structure, and 20 Reading questions including long academic passages.",
+      "status": "active",
+      "files": {
+        "listening": "data/listening-set-4.json",
+        "structure": "data/structure-set-4.json",
+        "reading": "data/reading-set-4.json"
+      }
+    },
+    {
       "id": "set-5",
       "title": "Practice Set 5",
       "description": "Comprehensive TOEFL ITP-like practice set with 20 Listening, 15 Structure, and 15 Reading questions featuring long academic passages",
@@ -76,7 +76,8 @@
         "structure": "data/structure-set-5.json",
         "reading": "data/reading-set-5.json"
       }
-      },              {
+    },
+    {
       "id": "set-6",
       "title": "Practice Set 6 - Full TOEFL ITP",
       "description": "Complete full-length TOEFL ITP test with 50 Listening, 40 Structure, and 50 Reading questions following official test format",
@@ -98,6 +99,29 @@
         "structure": "data/structure-set-6.json",
         "reading": "data/reading-set-6.json"
       }
+    },
+    {
+      "id": "set-7",
+      "title": "Practice Set 7 - Full TOEFL ITP",
+      "description": "Fresh full-length TOEFL ITP test with 50 Listening, 40 Structure, and 50 Reading questions — new topics, new order",
+      "status": "active",
+      "type": "full-length",
+      "fullTestOnly": true,
+      "targetQuestions": {
+        "listening": 50,
+        "structure": 40,
+        "reading": 50
+      },
+      "durationMinutes": {
+        "listening": 35,
+        "structure": 25,
+        "reading": 55
+      },
+      "files": {
+        "listening": "data/listening-set-7.json",
+        "structure": "data/structure-set-7.json",
+        "reading": "data/reading-set-7.json"
+      }
     }
-    ]
-  }
+  ]
+}

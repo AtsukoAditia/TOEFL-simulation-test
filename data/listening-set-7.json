@@ -1,0 +1,919 @@
+{
+  "meta": {
+    "testName": "TOEFL ITP-like Practice",
+    "section": "listening",
+    "set": "set-7",
+    "version": "1.0.0",
+    "description": "Fresh TOEFL ITP Listening practice set-7: 30 short conversations, 2 extended campus dialogues, plus talks on coral reefs and the printing press",
+    "durationMinutes": 35,
+    "totalQuestions": 50
+  },
+  "items": [
+    {
+      "id": "L7-AUDIO-001",
+      "type": "conversation",
+      "title": "Short conversation about dorm roommate noise complaint",
+      "ttsText": "M: My roommate plays guitar until 2 a.m. and I have an 8 a.m. biology class every morning. W: Have you talked to him about setting quiet hours? M: I tried, but he says evenings are his only free time to practice. W: You could ask your resident advisor to mediate a roommate agreement. M: That is a good idea. I will stop by the RA office after lunch today. W: Bring your class schedule so the agreement covers your sleep hours. M: Thanks, I really need a quiet room to pass this semester.",
+      "questions": [
+        {
+          "id": "L7-001",
+          "question": "What does the man plan to do?",
+          "choices": [
+            "Move to another dorm immediately",
+            "Ask the RA to help mediate",
+            "Practice guitar with his roommate",
+            "Change his biology class"
+          ],
+          "answer": 1,
+          "explanation": "The man agrees to visit the RA office to arrange a roommate agreement."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-002",
+      "type": "conversation",
+      "title": "Short conversation about campus gym membership renewal",
+      "ttsText": "W: Did you renew your campus gym membership for the spring? M: Not yet, the annual fee went up to ninety dollars this year. W: That is still cheaper than any gym downtown, and the pool is included. M: True, plus the new weight room opens next Monday morning. W: Let us sign up together after our economics lecture tomorrow. M: Deal. I will bring my student ID and bank card.",
+      "questions": [
+        {
+          "id": "L7-002",
+          "question": "What will the man probably do?",
+          "choices": [
+            "Join a downtown gym",
+            "Renew the campus gym membership",
+            "Sell his student ID",
+            "Cancel his gym membership"
+          ],
+          "answer": 1,
+          "explanation": "The man agrees to sign up with the woman after their lecture."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-003",
+      "type": "conversation",
+      "title": "Short conversation about professor office hours visit",
+      "ttsText": "M: Professor Carter's office hours conflict with my part-time shift at the cafe. W: Did you try emailing her for an appointment? M: Yes, she replied and offered Thursday afternoon at three. W: Perfect, bring your thesis outline and the two journal articles. M: I will. I need feedback on my methodology section before Friday. W: Arrive early, her office in Clark Hall always has a line.",
+      "questions": [
+        {
+          "id": "L7-003",
+          "question": "What does the woman suggest?",
+          "choices": [
+            "Email the professor",
+            "Skip the meeting entirely",
+            "Quit the part-time job",
+            "Bring materials and arrive early"
+          ],
+          "answer": 3,
+          "explanation": "The woman advises bringing the outline and arriving early."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-004",
+      "type": "conversation",
+      "title": "Short conversation about thesis deadline extension",
+      "ttsText": "W: I am worried I cannot finish my thesis by the March deadline. M: Did you ask about a two-week extension? W: The graduate office allows it with an advisor's signature. M: Professor Lee already said she would sign your form yesterday. W: Then I just need to submit it before five today. M: Hurry, the office in Anderson Hall closes early on Fridays.",
+      "questions": [
+        {
+          "id": "L7-004",
+          "question": "What must the woman do today?",
+          "choices": [
+            "Rewrite the whole thesis",
+            "Change her advisor",
+            "Defend her thesis",
+            "Submit the extension form"
+          ],
+          "answer": 3,
+          "explanation": "The woman needs to submit the signed extension form before the office closes."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-005",
+      "type": "conversation",
+      "title": "Short conversation about library printer jam",
+      "ttsText": "M: The printer on the third floor ate my twenty-page report again. W: The technician fixed it this morning, but it jams with thick paper. M: I used recycled paper, maybe that caused the problem. W: Try the printers on the first floor, they handle recycled stock better. M: I will reprint there, my presentation starts in forty minutes. W: Send the file to your phone too as a backup.",
+      "questions": [
+        {
+          "id": "L7-005",
+          "question": "What does the woman recommend?",
+          "choices": [
+            "Skip the presentation",
+            "Use a first-floor printer",
+            "Buy a new printer",
+            "Print on thicker paper"
+          ],
+          "answer": 1,
+          "explanation": "The woman suggests the first-floor printers handle recycled paper better."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-006",
+      "type": "conversation",
+      "title": "Short conversation about campus bus schedule change",
+      "ttsText": "W: The Route 5 bus no longer stops at the north dormitory after seven. M: That is inconvenient, my chemistry lab ends at eight thirty. W: There is a shuttle van from the science building every twenty minutes. M: Good, where exactly does it pick up students? W: Right outside the lab entrance near the parking garage. M: I will check the new timetable on the transit app tonight.",
+      "questions": [
+        {
+          "id": "L7-006",
+          "question": "What is the man's problem?",
+          "choices": [
+            "He lost the transit app",
+            "The shuttle is too expensive",
+            "He missed the bus stop",
+            "His lab ends after the bus route changes"
+          ],
+          "answer": 3,
+          "explanation": "The man's lab ends after Route 5 stops serving his dormitory."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-007",
+      "type": "conversation",
+      "title": "Short conversation about recommendation letter request",
+      "ttsText": "M: I need a recommendation letter for the summer research program by Monday. W: Ask Professor Nguyen, she praised your lab reports last month. M: I emailed her, but she asked for my resume and draft statement. W: Send those tonight and stop by her office tomorrow morning. M: I will bring the program description so she knows the deadline. W: Good plan, professors appreciate complete materials.",
+      "questions": [
+        {
+          "id": "L7-007",
+          "question": "What should the man do?",
+          "choices": [
+            "Send his documents and visit the professor",
+            "Wait until next semester",
+            "Write the letter himself",
+            "Change research programs"
+          ],
+          "answer": 0,
+          "explanation": "The woman advises sending the materials and visiting the professor's office."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-008",
+      "type": "conversation",
+      "title": "Short conversation about course drop deadline",
+      "ttsText": "W: I want to drop organic chemistry before it hurts my GPA. M: The drop deadline is this Friday at noon, so decide quickly. W: If I drop, I will fall below twelve credits for my visa status. M: Then talk to the international office first thing tomorrow. W: Right, they open at nine in the international center. M: Bring your enrollment form so they can suggest options.",
+      "questions": [
+        {
+          "id": "L7-008",
+          "question": "What is the woman worried about?",
+          "choices": [
+            "Losing her textbooks",
+            "Failing her visa credit requirement",
+            "Missing the bus to class",
+            "Paying extra tuition fees"
+          ],
+          "answer": 1,
+          "explanation": "The woman fears dropping below twelve credits required for her visa."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-009",
+      "type": "conversation",
+      "title": "Short conversation about vegetarian option at cafeteria",
+      "ttsText": "M: The new cafeteria finally added a vegetarian station near the salad bar. W: Great, the lentil curry yesterday was actually delicious. M: I agree, though the line was twenty minutes long at noon. W: Let us go at eleven thirty tomorrow to beat the crowd. M: Sounds good. I will save us a table near the window. W: And bring your meal card, they stopped accepting cash.",
+      "questions": [
+        {
+          "id": "L7-009",
+          "question": "What do they plan to do?",
+          "choices": [
+            "Complain about the food",
+            "Pay with cash",
+            "Eat early at the cafeteria",
+            "Cook at the dorm"
+          ],
+          "answer": 2,
+          "explanation": "They agree to go at eleven thirty to avoid the long line."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-010",
+      "type": "conversation",
+      "title": "Short conversation about bike rental on campus",
+      "ttsText": "W: The campus bike rental raised its daily rate to eight dollars. M: Still worth it, my dorm is a mile from the engineering building. W: The semester pass is sixty dollars and includes free repairs. M: That is a better deal. Where do I register? W: At the transportation desk beside the student union entrance. M: I will sign up after my physics lab today.",
+      "questions": [
+        {
+          "id": "L7-010",
+          "question": "What will the man probably do?",
+          "choices": [
+            "Buy the semester bike pass",
+            "Skip his physics lab",
+            "Rent a car downtown",
+            "Walk to class every day"
+          ],
+          "answer": 0,
+          "explanation": "The man finds the semester pass a better deal and will sign up."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-011",
+      "type": "conversation",
+      "title": "Short conversation about teaching assistant review session",
+      "ttsText": "M: The TA holds a review session every Sunday evening in Room 204. W: I went last week and the practice problems matched the quiz exactly. M: Perfect, I failed the last quiz on integrals. W: Bring your homework and the formula sheet the TA handed out. M: I will. Does the session run for one hour or two? W: Two hours, from six to eight with a short break.",
+      "questions": [
+        {
+          "id": "L7-011",
+          "question": "What does the woman imply?",
+          "choices": [
+            "Homework is optional",
+            "The review session is helpful",
+            "The TA cancelled sessions",
+            "Quizzes are too easy"
+          ],
+          "answer": 1,
+          "explanation": "The woman says practice problems matched the quiz, implying the session helps."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-012",
+      "type": "conversation",
+      "title": "Short conversation about lost student ID card",
+      "ttsText": "W: I lost my student ID somewhere between the gym and the dorm. M: Check the lost-and-found at the student union front desk. W: I did, and they suggested reissuing at the card office. M: It costs fifteen dollars and takes ten minutes with a photo ID. W: I will go now before my afternoon seminar. M: Good, you need the card for the library scanners.",
+      "questions": [
+        {
+          "id": "L7-012",
+          "question": "What will the woman do?",
+          "choices": [
+            "Borrow the man's card",
+            "Get a replacement ID card",
+            "Search the gym lockers",
+            "Skip her seminar"
+          ],
+          "answer": 1,
+          "explanation": "The woman plans to visit the card office for a replacement."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-013",
+      "type": "conversation",
+      "title": "Short conversation about orientation volunteer signup",
+      "ttsText": "M: The orientation office needs volunteers to guide freshmen next month. W: I volunteered last year and got free meals plus a certificate. M: Nice, I need service hours for my scholarship anyway. W: Signup closes Friday on the volunteer portal. M: What tasks do volunteers actually perform? W: Campus tours, dorm check-in, and answering questions at booths.",
+      "questions": [
+        {
+          "id": "L7-013",
+          "question": "Why is the man interested?",
+          "choices": [
+            "He works at the office",
+            "He dislikes freshmen",
+            "He needs service hours",
+            "He wants free meals only"
+          ],
+          "answer": 2,
+          "explanation": "The man needs service hours to keep his scholarship."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-014",
+      "type": "conversation",
+      "title": "Short conversation about debate team tryouts",
+      "ttsText": "W: Debate team tryouts are Thursday evening in the law building. M: I am nervous, I have never debated competitively before. W: The coach welcomes beginners and provides training workshops. M: What topic will the tryout round cover? W: Campus recycling policy, and you get ten minutes to prepare. M: I will research recycling facts tomorrow at the library.",
+      "questions": [
+        {
+          "id": "L7-014",
+          "question": "What will the man do to prepare?",
+          "choices": [
+            "Skip the tryouts",
+            "Memorize law books",
+            "Research the tryout topic",
+            "Join another club"
+          ],
+          "answer": 2,
+          "explanation": "The man will research recycling facts at the library."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-015",
+      "type": "conversation",
+      "title": "Short conversation about tuition installment plan",
+      "ttsText": "M: My tuition bill is due next week and I cannot pay it all at once. W: The bursar offers a three-installment plan with no interest. M: Really? What is the enrollment deadline for that plan? W: This Friday, through the student payment portal. M: Do I need any documents from my parents? W: Just your student account login and a bank routing number.",
+      "questions": [
+        {
+          "id": "L7-015",
+          "question": "What does the woman describe?",
+          "choices": [
+            "An installment payment plan",
+            "A bank loan",
+            "A tuition increase",
+            "A scholarship contest"
+          ],
+          "answer": 0,
+          "explanation": "The woman describes the bursar's three-installment plan."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-016",
+      "type": "conversation",
+      "title": "Short conversation about campus WiFi outage",
+      "ttsText": "W: The WiFi in the science library keeps disconnecting every ten minutes. M: IT posted that they are upgrading routers until Wednesday. W: But my online midterm is tomorrow morning at nine. M: Use the computer lab on the second floor, it uses wired connections. W: Good idea. I will reserve a seat tonight online. M: Bring earplugs too, that lab gets noisy.",
+      "questions": [
+        {
+          "id": "L7-016",
+          "question": "What does the man suggest?",
+          "choices": [
+            "Postpone the midterm",
+            "Use the wired computer lab",
+            "Buy a new laptop",
+            "Study without internet"
+          ],
+          "answer": 1,
+          "explanation": "The man suggests using the wired computer lab for the online midterm."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-017",
+      "type": "conversation",
+      "title": "Short conversation about internship interview outfit",
+      "ttsText": "M: I have an internship interview Friday but only own jeans and sneakers. W: The career closet lends blazers and dress shoes for free. M: Where is it located? W: Basement of the career center, open weekdays nine to four. M: Do I need an appointment to borrow clothes? W: No, just bring your student ID and return items within a week.",
+      "questions": [
+        {
+          "id": "L7-017",
+          "question": "Where should the man go?",
+          "choices": [
+            "A downtown mall",
+            "His dorm room",
+            "The career closet in the career center",
+            "A shoe store"
+          ],
+          "answer": 2,
+          "explanation": "The woman directs him to the career closet for free interview clothes."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-018",
+      "type": "conversation",
+      "title": "Short conversation about yearbook photo session",
+      "ttsText": "W: Yearbook photos are being taken all week in the media center. M: I forgot, my hair looks terrible today. W: Sessions run until six daily and walk-ins are welcome. M: Can I book a Thursday slot after my haircut? W: Yes, the booking link is on the student life page. M: I will sign up now before slots fill up.",
+      "questions": [
+        {
+          "id": "L7-018",
+          "question": "What will the man do?",
+          "choices": [
+            "Visit the media center now",
+            "Skip the yearbook",
+            "Book a Thursday photo slot",
+            "Cut his own hair"
+          ],
+          "answer": 2,
+          "explanation": "The man will book a Thursday slot after his haircut."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-019",
+      "type": "conversation",
+      "title": "Short conversation about language lab practice",
+      "ttsText": "M: My Spanish pronunciation is awful despite studying vocabulary daily. W: The language lab offers free conversation tables on Tuesdays. M: Are they led by native speakers? W: Yes, graduate students from Mexico and Spain facilitate them. M: What level do I need to join? W: All levels welcome, and you earn participation credit too.",
+      "questions": [
+        {
+          "id": "L7-019",
+          "question": "What does the woman recommend?",
+          "choices": [
+            "Hiring a tutor",
+            "Studying vocabulary alone",
+            "Changing languages",
+            "Joining conversation tables"
+          ],
+          "answer": 3,
+          "explanation": "The woman recommends the free conversation tables led by native speakers."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-020",
+      "type": "conversation",
+      "title": "Short conversation about health center appointment",
+      "ttsText": "W: I have had a sore throat for three days and the clinic line is always long. M: You can book online now through the health portal. W: I tried, but the earliest slot is next Monday. M: Walk-ins open at eight, so arrive fifteen minutes early. W: Will they accept my insurance card there? M: Yes, bring it plus your student ID tomorrow.",
+      "questions": [
+        {
+          "id": "L7-020",
+          "question": "What advice does the man give?",
+          "choices": [
+            "Buy medicine online",
+            "Wait until next Monday",
+            "Skip the clinic",
+            "Arrive early for walk-in hours"
+          ],
+          "answer": 3,
+          "explanation": "The man advises arriving early for walk-in hours at eight."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-021",
+      "type": "conversation",
+      "title": "Short conversation about dorm laundry machines",
+      "ttsText": "M: All six washers on my floor are broken or occupied every evening. W: The basement laundry room in West Hall is usually empty. M: Is it open to students from other halls? W: Yes, with your laundry card any machine works campus-wide. M: What time is least crowded? W: Mornings before ten, especially on weekdays.",
+      "questions": [
+        {
+          "id": "L7-021",
+          "question": "What does the woman suggest?",
+          "choices": [
+            "Using the West Hall laundry room",
+            "Fixing the washers herself",
+            "Buying new clothes",
+            "Doing laundry at night"
+          ],
+          "answer": 0,
+          "explanation": "The woman suggests the usually empty basement laundry room in West Hall."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-022",
+      "type": "conversation",
+      "title": "Short conversation about bookstore refund policy",
+      "ttsText": "W: I bought the wrong edition of the psychology textbook yesterday. M: The bookstore refunds unused books within two weeks with receipt. W: I already highlighted chapter one, does that matter? M: Unfortunately marked books only get half credit at buyback. W: Then I will keep it and compare chapters with a classmate. M: Good idea, editions often differ only in page numbers.",
+      "questions": [
+        {
+          "id": "L7-022",
+          "question": "What will the woman probably do?",
+          "choices": [
+            "Keep the book and compare chapters",
+            "Get a full refund",
+            "Drop psychology",
+            "Sell it online immediately"
+          ],
+          "answer": 0,
+          "explanation": "Marked books lose refund value, so she will keep and compare chapters."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-023",
+      "type": "conversation",
+      "title": "Short conversation about campus tour guide job",
+      "ttsText": "M: The admissions office is hiring tour guides for twelve dollars an hour. W: You would be great, you know every building and shortcut. M: The application requires a two-minute campus speech video. W: Film it at the clock tower, the background looks impressive. M: When is the application deadline? W: Sunday midnight through the jobs portal.",
+      "questions": [
+        {
+          "id": "L7-023",
+          "question": "What does the woman suggest?",
+          "choices": [
+            "Touring another campus",
+            "Skipping the application",
+            "Asking for higher pay",
+            "Filming at the clock tower"
+          ],
+          "answer": 3,
+          "explanation": "The woman suggests filming the speech video at the clock tower."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-024",
+      "type": "conversation",
+      "title": "Short conversation about math homework extension",
+      "ttsText": "W: I missed two homework sets while I had the flu last week. M: Professor Allen usually grants extensions with a health center note. W: I have the note, should I email it tonight? M: Yes, attach it and request a Friday make-up deadline. W: Will late penalties still apply? M: No, documented illness waives the penalty entirely.",
+      "questions": [
+        {
+          "id": "L7-024",
+          "question": "What should the woman do?",
+          "choices": [
+            "Accept late penalties",
+            "Email the professor with her note",
+            "Skip future homework",
+            "Retake the whole course"
+          ],
+          "answer": 1,
+          "explanation": "The man advises emailing the note to request a Friday make-up deadline."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-025",
+      "type": "conversation",
+      "title": "Short conversation about photography club exhibition",
+      "ttsText": "M: The photography club is exhibiting student work in the art gallery. W: I saw the posters, the theme is city life at night. M: Submissions close Wednesday and you can enter two prints. W: Your night market photos would be perfect for that theme. M: Thanks, I will print them at the media lab tomorrow. W: Use matte paper, it looks better under gallery lights.",
+      "questions": [
+        {
+          "id": "L7-025",
+          "question": "What does the woman suggest?",
+          "choices": [
+            "Using glossy paper",
+            "Entering night market photos",
+            "Skipping the exhibition",
+            "Photographing the gallery"
+          ],
+          "answer": 1,
+          "explanation": "The woman suggests his night market photos fit the theme."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-026",
+      "type": "conversation",
+      "title": "Short conversation about registrar transcript request",
+      "ttsText": "W: I need an official transcript for my transfer application by Friday. M: The registrar issues them in three business days online. W: Can I get one faster in person? M: Yes, rush service takes one day for ten extra dollars. W: Where is the registrar located? M: Second floor of the administration building, Room 210.",
+      "questions": [
+        {
+          "id": "L7-026",
+          "question": "What will the woman probably do?",
+          "choices": [
+            "Print an unofficial copy",
+            "Use rush service in person",
+            "Cancel her transfer",
+            "Wait three business days"
+          ],
+          "answer": 1,
+          "explanation": "The Friday deadline requires the one-day rush service."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-027",
+      "type": "conversation",
+      "title": "Short conversation about summer course registration",
+      "ttsText": "M: I want to take statistics over the summer to graduate early. W: Summer registration opens April first and seats fill fast. M: Is the course online or in person? W: Both options exist, but online costs two hundred more. M: I will choose in person to save money then. W: Register the first morning, last year it closed in two days.",
+      "questions": [
+        {
+          "id": "L7-027",
+          "question": "What does the woman advise?",
+          "choices": [
+            "Registering immediately on opening day",
+            "Taking another subject",
+            "Delaying graduation",
+            "Paying extra for online"
+          ],
+          "answer": 0,
+          "explanation": "The woman advises registering the first morning since seats fill fast."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-028",
+      "type": "conversation",
+      "title": "Short conversation about rainy commute to class",
+      "ttsText": "W: It is pouring and my eight a.m. class is across campus. M: The campus shuttle runs every ten minutes in bad weather. W: Does it stop near my east dormitory? M: Yes, right at the main entrance circle. W: I hope I do not slip on the wet stairs again. M: Wear your boots and grab the free poncho at the desk.",
+      "questions": [
+        {
+          "id": "L7-028",
+          "question": "What does the man describe?",
+          "choices": [
+            "A shuttle service in bad weather",
+            "A cancelled class",
+            "A broken umbrella",
+            "A closed dormitory"
+          ],
+          "answer": 0,
+          "explanation": "The man describes the frequent shuttle service during bad weather."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-029",
+      "type": "conversation",
+      "title": "Short conversation about auditorium seat reservation",
+      "ttsText": "M: The guest lecture on artificial intelligence requires reserved seats this year. W: Last year hundreds stood outside because the hall overflowed. M: How do I reserve a spot? W: Scan the QR code on the event poster before Thursday. M: Is there a cost for students? W: Free with student ID, but guests pay five dollars.",
+      "questions": [
+        {
+          "id": "L7-029",
+          "question": "What must the man do?",
+          "choices": [
+            "Stand outside the hall",
+            "Scan the QR code before Thursday",
+            "Bring a guest",
+            "Pay five dollars"
+          ],
+          "answer": 1,
+          "explanation": "The man must scan the QR code to reserve a free student seat."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-030",
+      "type": "conversation",
+      "title": "Short conversation about graduation gown rental",
+      "ttsText": "W: Graduation is in May and I still have not ordered my gown. M: Rentals are handled at the bookstore through April twentieth. W: How much does the full package cost? M: Forty-five dollars including cap, gown, and tassel. W: Can I keep the tassel afterward? M: Yes, the tassel and sash are yours to keep.",
+      "questions": [
+        {
+          "id": "L7-030",
+          "question": "What does the man explain?",
+          "choices": [
+            "A graduation ceremony speech",
+            "Gown rental details and price",
+            "A bookstore closure",
+            "A cap design contest"
+          ],
+          "answer": 1,
+          "explanation": "The man explains the rental process, price, and what is included."
+        }
+      ],
+      "part": "A"
+    },
+    {
+      "id": "L7-AUDIO-031",
+      "type": "conversation",
+      "title": "Extended conversation about study abroad program",
+      "ttsText": "Advisor: Good morning, how can I help you plan next year? Student: I want to study abroad in Japan but worry about the cost. Advisor: The exchange program waives host tuition, so you pay only your regular tuition plus airfare. Student: That helps a lot. What about the language requirement? Advisor: You need two semesters of Japanese, and your current grades qualify you already. Student: When is the application deadline? Advisor: October fifteenth, and you will need two faculty references. Student: Can credits transfer to my engineering major? Advisor: Yes, last year six engineering courses were pre-approved by the department. Student: Great, I will start the forms this weekend. Advisor: Stop by Thursday and I will review your draft before submission.",
+      "questions": [
+        {
+          "id": "L7-031",
+          "question": "What is the main topic?",
+          "choices": [
+            "Engineering labs",
+            "Learning Japanese grammar",
+            "Airfare discounts",
+            "Study abroad in Japan"
+          ],
+          "answer": 3,
+          "explanation": "The session focuses on the Japan study abroad exchange program."
+        },
+        {
+          "id": "L7-032",
+          "question": "What does the advisor say about tuition?",
+          "choices": [
+            "Students pay double tuition",
+            "Airfare is fully covered",
+            "Host tuition is waived",
+            "Scholarships are unavailable"
+          ],
+          "answer": 2,
+          "explanation": "The advisor states the exchange waives host tuition."
+        },
+        {
+          "id": "L7-033",
+          "question": "What is required for the application?",
+          "choices": [
+            "No documents",
+            "A passport photo only",
+            "Two faculty references",
+            "A medical exam"
+          ],
+          "answer": 2,
+          "explanation": "The advisor says two faculty references are needed."
+        },
+        {
+          "id": "L7-034",
+          "question": "What will the student do next?",
+          "choices": [
+            "Change his major",
+            "Visit Japan immediately",
+            "Start the application forms",
+            "Cancel the plan"
+          ],
+          "answer": 2,
+          "explanation": "The student says he will start the forms this weekend."
+        }
+      ],
+      "part": "B"
+    },
+    {
+      "id": "L7-AUDIO-032",
+      "type": "conversation",
+      "title": "Extended conversation about campus recycling volunteer drive",
+      "ttsText": "M: The green club needs volunteers for the recycling drive this Saturday. W: I would love to help, what time does it start? M: Nine in the morning at the central plaza, gloves and bags provided. W: What exactly will volunteers be sorting? M: Plastic bottles, paper, and e-waste into separate labeled bins. W: Will there be training for handling e-waste safely? M: Yes, a fifteen-minute briefing covers batteries and old phones. W: How long does the shift last? M: Until one, and volunteers get lunch vouchers plus certificates. W: Count me in, I will bring my roommate too.",
+      "questions": [
+        {
+          "id": "L7-035",
+          "question": "What is the main topic?",
+          "choices": [
+            "A plaza construction",
+            "A lunch menu",
+            "A recycling volunteer drive",
+            "A certificate program"
+          ],
+          "answer": 2,
+          "explanation": "The discussion is about volunteering for the recycling drive."
+        },
+        {
+          "id": "L7-036",
+          "question": "What will volunteers sort?",
+          "choices": [
+            "Plastic, paper, and e-waste",
+            "Furniture",
+            "Food leftovers only",
+            "Clothes and books"
+          ],
+          "answer": 0,
+          "explanation": "The man lists plastic bottles, paper, and e-waste."
+        },
+        {
+          "id": "L7-037",
+          "question": "What does the man say about training?",
+          "choices": [
+            "No training is offered",
+            "A full-day course",
+            "A fifteen-minute safety briefing",
+            "Training costs money"
+          ],
+          "answer": 2,
+          "explanation": "The man mentions a fifteen-minute briefing on safe handling."
+        },
+        {
+          "id": "L7-038",
+          "question": "What will the woman do?",
+          "choices": [
+            "Organize another drive",
+            "Skip the event",
+            "Sell lunch vouchers",
+            "Volunteer with her roommate"
+          ],
+          "answer": 3,
+          "explanation": "The woman says she will join and bring her roommate."
+        }
+      ],
+      "part": "B"
+    },
+    {
+      "id": "L7-LECTURE-001",
+      "type": "lecture",
+      "title": "Lecture on coral reefs and marine biodiversity",
+      "ttsText": "Professor: Good morning. Today we examine coral reefs, often called rainforests of the sea. Although reefs cover less than one percent of the ocean floor, they support nearly a quarter of marine species. Corals are tiny animals living in symbiosis with algae that provide color and energy. When ocean temperatures rise, corals expel these algae, causing bleaching. The Great Barrier Reef suffered mass bleaching in three recent summers. Yet recovery is possible when stress decreases and herbivorous fish control seaweed. Marine reserves that limit fishing show faster coral regrowth. Your textbook chapter nine lists three restoration methods we will compare Thursday.",
+      "questions": [
+        {
+          "id": "L7-039",
+          "question": "What is the main topic?",
+          "choices": [
+            "Ocean floor mining",
+            "Coral reefs and marine biodiversity",
+            "Fishing industry profits",
+            "Seaweed recipes"
+          ],
+          "answer": 1,
+          "explanation": "The lecture examines coral reefs and their species diversity."
+        },
+        {
+          "id": "L7-040",
+          "question": "According to the professor, what fraction of marine species do reefs support?",
+          "choices": [
+            "Nearly a quarter",
+            "Over half",
+            "Almost none",
+            "Less than one percent"
+          ],
+          "answer": 0,
+          "explanation": "The professor states reefs support nearly a quarter of marine species."
+        },
+        {
+          "id": "L7-041",
+          "question": "What causes coral bleaching?",
+          "choices": [
+            "Rising ocean temperatures expelling algae",
+            "Excessive rainfall",
+            "Too many herbivorous fish",
+            "Cold ocean currents"
+          ],
+          "answer": 0,
+          "explanation": "Rising temperatures cause corals to expel their symbiotic algae."
+        },
+        {
+          "id": "L7-042",
+          "question": "What example does the professor mention?",
+          "choices": [
+            "A fishing tournament",
+            "An aquarium exhibit",
+            "The Great Barrier Reef bleaching",
+            "A seaweed farm"
+          ],
+          "answer": 2,
+          "explanation": "The professor cites mass bleaching at the Great Barrier Reef."
+        },
+        {
+          "id": "L7-043",
+          "question": "What aids coral recovery?",
+          "choices": [
+            "Building hotels nearby",
+            "Removing all algae",
+            "Herbivorous fish and marine reserves",
+            "Warmer water and more fishing"
+          ],
+          "answer": 2,
+          "explanation": "Fish controlling seaweed and fishing limits speed regrowth."
+        },
+        {
+          "id": "L7-044",
+          "question": "What will happen on Thursday?",
+          "choices": [
+            "Visit the reef",
+            "Watch a documentary",
+            "Compare three restoration methods",
+            "Take a final exam"
+          ],
+          "answer": 2,
+          "explanation": "The professor says chapter nine methods will be compared Thursday."
+        }
+      ],
+      "part": "C"
+    },
+    {
+      "id": "L7-LECTURE-002",
+      "type": "lecture",
+      "title": "Talk on the history of the printing press",
+      "ttsText": "Professor: Welcome back. Before Gutenberg around fourteen forty, books were copied by hand and cost as much as a house. Gutenberg combined movable metal type, oil-based ink, and a modified wine press. His Bible of about one hundred eighty copies cut book prices dramatically within decades. Literacy spread as pamphlets and newspapers reached towns across Europe. One consequence was the rapid exchange of scientific ideas during the Reformation era. Critics at first feared that cheap print would spread errors, yet standardization actually reduced copying mistakes. For next week, read pages forty to sixty and note two effects on education.",
+      "questions": [
+        {
+          "id": "L7-045",
+          "question": "What is the main topic?",
+          "choices": [
+            "Modern wine production",
+            "House prices in Europe",
+            "Handwriting techniques",
+            "History of the printing press"
+          ],
+          "answer": 3,
+          "explanation": "The talk traces Gutenberg and the printing press history."
+        },
+        {
+          "id": "L7-046",
+          "question": "According to the professor, why were books expensive before Gutenberg?",
+          "choices": [
+            "Nobody could read",
+            "Paper was unavailable",
+            "Kings banned books",
+            "They were copied by hand"
+          ],
+          "answer": 3,
+          "explanation": "Books were hand-copied and cost as much as a house."
+        },
+        {
+          "id": "L7-047",
+          "question": "What three elements did Gutenberg combine?",
+          "choices": [
+            "Movable type, oil ink, wine press",
+            "Paper, pen, and scissors",
+            "Silk, dye, and thread",
+            "Wood, water, and stone"
+          ],
+          "answer": 0,
+          "explanation": "The professor lists movable type, oil-based ink, and a modified wine press."
+        },
+        {
+          "id": "L7-048",
+          "question": "What was one consequence of cheap print?",
+          "choices": [
+            "Less literacy",
+            "Rapid spread of scientific ideas",
+            "Higher book prices",
+            "Fewer towns with news"
+          ],
+          "answer": 1,
+          "explanation": "Cheap print enabled rapid exchange of scientific ideas."
+        },
+        {
+          "id": "L7-049",
+          "question": "What does the professor say about errors?",
+          "choices": [
+            "Standardization reduced copying mistakes",
+            "Print increased all errors",
+            "Nobody noticed mistakes",
+            "Scribes were more accurate"
+          ],
+          "answer": 0,
+          "explanation": "Standardization actually reduced copying mistakes."
+        },
+        {
+          "id": "L7-050",
+          "question": "What is the assignment for next week?",
+          "choices": [
+            "Read pages forty to sixty",
+            "Build a wine press",
+            "Copy a Bible by hand",
+            "Memorize the lecture"
+          ],
+          "answer": 0,
+          "explanation": "Students must read pages forty to sixty and note two effects."
+        }
+      ],
+      "part": "C"
+    }
+  ]
+}

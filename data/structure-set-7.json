@@ -1,0 +1,573 @@
+{
+  "meta": {
+    "testName": "TOEFL ITP-like Practice",
+    "section": "structure",
+    "set": "set-7",
+    "version": "1.0.0",
+    "description": "TOEFL ITP Structure practice set 7: sentence completion and error identification",
+    "durationMinutes": 25,
+    "totalQuestions": 40
+  },
+  "items": [
+    {
+      "id": "S7-001",
+      "type": "sentence-completion",
+      "topic": "Subjunctive mood",
+      "question": "The judge ordered that the defendant _____ in court tomorrow.",
+      "choices": [
+        "will appear",
+        "appears",
+        "appear",
+        "appeared"
+      ],
+      "answer": 2,
+      "explanation": "Subjunctive base form after 'ordered that'."
+    },
+    {
+      "id": "S7-002",
+      "type": "sentence-completion",
+      "topic": "Subject-verb agreement",
+      "question": "Neither the manager nor the employees _____ responsible for the delay.",
+      "choices": [
+        "have been",
+        "is",
+        "was",
+        "were"
+      ],
+      "answer": 0,
+      "explanation": "Nearest subject 'employees' is plural, requiring plural verb 'have been'."
+    },
+    {
+      "id": "S7-003",
+      "type": "sentence-completion",
+      "topic": "Parallel structure",
+      "question": "She enjoys reading, swimming, and _____ long walks.",
+      "choices": [
+        "taken",
+        "to take",
+        "take",
+        "taking"
+      ],
+      "answer": 3,
+      "explanation": "Parallel gerunds require 'taking'."
+    },
+    {
+      "id": "S7-004",
+      "type": "sentence-completion",
+      "topic": "Passive voice",
+      "question": "The new bridge _____ last year and opened to traffic in spring.",
+      "choices": [
+        "completing",
+        "was completed",
+        "has complete",
+        "completed"
+      ],
+      "answer": 1,
+      "explanation": "Passive past 'was completed' fits timeline."
+    },
+    {
+      "id": "S7-005",
+      "type": "sentence-completion",
+      "topic": "Inversion with hardly",
+      "question": "Hardly _____ the lecture begun when the fire alarm rang.",
+      "choices": [
+        "having",
+        "had",
+        "has",
+        "have"
+      ],
+      "answer": 1,
+      "explanation": "'Hardly...when' takes past perfect 'had'."
+    },
+    {
+      "id": "S7-006",
+      "type": "sentence-completion",
+      "topic": "Relative clause",
+      "question": "The city _____ I grew up has changed dramatically.",
+      "choices": [
+        "in which",
+        "that in",
+        "which",
+        "where"
+      ],
+      "answer": 0,
+      "explanation": "'In which' correctly pairs preposition with relative pronoun."
+    },
+    {
+      "id": "S7-007",
+      "type": "sentence-completion",
+      "topic": "Conditional type 3",
+      "question": "If he _____ harder, he would have passed the bar exam.",
+      "choices": [
+        "studied",
+        "has studied",
+        "would study",
+        "had studied"
+      ],
+      "answer": 3,
+      "explanation": "Type 3 conditional needs past perfect in if-clause."
+    },
+    {
+      "id": "S7-008",
+      "type": "sentence-completion",
+      "topic": "Gerund vs infinitive",
+      "question": "He denied _____ the confidential document.",
+      "choices": [
+        "taking",
+        "take",
+        "taken",
+        "to take"
+      ],
+      "answer": 0,
+      "explanation": "'Deny' is followed by gerund."
+    },
+    {
+      "id": "S7-009",
+      "type": "sentence-completion",
+      "topic": "Articles",
+      "question": "_____ Amazon is the longest river in South America.",
+      "choices": [
+        "A",
+        "The",
+        "An",
+        "No article"
+      ],
+      "answer": 1,
+      "explanation": "Definite article before unique proper nouns like rivers."
+    },
+    {
+      "id": "S7-010",
+      "type": "sentence-completion",
+      "topic": "Preposition",
+      "question": "The professor is highly regarded _____ her research on climate.",
+      "choices": [
+        "to",
+        "about",
+        "for",
+        "with"
+      ],
+      "answer": 2,
+      "explanation": "'Regarded for' is correct collocation."
+    },
+    {
+      "id": "S7-011",
+      "type": "sentence-completion",
+      "topic": "Pronoun reference",
+      "question": "Between you and _____, the test was harder than expected.",
+      "choices": [
+        "I",
+        "mine",
+        "myself",
+        "me"
+      ],
+      "answer": 3,
+      "explanation": "Object pronoun after preposition 'between'."
+    },
+    {
+      "id": "S7-012",
+      "type": "sentence-completion",
+      "topic": "Tense sequence",
+      "question": "She claimed that she _____ the report before noon.",
+      "choices": [
+        "had finished",
+        "has finished",
+        "will finish",
+        "finishes"
+      ],
+      "answer": 0,
+      "explanation": "Past perfect for action before past reporting verb."
+    },
+    {
+      "id": "S7-013",
+      "type": "sentence-completion",
+      "topic": "Noun clause",
+      "question": "_____ causes the tides is the moon's gravitational pull.",
+      "choices": [
+        "What",
+        "That what",
+        "That",
+        "Which"
+      ],
+      "answer": 0,
+      "explanation": "'What' introduces noun clause as subject."
+    },
+    {
+      "id": "S7-014",
+      "type": "sentence-completion",
+      "topic": "Comparative correlative",
+      "question": "_____ the altitude, the thinner the air becomes.",
+      "choices": [
+        "The higher",
+        "More high",
+        "Higher",
+        "Most high"
+      ],
+      "answer": 0,
+      "explanation": "Correlative 'the higher...the thinner'."
+    },
+    {
+      "id": "S7-015",
+      "type": "sentence-completion",
+      "topic": "Quantifier agreement",
+      "question": "Each of the candidates _____ given ten minutes to speak.",
+      "choices": [
+        "have been",
+        "were",
+        "are",
+        "was"
+      ],
+      "answer": 3,
+      "explanation": "'Each' is singular, requiring 'was'."
+    },
+    {
+      "id": "S7-016",
+      "type": "error-identification",
+      "topic": "Subject-verb agreement",
+      "question": "The list of required textbooks are posted on the department website.",
+      "choices": [
+        "of required textbooks",
+        "The list",
+        "on the department website",
+        "are posted"
+      ],
+      "answer": 3,
+      "explanation": "Singular subject 'list' needs 'is posted', not 'are posted'."
+    },
+    {
+      "id": "S7-017",
+      "type": "error-identification",
+      "topic": "Parallel structure",
+      "question": "The job requires filing reports, to answer phones, and greeting visitors.",
+      "choices": [
+        "filing reports",
+        "The job requires",
+        "to answer phones",
+        "and greeting visitors"
+      ],
+      "answer": 2,
+      "explanation": "'To answer phones' breaks parallel gerund structure; should be 'answering'."
+    },
+    {
+      "id": "S7-018",
+      "type": "error-identification",
+      "topic": "Pronoun case",
+      "question": "The committee awarded the prize to Maria and I for our research.",
+      "choices": [
+        "The committee awarded",
+        "for our research",
+        "to Maria and I",
+        "the prize"
+      ],
+      "answer": 2,
+      "explanation": "Object of preposition needs 'me', not 'I'."
+    },
+    {
+      "id": "S7-019",
+      "type": "error-identification",
+      "topic": "Tense consistency",
+      "question": "She was cooking dinner when the phone rings and interrupts her.",
+      "choices": [
+        "when the phone rings",
+        "was cooking",
+        "and interrupts",
+        "her"
+      ],
+      "answer": 0,
+      "explanation": "Past narrative needs 'rang', not present 'rings'."
+    },
+    {
+      "id": "S7-020",
+      "type": "error-identification",
+      "topic": "Article usage",
+      "question": "He plays a piano very well and performs at concerts regularly.",
+      "choices": [
+        "a piano",
+        "very well",
+        "He plays",
+        "at concerts regularly"
+      ],
+      "answer": 0,
+      "explanation": "Instruments take 'the piano', not 'a piano'."
+    },
+    {
+      "id": "S7-021",
+      "type": "error-identification",
+      "topic": "Preposition",
+      "question": "She has been married with him for over twenty years.",
+      "choices": [
+        "for over",
+        "twenty years",
+        "with him",
+        "has been married"
+      ],
+      "answer": 2,
+      "explanation": "'Married to', not 'married with'."
+    },
+    {
+      "id": "S7-022",
+      "type": "error-identification",
+      "topic": "Passive voice",
+      "question": "The results were analyzed by the team and was published last week.",
+      "choices": [
+        "last week",
+        "were analyzed",
+        "by the team",
+        "and was published"
+      ],
+      "answer": 3,
+      "explanation": "Plural 'results' needs 'were published', not 'was'."
+    },
+    {
+      "id": "S7-023",
+      "type": "error-identification",
+      "topic": "Subjunctive mood",
+      "question": "It is crucial that every applicant submits the form before Friday.",
+      "choices": [
+        "It is crucial",
+        "that every applicant",
+        "before Friday",
+        "submits the form"
+      ],
+      "answer": 3,
+      "explanation": "Subjunctive needs base form 'submit', not 'submits'."
+    },
+    {
+      "id": "S7-024",
+      "type": "error-identification",
+      "topic": "Word form",
+      "question": "Her respond to the criticism was both calm and professional.",
+      "choices": [
+        "and professional",
+        "to the criticism",
+        "was both calm",
+        "Her respond"
+      ],
+      "answer": 3,
+      "explanation": "Possessive needs noun 'response', not verb 'respond'."
+    },
+    {
+      "id": "S7-025",
+      "type": "error-identification",
+      "topic": "Double comparative",
+      "question": "The more harder you work, the sooner you will finish.",
+      "choices": [
+        "the sooner",
+        "you work",
+        "you will finish",
+        "The more harder"
+      ],
+      "answer": 3,
+      "explanation": "'More harder' is redundant; use 'harder' alone."
+    },
+    {
+      "id": "S7-026",
+      "type": "error-identification",
+      "topic": "Infinitive vs gerund",
+      "question": "They avoided to discuss the controversial topic during dinner.",
+      "choices": [
+        "the controversial topic",
+        "to discuss",
+        "during dinner",
+        "They avoided"
+      ],
+      "answer": 1,
+      "explanation": "'Avoid' takes gerund 'discussing', not infinitive."
+    },
+    {
+      "id": "S7-027",
+      "type": "error-identification",
+      "topic": "Countable noun",
+      "question": "The professor gave us many useful advices for the exam.",
+      "choices": [
+        "for the exam",
+        "The professor gave",
+        "us many",
+        "useful advices"
+      ],
+      "answer": 3,
+      "explanation": "'Advice' is uncountable; no plural 'advices'."
+    },
+    {
+      "id": "S7-028",
+      "type": "error-identification",
+      "topic": "Relative pronoun",
+      "question": "The woman which won the award is a renowned scientist.",
+      "choices": [
+        "the award",
+        "is a renowned scientist",
+        "which won",
+        "The woman"
+      ],
+      "answer": 2,
+      "explanation": "People need 'who', not 'which'."
+    },
+    {
+      "id": "S7-029",
+      "type": "error-identification",
+      "topic": "Conditional",
+      "question": "If I would have known, I would have come earlier.",
+      "choices": [
+        "known",
+        "earlier",
+        "I would have come",
+        "If I would have"
+      ],
+      "answer": 3,
+      "explanation": "If-clause needs 'had known', not 'would have'."
+    },
+    {
+      "id": "S7-030",
+      "type": "error-identification",
+      "topic": "Apostrophe",
+      "question": "The students books were left in the classroom after class.",
+      "choices": [
+        "in the classroom",
+        "after class",
+        "The students books",
+        "were left"
+      ],
+      "answer": 2,
+      "explanation": "Plural possessive needs 'students'' with apostrophe."
+    },
+    {
+      "id": "S7-031",
+      "type": "error-identification",
+      "topic": "Adjective vs adverb",
+      "question": "She speaks English very good after living abroad for years.",
+      "choices": [
+        "for years",
+        "after living abroad",
+        "very good",
+        "She speaks English"
+      ],
+      "answer": 2,
+      "explanation": "Adverb 'well' needed to modify verb, not 'good'."
+    },
+    {
+      "id": "S7-032",
+      "type": "error-identification",
+      "topic": "Preposition of time",
+      "question": "He arrived to the airport two hours before departure.",
+      "choices": [
+        "to the airport",
+        "two hours",
+        "before departure",
+        "He arrived"
+      ],
+      "answer": 0,
+      "explanation": "'Arrive at' for places, not 'arrive to'."
+    },
+    {
+      "id": "S7-033",
+      "type": "error-identification",
+      "topic": "Neither nor agreement",
+      "question": "Neither the players nor the coach were happy with the referee.",
+      "choices": [
+        "nor the coach",
+        "with the referee",
+        "Neither the players",
+        "were happy"
+      ],
+      "answer": 3,
+      "explanation": "Nearest subject 'coach' is singular, needs 'was'."
+    },
+    {
+      "id": "S7-034",
+      "type": "error-identification",
+      "topic": "Word choice",
+      "question": "The number of participants are increasing every year.",
+      "choices": [
+        "every year",
+        "are increasing",
+        "The number of",
+        "participants"
+      ],
+      "answer": 1,
+      "explanation": "'The number' is singular, needs 'is increasing'."
+    },
+    {
+      "id": "S7-035",
+      "type": "error-identification",
+      "topic": "Dangling modifier",
+      "question": "Walking through the park, the flowers looked beautiful to us.",
+      "choices": [
+        "the flowers looked",
+        "beautiful",
+        "to us",
+        "Walking through the park"
+      ],
+      "answer": 3,
+      "explanation": "Dangling participle; flowers were not walking."
+    },
+    {
+      "id": "S7-036",
+      "type": "error-identification",
+      "topic": "Comparison",
+      "question": "Her essay is more longer than mine but less detailed.",
+      "choices": [
+        "Her essay",
+        "is more longer",
+        "than mine",
+        "but less detailed"
+      ],
+      "answer": 1,
+      "explanation": "'More longer' is redundant; use 'longer' alone."
+    },
+    {
+      "id": "S7-037",
+      "type": "error-identification",
+      "topic": "Reflexive pronoun",
+      "question": "They completed the project by themself without any help.",
+      "choices": [
+        "They completed",
+        "the project",
+        "by themself",
+        "without any help"
+      ],
+      "answer": 2,
+      "explanation": "Plural subject needs 'themselves', not 'themself'."
+    },
+    {
+      "id": "S7-038",
+      "type": "error-identification",
+      "topic": "Verb form",
+      "question": "He suggested to go to the museum instead of the zoo.",
+      "choices": [
+        "instead of the zoo",
+        "to the museum",
+        "to go",
+        "He suggested"
+      ],
+      "answer": 2,
+      "explanation": "'Suggest' takes gerund 'going', not infinitive."
+    },
+    {
+      "id": "S7-039",
+      "type": "error-identification",
+      "topic": "Conjunction",
+      "question": "Although it was raining, but we continued the match.",
+      "choices": [
+        "Although it was raining",
+        "but we continued",
+        "after the rain",
+        "the match"
+      ],
+      "answer": 1,
+      "explanation": "'Although' and 'but' cannot both join same clauses; drop one."
+    },
+    {
+      "id": "S7-040",
+      "type": "error-identification",
+      "topic": "Much vs many",
+      "question": "There isn't much books left on the shelf after the sale.",
+      "choices": [
+        "after the sale",
+        "There isn't",
+        "much books",
+        "left on the shelf"
+      ],
+      "answer": 2,
+      "explanation": "'Books' is countable; use 'many', not 'much'."
+    }
+  ]
+}
