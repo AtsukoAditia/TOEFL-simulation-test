@@ -15,12 +15,15 @@
   <link rel="canonical" href="https://toeflyuk.my.id/account" />
   <meta name="theme-color" content="#EFF6FF" />
   <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
-  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/redesign.css?v=25" />
+  <link rel="stylesheet" href="css/redesign.css?v=26" />
   <style>
     .account-wrap { max-width: 640px; margin: 0 auto; padding: 96px 20px 140px; }
     .account-head { display: flex; align-items: center; gap: 18px; margin-bottom: 36px; }
@@ -69,10 +72,10 @@
   <div id="bottomnav-mount"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
-  <script src="js/supabase-config.js?v=25"></script>
-  <script src="js/timer.js?v=25"></script>
-  <script src="js/auth.js?v=25"></script>
-  <script src="js/bottomnav.js?v=25"></script>
+  <script src="js/supabase-config.js?v=26"></script>
+  <script src="js/timer.js?v=26"></script>
+  <script src="js/auth.js?v=26"></script>
+  <script src="js/bottomnav.js?v=26"></script>
   <script>
     (function () {
       var content = document.getElementById("account-content");
@@ -82,7 +85,7 @@
       function renderLoginPrompt() {
         content.innerHTML =
           '<div class="login-prompt">' +
-            '<span class="brand-mark" style="width:64px;height:64px;font-size:30px;border-radius:18px;display:inline-grid;place-items:center;background:linear-gradient(135deg,var(--accent),#ff8a3d);color:var(--accent-ink);font-weight:800;margin-bottom:20px">T</span>' +
+            '<span class="brand-mark" style="width:64px;height:64px;border-radius:18px;display:inline-grid;place-items:center;background:#fff;border:1px solid var(--border-soft);margin-bottom:20px;overflow:hidden"><img src="assets/logo-64.png" alt="Logo TOEFL Yuk" width="64" height="64" style="width:100%;height:100%;object-fit:contain" /></span>' +
             '<h2 style="margin-bottom:10px">Masuk untuk melihat akun</h2>' +
             '<p style="color:var(--text-dim);margin-bottom:26px">Kelola profil dan lihat statistik TOEFL kamu.</p>' +
             '<a class="btn btn-primary" href="/login?next=account" style="display:inline-flex">Masuk dengan Google</a>' +
