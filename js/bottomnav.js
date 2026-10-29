@@ -60,7 +60,7 @@
     b.id = "pwa-install-banner";
     b.innerHTML =
       '<div class="pwa-banner">' +
-        '<span class="pwa-icon">T</span>' +
+        '<span class="pwa-icon"><img src="assets/logo-64.png" alt="Logo TOEFL Yuk" width="42" height="42" /></span>' +
         '<div class="pwa-text"><strong>Install TOEFL Yuk</strong>' +
         '<span>Latihan offline, akses dari home screen</span></div>' +
         '<button class="btn btn-primary btn-sm" id="pwa-install-btn">Install</button>' +
